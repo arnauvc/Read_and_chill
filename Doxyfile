@@ -4,7 +4,7 @@
 # Project related configuration options
 #---------------------------------------------------------------------------
 DOXYFILE_ENCODING      = utf-8
-PROJECT_NAME           = "Practica PRO2"
+PROJECT_NAME           = "Practica PRO2 - Gestor de textos i cites"
 PROJECT_NUMBER         = "version 4 15-abr-2016"
 OUTPUT_DIRECTORY       = "./DOC"
 CREATE_SUBDIRS         = NO

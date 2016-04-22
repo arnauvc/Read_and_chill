@@ -20,9 +20,9 @@ int main(){
 	string opcio;
 	
 	getline(cin,linia);
-    iss.str(linia);
-    iss.seekg(0);
-    iss >> op;
+        iss.str(linia);
+        iss.seekg(0);
+        iss >> op;
 
 }
 

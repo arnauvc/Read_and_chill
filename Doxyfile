@@ -4,7 +4,7 @@
 # Project related configuration options
 #---------------------------------------------------------------------------
 DOXYFILE_ENCODING      = utf-8
-PROJECT_NAME           = "Laboratorio de PRO2. Ejercicio 'Gestión de una lavadora'."
+PROJECT_NAME           = "Practica PRO2"
 PROJECT_NUMBER         = "version 4 15-abr-2016"
 OUTPUT_DIRECTORY       = "./DOC"
 CREATE_SUBDIRS         = NO
@@ -96,9 +96,7 @@ WARN_LOGFILE           =
 INPUT                  = "."
 INPUT_ENCODING         = utf-8
 FILE_PATTERNS          = *.hpp \ *.hh \
-                         main*.cpp \ main*.cc \
-                         pro2*.cpp \ pro2*.cc \
-                         principal*.cpp \ principal*.cc
+                         program*.cpp \ program*.cc
 RECURSIVE              = NO
 EXCLUDE                = *~
 EXCLUDE_SYMLINKS       = NO
@@ -157,7 +155,7 @@ FORMULA_FONTSIZE       = 10
 #---------------------------------------------------------------------------
 # configuration options related to the LaTeX output
 #---------------------------------------------------------------------------
-GENERATE_LATEX         = YES
+GENERATE_LATEX         = NO
 LATEX_OUTPUT           = latex
 LATEX_CMD_NAME         = latex
 MAKEINDEX_CMD_NAME     = makeindex

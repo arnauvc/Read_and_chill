@@ -15,10 +15,10 @@ class Text{
 	private: //no esta be
 		Frase titol;
 		string autor;
-		set<Frase> contingut;
+		set<Frase> contingut;//no m'agrada
 		int numparaules;
 		int numfrases;
-
+                map<string,int> taulafreq;
 	public:
 		/* Constructores */
 

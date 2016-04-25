@@ -18,7 +18,7 @@ class Biblioteca{
 	private: 
 		bool triat; //True si hi ha un text seleccionat, False altrement
 		Text ttriat; //Si triat==True, conte el text triat segons condicions
-		
+		map<string,Cita> ;
 		
 	public:
 		/* Constructores */

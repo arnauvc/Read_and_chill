@@ -25,6 +25,20 @@ int main(){
         iss.seekg(0);
         iss >> op;
 
+        if(linia == "afegir text"){
+        }
+        else if(linia == "triar text"){
+        }
+        else if(linia == "eliminar text"){
+        }
+        else if(linia == "substitueix"){
+        }
+        else if(linia == "tots textos"){
+        }
+        else if( == "tots autors"){
+        }
+        else if( == "info ?"){
+        }
 }
 
 

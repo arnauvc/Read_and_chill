@@ -13,7 +13,7 @@ using namespace std;
 class Cita{
 
 	private:
-
+            
 	public:
 		/* Constructores */
 

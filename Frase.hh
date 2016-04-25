@@ -22,6 +22,7 @@ class Frase{
 		/** @brief Creadora per defecte.
 			\pre cert
 			\post El resultat es un nova frase
+                */
 		Frase();
 	
 		/* Destructora */
@@ -32,6 +33,17 @@ class Frase{
 		~Frase();
 		
 		/* Modificadores*/
+
+
+
+
+
+
+                /** @brief Lectora de frases.
+                    \pre
+                    \post
+                */
+                void llegir_frase();
 
 		
 

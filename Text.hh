@@ -42,7 +42,7 @@ class Text{
 			\pre que hi hagi un text triat
 			\post canvia totes les paraules string1 per string2 del contingut de l'ultim text triat 
 		*/ 
-		void substitueix_paraules(string s1, strings s2);
+		void substitueix_paraules(string s1, string s2);
 		
 		/* Consultores */
 		

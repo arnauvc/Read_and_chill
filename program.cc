@@ -1,6 +1,7 @@
 /**
  * @mainpage Pràctica PRO2 - Gestor de textos i cites
- 
+*/
+
 /** @file program.cc
     @brief Programa principal de <em>Pràctica PRO2 - Gestor de textos i cites</em>.
 */

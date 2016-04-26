@@ -16,9 +16,9 @@ using namespace std;
 class Biblioteca{
 
 	private: 
-		bool triat; //True si hi ha un text seleccionat, False altrement
+		bool triat; //True si hi ha un text triat, False altrement
 		Text ttriat; //Si triat==True, conte el text triat segons condicions
-		map<string,Cita> ;
+		map<string,Cita>;
 		
 	public:
 		/* Constructores */
@@ -41,35 +41,29 @@ class Biblioteca{
 		
 		/** @brief Tria un text segons condicions
 			\pre Existeix almenys un text
-			\post 
+			\post el p.i queda triat
 		*/ 
-		triar_text();
+		void triar_text();
 		
 		/** @brief Mostra titol i autor de tots els textos
 			\pre Existeix almenys un text
 			\post Es mostren per pantalla els titols i els seus autors de tots els textos ordenats per autor i titol
 		*/ 
-		tots_textos();
+		void tots_textos();
 		
 		/* Modificadores*/
 		
 		/** @brief Afegeix un text a la biblioteca
-			\pre 
-			\post El parametre implicit es el mateix pero amb un text mes
+			\pre que existeixi almenys una biblioteca
+			\post El p.i es el mateix que l'original pero amb un text mes
 		*/ 
-		afegir_text();
+		void afegir_text();
 		
 		/** @brief Elimina un text de la biblioteca
-			\pre 
-			\post El parametre implicit es el mateix menys el text triat
+			\pre existeix una biblioteca i un text guardat a la biblioteca almenys
+			\post El p.i es el mateix que l'original menys el text triat
 		*/ 
-		eliminar_text();
-		
-		
-		
-		
-		
-		
+		void eliminar_text();	
 
 };
 

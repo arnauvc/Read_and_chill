@@ -24,15 +24,15 @@ class Text{
 
 		/** @brief Creadora per defecte.
 			\pre cert
-			\post text amb autor, titol i contingut
+			\post text buit
 		*/ 
 		Text();
 	
 		/* Destructora */
 		
 		/** @brief Destructora per defecte.
-			\pre Existeixi un objecte text
-			\post Destrueix el text
+			\pre que existeixi un text
+			\post destrueix el text
 		*/
 		~Text();
 		

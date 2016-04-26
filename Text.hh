@@ -12,10 +12,10 @@ using namespace std;
 
 class Text{
 
-	private: //no esta be
+	private:
 		Frase titol;
 		string autor;
-		set<Frase> contingut;//no m'agrada
+		set<Frase> contingut;//HO HEM DE DECIDIR AQUETS DIES(l'estructura on guardarem els textos i en general tot)
 		int numparaules;
 		int numfrases;
                 map<string,int> taulafreq;
@@ -24,7 +24,7 @@ class Text{
 
 		/** @brief Creadora per defecte.
 			\pre cert
-			\post El resultat es un nou text amb autor, titol i contingut
+			\post text amb autor, titol i contingut
 		*/ 
 		Text();
 	
@@ -38,49 +38,49 @@ class Text{
 		
 		/* Modificadores*/
 
-		/** @brief canvia totes les paraules string1 per string2 del contingut de l'ultim text triat 
-			\pre que hi hagi un text triat
-			\post canvia totes les paraules string1 per string2 del contingut de l'ultim text triat 
+		/** @brief el p.i te una paraula especifica "s1"
+			\pre text triat
+			\post el p.i es com l'original pero substituint la paraula especifica per una altra "s2"
 		*/ 
 		void substitueix_paraules(string s1, string s2);
 		
 		/* Consultores */
 		
-		/** @brief mostra el nombre de frases
-			\pre cert
-			\post mostra el nombre de frases
+		/** @brief el p.i te un contingut
+			\pre text triat
+			\post nombre de frases del contingut del p.i 
 		*/
 		int consultar_numfrases();
 		
-		/** @brief mostra el nombre de paraules
-			\pre cert
-			\post mostra el nombre de paraules
+		/** @brief el p.i te un contingut
+			\pre text triat
+			\post nombre de paraules del contingut del p.i
 		*/
 		int consultar_numparaules();
 		
-		/** @brief mostra l'autor, titol, nombre de frases i de paraules i cites associades a l'ultim text triat
-			\pre que hi hagi un text triat
-			\post mostra l'autor, titol, nombre de frases i de paraules i cites associades a l'ultim text triat
+		/** @brief el p.i te autor, titol i contingut
+			\pre text triat
+			\post mostra l'autor, titol, nombre de frases i de paraules i cites associades del p.i
 		*/ 
 		void info_text();
 		
-		/** @brief mostra l'autor de l'ultim text triat
-			\pre que hi hagi un text triat
-			\post mostra l'autor de l'ultim text triat
+		/** @brief el p.i te autor
+			\pre text triat
+			\post mostra l'autor del p.i
 		*/ 
 		string autor_text();
 		
-		/** @brief mostra el contingut de l'ultim text triat per ordre de frases numerades i un canvi de linea a cada frase
-			\pre que hi hagi un text triat
-			\post ostra el contingut de l'ultim text triat per ordre de frases numerades i un canvi de linea a cada frase
+		/** @brief el p.i te contingut
+			\pre text triat
+			\post mostra el contingut del p.i dividit en les diferents frases que te per ordre d'escritura original del p.i
 		*/ 
 		set<Frase> contingut_text();
 		
 		/* Llegir */
 		
-		/** @brief llegeix la entrada de dades del titol, l'autor i el contigut del text
+		/** @brief llegeix el p.i
 			\pre cert
-			\post llegeix la entrada de dades del titol, l'autor i el contigut del text
+			\post llegeix el titol, l'autor i el contigut del p.i
 		*/
 		void llegir_text();
 

@@ -35,6 +35,19 @@ set<Frase> Text::contingut_text(){ //Probablement no sigui un set<Frase>
     
 }
 
+
+void Text::interval_frases(int x, int y){
+	
+}
+
+void Text::expressio_frases(string s1, string s2){
+	
+}
+
+void Text::paraules_frase(Frase k){
+	
+}
+
 void Text::llegir_text(){
     
 }

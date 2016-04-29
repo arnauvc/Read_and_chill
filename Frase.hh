@@ -13,8 +13,16 @@ using namespace std;
 
 class Frase{
 
-	private: //no esta be
+	private:
+		struct Paraula{
+			string nom;
+			int freq;
+		};
+		
 		int num_paraules; //nombres paraules de la frase
+		set<Paraula> taulafreq;
+		
+		vector<string> frase_in;
 
 	public:
 		/* Constructores */

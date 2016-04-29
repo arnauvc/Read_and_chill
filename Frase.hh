@@ -8,21 +8,20 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include <map>
 
 using namespace std;
 
 class Frase{
 
 	private:
-		struct Paraula{
-			string nom;
-			int freq;
-		};
+		
 		
 		int num_paraules; //nombres paraules de la frase
-		set<Paraula> taulafreq;
 		
 		vector<string> frase_in;
+		
 
 	public:
 		/* Constructores */

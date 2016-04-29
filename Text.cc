@@ -49,5 +49,5 @@ void Text::paraules_frase(Frase k){
 }
 
 void Text::llegir_text(){
-    
+    sort (taulafreq.begin(), taulafreq.end(), sort_comp() );
 }

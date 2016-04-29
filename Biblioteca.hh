@@ -18,8 +18,8 @@ class Biblioteca{
 	private: 
 		bool triat; //True si hi ha un text triat, False altrement
 		Text ttriat; //Si triat==True, conte el text triat segons condicions
-		map<string,Cita>;
-		map<string,Text>;//asadssadsa
+		map<string,Text> conjunt_cites; // 
+		map<string,Text> conjunt_textos;//
 		
 	public:
 		/* Constructores */

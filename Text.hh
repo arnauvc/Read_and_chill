@@ -7,6 +7,12 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include <map>
+#include <utility>
+#include "Frase.hh"
+#include "Cita.hh"
+
 
 using namespace std;
 
@@ -15,10 +21,24 @@ class Text{
 	private:
 		Frase titol;
 		string autor;
-		map<int,Frase> contingut;//Ha de ser un map<>, no pot ser un set perque necessitem que estiguin ordenat pel numero.
+		map<int,Frase> contingut;
+		map<string,Cita> mapcites;
 		int numparaules;
 		int numfrases;
-                map<string,int> taulafreq;
+		
+		
+		
+        vector<pair<int,string> > taulafreq;
+		
+		
+	
+		
+		bool sort_comp(const pair<int,string>& lhs, const pair<int,string>& rhs){
+			return lhs.first<rhs.first || (!(rhs.first<lhs.first) && lhs.second.size()<rhs.second.size() ) || (!(rhs.first<lhs.first) && !(rhs.second.size()<lhs.second.size() )&& lhs.second<rhs.second);
+			}
+		
+		
+		
 	public:
 		/* Constructores */
 
@@ -74,7 +94,7 @@ class Text{
 			\pre text triat
 			\post mostra el contingut del p.i dividit en les diferents frases que te per ordre d'escritura original del p.i
 		*/ 
-		set<Frase> contingut_text();
+		void contingut_text();
 		
 		/** @brief mostra les frases del p.i entre un interval concret
 			\pre text triat
@@ -94,6 +114,12 @@ class Text{
 		*/
 		void paraules_frase(Frase k);// s'ha de mirar el tipos de dades aqui i hem dentendre la funcio al PDF!!!!!!
 		
+		/** @brief 
+			\pre text triat
+			\post mostra totes les cites del text triat
+		*/
+		void cites_text();
+		
 		/* Llegir */
 		
 		/** @brief llegeix el p.i
@@ -101,7 +127,8 @@ class Text{
 			\post llegeix el titol, l'autor i el contigut del p.i
 		*/
 		void llegir_text();
-
+		
+		 
 };
 
 #endif

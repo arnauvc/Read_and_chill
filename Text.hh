@@ -15,7 +15,7 @@ class Text{
 	private:
 		Frase titol;
 		string autor;
-		set<Frase> contingut;//HO HEM DE DECIDIR AQUETS DIES(l'estructura on guardarem els textos i en general tot)
+		map<Frase> contingut;//Ha de ser un map<>, no pot ser un set perque necessitem que estiguin ordenat pel numero.
 		int numparaules;
 		int numfrases;
                 map<string,int> taulafreq;

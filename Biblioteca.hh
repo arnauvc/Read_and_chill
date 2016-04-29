@@ -7,9 +7,10 @@
 
 #include <iostream>
 #include <string>
+#include <map>
 #include "Frase.hh"
 #include "Text.hh"
-#include "Cita.hh"
+//#include "Cita.hh"
 
 using namespace std;
 
@@ -38,7 +39,8 @@ class Biblioteca{
 		*/
 		~Biblioteca();
 		
-		/*Consultores*/
+		
+		//TEXT
 		
 		/** @brief Tria un text segons condicions
 			\pre Existeix almenys un text
@@ -52,7 +54,6 @@ class Biblioteca{
 		*/ 
 		void tots_textos();
 		
-		/* Modificadores*/
 		
 		/** @brief Afegeix un text a la biblioteca
 			\pre que existeixi almenys una biblioteca
@@ -65,6 +66,39 @@ class Biblioteca{
 			\post El p.i es el mateix que l'original menys el text triat
 		*/ 
 		void eliminar_text();	
+		
+		//CITES
+		
+		/** @brief mostra totes les cites enmagatzemades al p.i
+			\pre cert
+			\post mostra per cada cita la referencia, contingut de les frases, autor i titol del text d'on provenen ordenades per referencia del p.i
+		*/
+		void totes_cites();
+		
+		 
+		/** @brief afegeix una cita al p.i
+			\pre text triat
+			\post afegeix una cita al p.i entre la frase x y la frase y del contingut del ultim text triat
+		*/
+		void afegir_cita(int x, int y);
+		
+		/** @brief elimina una cita del p.i
+			\pre que existeixi la cita
+			\post elimina una cita del p.i
+		*/
+		void eliminar_cita(string referencia);
+		
+		/** @brief mostra informacio del p.i
+			\pre existeix la cita
+			\post mostra autor,titol,numero de la frase inicial i numero de la frase final, contingut de la frase o frases que la componen del p.i
+		*/
+		void info_cita(string referencia);
+		
+		/** @brief mostra totes les cites del p.i
+			\pre existeix l'autor
+			\post mostra per cada cita la referencia, contingut de les frases i titol del text don provenen ordenats per referencia del p.i
+		*/
+		void cites_autor(string autor);
 
 };
 

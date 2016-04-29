@@ -19,25 +19,18 @@ using namespace std;
 class Text{
 
 	private:
-		Frase titol;
+		string titol;
 		string autor;
 		map<int,Frase> contingut;
-		map<string,Cita> mapcites;
+		//map<string,Cita> mapcites;
 		int numparaules;
 		int numfrases;
 		
-		
-		
         vector<pair<int,string> > taulafreq;
-		
-		
-	
 		
 		bool sort_comp(const pair<int,string>& lhs, const pair<int,string>& rhs){
 			return lhs.first<rhs.first || (!(rhs.first<lhs.first) && lhs.second.size()<rhs.second.size() ) || (!(rhs.first<lhs.first) && !(rhs.second.size()<lhs.second.size() )&& lhs.second<rhs.second);
-			}
-		
-		
+		}
 		
 	public:
 		/* Constructores */

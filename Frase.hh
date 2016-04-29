@@ -38,18 +38,18 @@ class Frase{
 			\post Destrueix la frase
 		*/
 		~Frase();
-		
-		/* Consultores */
-
-	
-
-		/* Entrada */
 
         /** @brief Lectora de frases
             \pre cert
             \post llegeix una frase del p.i
         */
         void llegir_frase();
+		
+        /** @brief 
+            \pre 
+            \post 
+        */
+		void escriu_frase();
 
 };
 

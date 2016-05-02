@@ -36,12 +36,15 @@ int main(){
             }
 
             else if(op == "afegir cita"){
-                //passar parametres
+                int x,y;
+                ws(iss);
+                iss >> x;
+                iss >> y;
                 biblio.afegir_cita(x,y);
 
             }
             else if(op == "triar text"){
-                textriat = biblio.triar_text();
+                texttriat = biblio.triar_text();
                 ttriat = true;
             }
 
@@ -51,9 +54,12 @@ int main(){
             }
 
             else if(op == "substitueix"){
-                //passar parametres
+                string s1,s2;
+                ws(iss);
+                iss >> s1;
+                iss >> s2;
                 biblio.substitueix_paraules(s1,s2);
-                textriat = biblio.triar_text();
+                texttriat = biblio.triar_text();
             }
 
             else if(op == "textos autor"){
@@ -65,11 +71,11 @@ int main(){
             }
 
             else if(op == "tots autors"){
-                biblio.tots_autor();
+                biblio.tots_autors();
             }
 
             else if(op == "info ?"){
-                biblio.info_text();
+                texttriat.info_text();
             }
             
             else if (op == "autor ?"){
@@ -83,10 +89,11 @@ int main(){
             else if (op == "frases"){
             //aqui hi ha varies opcions, numero de frases
             //expressio, etc
+            //  
             }
 
             else if (op == "nombre de frases ?"){
-                    texttriat.consultar_numfrases();
+                texttriat.consultar_numfrases();
             }
 
             else if (op == "nombre de paraules ?"){
@@ -97,16 +104,13 @@ int main(){
                 texttriat.taula_frequencies();
             }
 
-
-
-
-
             else {
                 cout << "error" << endl;
                 while ( iss >> m) cout << m << endl;
             }
 
             getline(cin, linia);
+
         }
 }
 

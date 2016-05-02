@@ -106,6 +106,14 @@ class Biblioteca{
 		*/
 		void cites_autor(string autor);
 
+                //FUNCIONS EXTRA        
+
+                /** @brief mostra tots els autors amb textos en el sistema
+                        \pre Existeix almenys un autor en el sistema
+                        \post mostra tots els autors, amb els seus textos, numero de paraules i de frases de cada text 
+                */
+                void tots_autors();
+
 };
 
 #endif

@@ -11,7 +11,6 @@
 #include <map>
 #include <utility>
 #include "Frase.hh"
-#include "Cita.hh"
 
 
 using namespace std;
@@ -22,7 +21,6 @@ class Text{
 		string titol;
 		string autor;
 		map<int,Frase> contingut;
-		//map<string,Cita> mapcites;
 		int numparaules;
 		int numfrases;
 		
@@ -37,14 +35,14 @@ class Text{
 
 		/** @brief Creadora per defecte.
 			\pre cert
-			\post text buit
+			\post crea un text sense titol ni autor ni contingut(buit)
 		*/ 
 		Text();
 	
 		/* Destructora */
 		
 		/** @brief Destructora per defecte.
-			\pre que existeixi un text
+			\pre cert
 			\post destrueix el text
 		*/
 		~Text();
@@ -55,13 +53,13 @@ class Text{
 		
 		/* Consultores */
 		
-		/** @brief el p.i te un contingut
+		/** @brief el p.i te contingut
 			\pre text triat
 			\post nombre de frases del contingut del p.i 
 		*/
 		int const consultar_numfrases();
 		
-		/** @brief el p.i te un contingut
+		/** @brief el p.i te contingut
 			\pre text triat
 			\post nombre de paraules del contingut del p.i
 		*/
@@ -73,15 +71,15 @@ class Text{
 		*/ 
 		void const info_text();
 		
-		/** @brief el p.i te autor
+		/** @brief el p.i te autor, titol i contingut
 			\pre text triat
 			\post mostra l'autor del p.i
 		*/ 
 		void const autor_text();
 		
-		/** @brief el p.i te contingut
+		/** @brief el p.i te autor, titol i contingut
 			\pre text triat
-			\post mostra el contingut del p.i dividit en les diferents frases que te per ordre d'escritura original del p.i
+			\post mostra el contingut del p.i dividit en les diferents frases que te per ordre d'entrada original del p.i
 		*/ 
 		void const contingut_text();
                 
@@ -97,23 +95,23 @@ class Text{
 			\pre text triat
 			\post mostra les diferentes frases entre la "x" i la "y" del p.i
 		*/
-		void const interval_frases(int x, int y); //VA A Text.HH MILLOR CREC (perque es el conjunt de frases del contigut de un text triat)
+		void const interval_frases(int x, int y);
 
-		/** @brief mostra frases del p.i segons l'expressio
+		/** @brief mostra frases del p.i
 			\pre text triat
 			\post mostra frases del p.i segons lexpressio
 		*/
-		void const expressio_frases(string s1, string s2);//s'ha d'entendre be el que fa aquesta funcio al PDF!!!!!
+		void const expressio_frases(string s1, string s2);
 
-		/** @brief mostra frases del p.i segons la sequencia de paraules "k"
+		/** @brief mostra frases del p.i
 			\pre text triat
 			\post mostra les diferents frases del p.i on apareix les paraules consecutives 
 		*/
-		void const paraules_frase(Frase k);// s'ha de mirar el tipos de dades aqui i hem dentendre la funcio al PDF!!!!!!
+		void const paraules_frase(Frase k);
 		
-		/** @brief 
+		/** @brief mostra les cites del p.i
 			\pre text triat
-			\post mostra totes les cites del text triat
+			\post mostra totes les cites del p.i
 		*/
 		void const cites_text();
 		
@@ -124,8 +122,6 @@ class Text{
 			\post llegeix el titol, l'autor i el contigut del p.i
 		*/
 		void llegir_text();
-		
-		 
 };
 
 #endif

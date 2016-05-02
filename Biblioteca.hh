@@ -10,7 +10,7 @@
 #include <map>
 #include "Frase.hh"
 #include "Text.hh"
-//#include "Cita.hh"
+
 
 using namespace std;
 
@@ -44,9 +44,9 @@ class Biblioteca{
 		
 		/** @brief Tria un text segons condicions
 			\pre Existeix almenys un text
-			\post el p.i queda triat
+			\post el p.i queda triat i retorna el text triat
 		*/ 
-		void triar_text();
+	 	Text triar_text();
 		
 		/** @brief Mostra titol i autor de tots els textos
 			\pre Existeix almenys un text
@@ -60,12 +60,20 @@ class Biblioteca{
 			\post El p.i es el mateix que l'original pero amb un text mes
 		*/ 
 		void afegir_text();
+                
+                 /** @brief el p.i te una paraula especifica "s1"
+			\pre text triat
+			\post el p.i es com l'original pero substituint la paraula especifica per una altra "s2"
+		*/ 
+		void substitueix_paraules(string s1, string s2);
 		
 		/** @brief Elimina un text de la biblioteca
 			\pre existeix una biblioteca i un text guardat a la biblioteca almenys
 			\post El p.i es el mateix que l'original menys el text triat
 		*/ 
 		void eliminar_text();	
+                
+                
 		
 		//CITES
 		

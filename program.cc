@@ -1,5 +1,5 @@
 /**
- * @mainpage Pràctica PRO2 - Gestor de textos i cites
+ * @mainpage Practica PRO2 - Gestor de textos i cites
 */
 
 /** @file program.cc
@@ -10,6 +10,7 @@
 #include <string>
 #include <sstream>
 #include "Biblioteca.hh"
+#include "Text.hh"
 
 using namespace std;
 
@@ -18,26 +19,94 @@ using namespace std;
 
 int main(){
 	Biblioteca biblio;
-	string opcio;
-	
+        Text texttriat;
+        bool ttriat = false;
+	string linia,m;
 	getline(cin,linia);
-        iss.str(linia);
-        iss.seekg(0);
-        iss >> op;
+        while( linia != "sortir"){
+            cout << linia << endl;
+            istringstream iss(linia);
+            string op;
+            iss >> op;
+            if(op == "afegir text"){
+                //string titol;
+                //ws(iss);
+                //getline(iss,titol);
+                biblio.afegir_text();
+            }
 
-        if(linia == "afegir text"){
-        }
-        else if(linia == "triar text"){
-        }
-        else if(linia == "eliminar text"){
-        }
-        else if(linia == "substitueix"){
-        }
-        else if(linia == "tots textos"){
-        }
-        else if( == "tots autors"){
-        }
-        else if( == "info ?"){
+            else if(op == "afegir cita"){
+                //passar parametres
+                biblio.afegir_cita(x,y);
+
+            }
+            else if(op == "triar text"){
+                textriat = biblio.triar_text();
+                ttriat = true;
+            }
+
+            else if(op == "eliminar text"){
+                biblio.eliminar_text();
+                ttriat = false;
+            }
+
+            else if(op == "substitueix"){
+                //passar parametres
+                biblio.substitueix_paraules(s1,s2);
+                textriat = biblio.triar_text();
+            }
+
+            else if(op == "textos autor"){
+            
+            }
+
+            else if(op == "tots textos"){
+                biblio.tots_textos();
+            }
+
+            else if(op == "tots autors"){
+                biblio.tots_autor();
+            }
+
+            else if(op == "info ?"){
+                biblio.info_text();
+            }
+            
+            else if (op == "autor ?"){
+                texttriat.autor_text();
+            }
+
+            else if (op == "contingut ?"){
+                texttriat.contingut_text();
+            }
+            
+            else if (op == "frases"){
+            //aqui hi ha varies opcions, numero de frases
+            //expressio, etc
+            }
+
+            else if (op == "nombre de frases ?"){
+                    texttriat.consultar_numfrases();
+            }
+
+            else if (op == "nombre de paraules ?"){
+                texttriat.consultar_numparaules();
+            }
+
+            else if (op == "taula de frequencies ?"){
+                texttriat.taula_frequencies();
+            }
+
+
+
+
+
+            else {
+                cout << "error" << endl;
+                while ( iss >> m) cout << m << endl;
+            }
+
+            getline(cin, linia);
         }
 }
 

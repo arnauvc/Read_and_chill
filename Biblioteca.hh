@@ -59,11 +59,6 @@ class Biblioteca{
 		*/ 
 		void afegir_text();
                 
-                 /** @brief el p.i te una paraula especifica "s1"
-			\pre text triat
-			\post el p.i es com l'original pero substituint la paraula especifica per una altra "s2"
-		*/ 
-		void substitueix_paraules(string s1, string s2);
 		
 		/** @brief Elimina un text de la biblioteca
 			\pre existeix una biblioteca i un text triat dins
@@ -113,6 +108,14 @@ class Biblioteca{
                         \post mostra tots els autors, amb els seus textos, numero de paraules i de frases de cada text 
                 */
                 void tots_autors();
+                
+                /** @brief 
+                        \pre 
+                        \post 
+                */
+                void textos_autor();
+                
+                
 
 };
 

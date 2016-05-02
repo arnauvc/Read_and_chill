@@ -4,25 +4,29 @@
 #include "Frase.hh"
 
 Biblioteca::Biblioteca(){
-    triat = False;
+    triat = false;
 }
 
 Biblioteca::~Biblioteca(){
     
 }
 
-Biblioteca::triar_text(){
+Text Biblioteca::triar_text(){
     
 }
 
-Biblioteca::tots_textos(){
+void Biblioteca::tots_textos(){
     
 }
 
-Biblioteca::afegir_text(){
+void Biblioteca::textos_autor(){
     
 }
 
-Biblioteca::eliminar_text(){
+void Biblioteca::afegir_text(){
+    
+}
+
+void Biblioteca::eliminar_text(){
     
 }

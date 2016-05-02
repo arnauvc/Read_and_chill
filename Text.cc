@@ -1,5 +1,8 @@
 #include "Text.hh"
 #include "Frase.hh"
+#include <string>
+#include <map>
+#include <algorithm>
 
 Text::Text(){
     numfrases = 0;
@@ -14,40 +17,40 @@ void Text::substitueix_paraules(string s1, string s2){
     
 }
 
-int Text::consultar_numfrases(){
+int const Text::consultar_numfrases(){
     return numfrases;
 }
 
-int Text::consultar_numparaules(){
+int const Text::consultar_numparaules(){
     return numparaules;
 }
 
-void Text::info_text(){
+void const Text::info_text(){
     
 }
 
-string Text::autor_text(){
+void const Text::autor_text(){
     
 
 }
 
-set<Frase> Text::contingut_text(){ //Probablement no sigui un set<Frase>
-    
+map<int,Frase> const Text::contingut_text(){ 
+
 }
 
 
-void Text::interval_frases(int x, int y){
+void const Text::interval_frases(int x, int y){
 	
 }
 
-void Text::expressio_frases(string s1, string s2){
+void const Text::expressio_frases(string s1){
 	
 }
 
-void Text::paraules_frase(Frase k){
+void const Text::paraules_frase(string s1){
 	
 }
 
 void Text::llegir_text(){
-    sort (taulafreq.begin(), taulafreq.end(), sort_comp() );
+    sort(taulafreq.begin(), taulafreq.end(), sort_comp);
 }

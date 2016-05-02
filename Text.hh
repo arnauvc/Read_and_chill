@@ -26,7 +26,7 @@ class Text{
 		
                 vector<pair<int,string> > taulafreq;
 		
-		bool sort_comp(const pair<int,string>& lhs, const pair<int,string>& rhs){
+		bool static sort_comp(const pair<int,string>& lhs, const pair<int,string>& rhs){
 			return lhs.first<rhs.first || (!(rhs.first<lhs.first) && lhs.second.size()<rhs.second.size() ) || (!(rhs.first<lhs.first) && !(rhs.second.size()<lhs.second.size() )&& lhs.second<rhs.second);
 		}
 		
@@ -75,15 +75,13 @@ class Text{
 			\pre text triat
 			\post mostra l'autor del p.i
 		*/ 
-		void const autor_text();
-		
+                void const autor_text();	
+
 		/** @brief el p.i te autor, titol i contingut
 			\pre text triat
 			\post mostra el contingut del p.i dividit en les diferents frases que te per ordre d'entrada original del p.i
 		*/ 
-		void const contingut_text();
-                
-               
+		map<int,Frase> const contingut_text();
                 
                 /** @brief el p.i te contingut
 			\pre text triat
@@ -93,7 +91,7 @@ class Text{
 		
 		/** @brief mostra les frases del p.i entre un interval concret
 			\pre text triat
-			\post mostra les diferentes frases entre la "x" i la "y" del p.i
+			\post mostra les diferents frases entre la "x" i la "y" del p.i
 		*/
 		void const interval_frases(int x, int y);
 
@@ -101,13 +99,19 @@ class Text{
 			\pre text triat
 			\post mostra frases del p.i segons lexpressio
 		*/
-		void const expressio_frases(string s1, string s2);
+		void const expressio_frases(string s1);
+                
+                /** @brief el p.i te una paraula especifica "s1"
+			\pre text triat
+			\post el p.i es com l'original pero substituint la paraula especifica per una altra "s2"
+		*/ 
+		void substitueix_paraules(string s1, string s2);
 
 		/** @brief mostra frases del p.i
 			\pre text triat
 			\post mostra les diferents frases del p.i on apareix les paraules consecutives 
 		*/
-		void const paraules_frase(Frase k);
+		void const paraules_frase(string s1);
 		
 		/** @brief mostra les cites del p.i
 			\pre text triat

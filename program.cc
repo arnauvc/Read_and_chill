@@ -35,7 +35,7 @@ int main(){
                 biblio.afegir_text();
             }
 
-            else if(op == "afegir cita"){
+            else if(op == "llegir cita"){
                 int x,y;
                 ws(iss);
                 iss >> x;
@@ -58,12 +58,11 @@ int main(){
                 ws(iss);
                 iss >> s1;
                 iss >> s2;
-                biblio.substitueix_paraules(s1,s2);
-                texttriat = biblio.triar_text();
+                texttriat.substitueix_paraules(s1,s2);
             }
 
             else if(op == "textos autor"){
-            
+                biblio.textos_autor();
             }
 
             else if(op == "tots textos"){
@@ -83,13 +82,29 @@ int main(){
             }
 
             else if (op == "contingut ?"){
-                texttriat.contingut_text();
+                map<int,Frase> contingut;
+                contingut = texttriat.contingut_text();
             }
             
             else if (op == "frases"){
-            //aqui hi ha varies opcions, numero de frases
-            //expressio, etc
-            //  
+                int x,y;
+                string s1;
+                iss >> op;
+                if(op == "//afegir signe de cometes  "){
+                    getline(iss,s1);
+                    texttriat.paraules_frase(s1);
+                }
+                else if(op == "(" ){
+                    getline(iss,s1);
+                    texttriat.expressio_frases(s1);
+                }
+                else{
+                    //string::size_type sz;
+                    istringstream ss(op);
+                    ss >> x;
+                    ss >> y;
+                    texttriat.interval_frases(x,y);
+                }  
             }
 
             else if (op == "nombre de frases ?"){

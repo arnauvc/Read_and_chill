@@ -1,6 +1,5 @@
 #include "Biblioteca.hh"
 #include "Text.hh"
-#include "Cita.hh"
 #include "Frase.hh"
 
 Biblioteca::Biblioteca(){
@@ -23,8 +22,16 @@ void Biblioteca::textos_autor(){
     
 }
 
+void Biblioteca::tots_autors(){
+
+}
+
 void Biblioteca::afegir_text(){
     
+}
+
+void Biblioteca::afegir_cita(int x, int y){
+
 }
 
 void Biblioteca::eliminar_text(){

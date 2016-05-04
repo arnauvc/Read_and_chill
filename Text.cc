@@ -34,6 +34,10 @@ void const Text::autor_text(){
 
 }
 
+void const Text::taula_frequencies(){
+
+}
+
 map<int,Frase> const Text::contingut_text(){ 
 
 }

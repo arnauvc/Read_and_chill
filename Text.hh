@@ -75,13 +75,13 @@ class Text{
 			\pre text triat
 			\post mostra l'autor del p.i
 		*/ 
-                void const autor_text();	
+                string const autor_text();	
 
 		/** @brief el p.i te autor, titol i contingut
 			\pre text triat
 			\post mostra el contingut del p.i dividit en les diferents frases que te per ordre d'entrada original del p.i
 		*/ 
-		map<int,Frase> const contingut_text();
+		void const contingut_text();
                 
                 /** @brief el p.i te contingut
 			\pre text triat

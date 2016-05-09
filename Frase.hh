@@ -47,7 +47,7 @@ class Frase{
         		 \pre cert
         		 \post escriu una frase del p.i
 		  */
-		void escriu_frase();
+		void const escriu_frase();
 };
 
 #endif

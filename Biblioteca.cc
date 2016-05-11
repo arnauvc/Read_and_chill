@@ -35,6 +35,10 @@ void Biblioteca::afegir_text(){
 }
 
 void Biblioteca::afegir_cita(int x, int y){
+	char first, last;
+	first = cin.get();     // get one character
+	cin.ignore(256,' ');   // ignore until space
+	last = cin.get();      // get one character
 
 }
 

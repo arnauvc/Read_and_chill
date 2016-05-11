@@ -1,7 +1,7 @@
 #include <iostream>
 #include <map>
 #include <sstream>
-//#include "Text.hh"
+#include "Text.hh"
 #include "Frase.hh"
 
 using namespace std;
@@ -9,12 +9,11 @@ using namespace std;
 
 int main(){
 	
-	/*
 	Text t;
 	t.llegir_text();
-	string g = t.autor_text();
+	/*string g = t.titol_text();
 	cout << g << endl;
-	g = t.titol_text();
+	g = t.autor_text();
 	cout << g << endl;
 	int ii = t.consultar_numfrases();
 	cout << ii << endl;
@@ -28,24 +27,34 @@ int main(){
 	x = 1;
 	y = 3;
 	t.interval_frases(x,y);
-	
-	string s = "the";
+	*/string s = "milapod holanuriko hipiwawe";
 	t.paraules_frase(s);
-	
-	string tt = "dummy";
+	string tt = "zukile";
 	string pp = "dick";
 	t.substitueix_paraules(tt,pp);
-	*/
+	t.contingut_text();
 	
+	
+	/*
 	map<int,Frase> contingut;
 	int numfrases = 0;
 	int a = 1;
-    Frase fr;
-    string line;
-    getline(cin,line);
+    
+    string autor,line;
+    //getline(cin, autor);
+	getline(cin, line);
     while(line != "****"){
+		Frase fr;
         //fer la consulta del numero de paraules de cada frase;
         // numparaules += Frase::num_paraules
+        fr.llegir_frase(line);
+        contingut.insert(make_pair(a, fr));
+        ++a;
+        numfrases += numfrases;
+		getline(cin, line);
+    }
+
+	do{
 		cout << "1";
         fr.llegir_frase();
 		cout << "2";
@@ -53,14 +62,11 @@ int main(){
 		cout << "3";
         ++a;
         ++numfrases;
-		getline(cin, line);
+		//getline(cin, line);
 		cout << "4";
-    }
-    
-    
-    for(map<int,Frase>::const_iterator i = contingut.begin(); i != contingut.end(); ++i){
-        cout << (i->first) << " ";
-        Frase f = i->second;
-        f.escriu_frase();
-    }
+	}
+	while(line != "****");
+	*/
+	
+	
 }

@@ -57,7 +57,7 @@ class Frase{
         		\pre cert
         		\post llegeix una frase del p.i
 		*/
-        void llegir_frase();
+        void llegir_frase(string s);
 		
 		/** @brief escriptora de frases
         		 \pre cert

@@ -14,10 +14,9 @@ Frase::Frase() {
 
 Frase::~Frase() {}
 
-void Frase::llegir_frase() {
-    string s, ant;
+void Frase::llegir_frase(string s) {
+    string ant;
 		 string op;
-		 getline(cin, s);
 		 istringstream iss(s);
 		 iss >> op;
 		 int l = op.size();
@@ -91,7 +90,7 @@ bool const Frase::trobat(string s) {
 		if (actual == frase_in[i].first) trobat = true;
 	}
 	if (trobat) {
-		ant = frase_in[i].first;
+		ant = frase_in[i].second;
 		iss >> actual;
 		--k;
 		while (k > 0) {
@@ -109,9 +108,15 @@ bool const Frase::trobat(string s) {
 }
 
 void Frase::canvi_paraules(string s1, string s2) {
+	cout << "3" << endl;
 	int x = frase_in.size();
 	for (int i = 0; i < x; ++i) {
-		if (s1 == frase_in[i].first) frase_in[i].first = s2;
+		cout << "4" << endl;
+		if (s1 == frase_in[i].first) {
+			cout << "000000000000000000000000000" << endl;
+			frase_in[i].first = s2;
+		}
+		cout << "5" << endl;
 	}
 	//CRIDAR A LA TAULA DE FREQUENCIA
 }

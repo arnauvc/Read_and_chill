@@ -52,7 +52,7 @@ class Biblioteca{
 			\pre Existeix almenys un text
 			\post el p.i queda triat i retorna el text triat
 		*/ 
-	 	Text triar_text();
+	 	Text const triar_text();
         
 	
 		/** @brief 
@@ -65,7 +65,7 @@ class Biblioteca{
 			\pre cert
 			\post Es mostren per pantalla els titols i els seus autors de tots els textos ordenats per autor i despres per titol
 		*/ 
-		void tots_textos();
+		void const tots_textos();
 		
 		/** @brief Afegeix un text a la biblioteca
 			\pre que existeixi almenys una biblioteca
@@ -88,7 +88,7 @@ class Biblioteca{
 			\pre cert
 			\post mostra per cada cita la referencia, contingut de les frases, autor i titol del text d'on provenen ordenades per referencia 
 		*/
-		void totes_cites();
+		void const totes_cites();
 		
 		 
 		/** @brief afegeix una cita al p.i
@@ -107,27 +107,27 @@ class Biblioteca{
 			\pre existeix la cita
 			\post mostra autor, titol, numero de la frase inicial i numero de la frase final i el contingut de la frase o frases que la componen
 		*/
-		void info_cita(string referencia);
+		void const info_cita(string referencia);
 		
 		/** @brief mostra totes les cites del p.i
 			\pre existeix l'autor
 			\post mostra per cada cita la referencia, contingut de les frases i titol del text don provenen ordenats per referencia
 		*/
-		void cites_autor(string autor);
+		void const cites_autor(string autor);
 
-                //FUNCIONS EXTRA        
+        //FUNCIONS EXTRA        
 
-                /** @brief mostra tots els autors amb textos en el sistema
+        /** @brief mostra tots els autors amb textos en el sistema
                         \pre Existeix almenys un autor en el sistema
                         \post mostra tots els autors, amb els seus textos, numero de paraules i de frases de cada text 
-                */
-                void tots_autors();
+        */
+        void tots_autors();
                 
-                /** @brief 
-                        \pre 
-                        \post 
-                */
-                void textos_autor();
+        ** @brief 
+			\pre 
+			\post 
+         */
+         void textos_autor();
                 
                 
                 

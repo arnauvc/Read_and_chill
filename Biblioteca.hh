@@ -16,10 +16,17 @@ using namespace std;
 class Biblioteca{
 
 	private: 
+		struct infoautor{
+			int ntextos;
+			int nfrases;
+			int nparaules;
+		};
+		
 		bool triat;
 		Text ttriat;
-		map<string,Text> conjunt_cites; 
-		map<string,Text> conjunt_textos;
+		map<string,Text> conjunt_cites; //referencia, Cita
+		map<string,Text> conjunt_textos; // autor, Text
+		map<string,infoautor> conjunt_autors;
 		
 	public:
 		/* Constructores */
@@ -46,9 +53,13 @@ class Biblioteca{
 			\post el p.i queda triat i retorna el text triat
 		*/ 
 	 	Text triar_text();
-                
-                
-                bool const consultar_triat();
+        
+	
+		/** @brief 
+			\pre 
+			\post 
+		*/ 
+		bool const consultar_triat();
 		
 		/** @brief Mostra titol i autor de tots els textos
 			\pre cert

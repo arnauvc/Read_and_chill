@@ -14,10 +14,6 @@ Text::~Text(){
     
 }
 
-void Text::substitueix_paraules(string s1, string s2){
-    
-}
-
 int const Text::consultar_numfrases(){
     return numfrases;
 }
@@ -26,23 +22,16 @@ int const Text::consultar_numparaules(){
     return numparaules;
 }
 
-void const Text::info_text(){//aquesta funcio no retorna les cites associades al text
-   cout << autor << " " << titol << " " << numfrases << " " << numparaules << endl; 
-}
-
 string const Text::titol_text(){
     return titol;
 }
 
 string const Text::autor_text(){
    return autor; 
-
 }
 
-void const Text::taula_frequencies(){
-    for(int i = 0; i < taulafreq.size(); ++i){
-        cout << taulafreq[i].second << " " << taulafreq[i].first <<endl;
-    }
+void const Text::info_text(){//aquesta funcio no retorna les cites associades al text
+   cout << autor << " " << titol << " " << numfrases << " " << numparaules << endl; 
 }
 
 void const Text::contingut_text(){ 
@@ -52,7 +41,6 @@ void const Text::contingut_text(){
         f.escriu_frase();
     }
 }
-
 
 void const Text::interval_frases(int x, int y){
     map<int,Frase>::const_iterator j;
@@ -69,12 +57,27 @@ void const Text::interval_frases(int x, int y){
     }
 }
 
+void const Text::paraules_frase(string s1){
+	
+}
+
+void Text::substitueix_paraules(string s1, string s2){
+    for(map<int,Frase>::const_iterator i = contingut.begin(); i != contingut.end(); ++i){
+        Frase f = i->second;
+        f.canvi_paraules(s1,s2);
+    }
+}
+
 void const Text::expressio_frases(string s1){//portara feina
 	
 }
 
-void const Text::paraules_frase(string s1){
-	
+
+
+void const Text::taula_frequencies(){
+    for(int i = 0; i < taulafreq.size(); ++i){
+        cout << taulafreq[i].second << " " << taulafreq[i].first <<endl;
+    }
 }
 
 void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora de Frase podria retornar un 0, o 1 segons si detecta *** o no.

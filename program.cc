@@ -20,7 +20,6 @@ using namespace std;
 int main(){
 	Biblioteca biblio;
         Text texttriat;
-        bool ttriat = false;
 	string linia,op;
 	getline(cin,linia);
         while( linia != "sortir"){
@@ -36,8 +35,9 @@ int main(){
             
             //consultes sense parametre explicit
             if(liniac == "eliminar text"){
+                cout << "entra";
                 biblio.eliminar_text();
-                ttriat = false;
+
             }
             
             else if(liniac == "tots textos ?"){
@@ -106,7 +106,6 @@ int main(){
 
             else if(op == "triar text"){
                 texttriat = biblio.triar_text();
-                ttriat = true;
             }
             
             else if(op == "llegir cita"){

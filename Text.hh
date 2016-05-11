@@ -70,6 +70,8 @@ class Text{
 			\post mostra l'autor, titol, nombre de frases i de paraules i cites associades del p.i
 		*/ 
 		void const info_text();
+
+                string const titol_text();
 		
 		/** @brief el p.i te autor, titol i contingut
 			\pre text triat
@@ -109,7 +111,7 @@ class Text{
 
 		/** @brief mostra frases del p.i
 			\pre text triat
-			\post mostra les diferents frases del p.i on apareix les paraules consecutives 
+			\poset mostra les diferents frases del p.i on apareix les paraules consecutives 
 		*/
 		void const paraules_frase(string s1);
 		

@@ -30,6 +30,10 @@ void const Text::info_text(){//aquesta funcio no retorna les cites associades al
    cout << autor << " " << titol << " " << numfrases << " " << numparaules << endl; 
 }
 
+string const Text::titol_text(){
+    return titol;
+}
+
 string const Text::autor_text(){
    return autor; 
 
@@ -78,13 +82,13 @@ void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora
     Frase fr;
     string line;
     getline(cin,line);
-    while(line != "***"){
+    while(line != "****"){
         //fer la consulta del numero de paraules de cada frase;
         // numparaules += Frase::num_paraules
         fr.llegir_frase();
-
         contingut.insert(make_pair(a, fr ));
         ++a;
+        numfrases += numfrases;
     }
     
     //falta emplenar la taula frequencies

@@ -46,6 +46,9 @@ class Biblioteca{
 			\post el p.i queda triat i retorna el text triat
 		*/ 
 	 	Text triar_text();
+                
+                
+                bool const consultar_triat();
 		
 		/** @brief Mostra titol i autor de tots els textos
 			\pre cert
@@ -114,6 +117,7 @@ class Biblioteca{
                         \post 
                 */
                 void textos_autor();
+                
                 
                 
 

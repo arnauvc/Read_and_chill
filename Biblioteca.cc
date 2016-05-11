@@ -14,6 +14,10 @@ Text Biblioteca::triar_text(){
     
 }
 
+bool const Biblioteca::consultar_triat(){
+    return triat;
+}
+
 void Biblioteca::tots_textos(){
     
 }

@@ -107,3 +107,11 @@ bool const Frase::trobat(string s) {
 	}
 	return false;
 }
+
+void Frase::canvi_paraules(string s1, string s2) {
+	int x = frase_in.size();
+	for (int i = 0; i < x; ++i) {
+		if (s1 == frase_in[i].first) frase_in[i].first = s2;
+	}
+	//CRIDAR A LA TAULA DE FREQUENCIA
+}

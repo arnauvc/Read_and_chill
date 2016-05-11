@@ -33,6 +33,10 @@ int main(){
             //ws(iss);
             //getline(iss,consulta);
             
+            if(!biblio.consultar_triat()){
+                
+            }
+            
             //consultes sense parametre explicit
             if(liniac == "eliminar text"){
                 cout << "entra";

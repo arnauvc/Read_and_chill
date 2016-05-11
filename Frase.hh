@@ -18,7 +18,7 @@ class Frase{
 	private:
 	
 		int num_paraules;
-		vector<string> frase_in;
+		vector<pair<string, string> > frase_in;
 
 	public:
 		/* Constructores */
@@ -35,18 +35,34 @@ class Frase{
 			\post Destrueix la frase
 		*/
 		~Frase();
-                
-                /* Llegir i escriure */
-        	/** @brief Lectora de frases
-        		 \pre cert
-        		 \post llegeix una frase del p.i
+
+		/* Consultores */
+
+		/** @brief consulta numero de paraules
+			\pre cert
+			\post consulta numero de paraules de la frase
 		*/
-        	void llegir_frase();
+		int const consultar_numparaules();
+
+		/** @brief consulta un string
+			\pre cert
+			\post consulta si existeix un string a una frase
+		*/
+		bool const trobat(string s);
+         
+		/* Llegir i escriure */
+
+        /* Llegir i escriure */
+        /** @brief Lectora de frases
+        		\pre cert
+        		\post llegeix una frase del p.i
+		*/
+        void llegir_frase();
 		
-		 /** @brief escriptora de frases
+		/** @brief escriptora de frases
         		 \pre cert
         		 \post escriu una frase del p.i
-		  */
+		*/
 		void const escriu_frase();
 };
 

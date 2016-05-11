@@ -19,7 +19,7 @@ void Frase::llegir_frase() {
     }
 }
 
-void Frase::escriu_frase() {
+void const Frase::escriu_frase() {
 	int x = frase_in.size();
 	bool primer = true;
 	for (int i = 0; i < x; ++i) {
@@ -30,8 +30,4 @@ void Frase::escriu_frase() {
 		else cout << " " << frase_in[i];
 	}
 	cout << endl;
-}
-
-void const Frase::escriu_frase(){
-
 }

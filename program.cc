@@ -61,8 +61,7 @@ int main(){
             }
 
             else if (liniac == "contingut ?"){
-                map<int,Frase> contingut;
-                contingut = texttriat.contingut_text();
+                texttriat.contingut_text();
             }
 
             else if (liniac == "nombre de frases ?"){

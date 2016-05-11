@@ -36,13 +36,16 @@ string const Text::autor_text(){
 }
 
 void const Text::taula_frequencies(){
-
+    for(int i = 0; i < taulafreq.size(); ++i){
+        cout << taulafreq[i].second << " " << taulafreq[i].first <<endl;
+    }
 }
 
 void const Text::contingut_text(){ 
     for(map<int,Frase>::const_iterator i = contingut.begin(); i != contingut.end(); ++i){
         cout << (i->first) << " ";
-        (i->second).escriu_frase();
+        Frase f = i->second;
+        f.escriu_frase();
     }
 }
 
@@ -72,11 +75,14 @@ void const Text::paraules_frase(string s1){
 
 void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora de Frase podria retornar un 0, o 1 segons si detecta *** o no.
     int a = 1;
-    while(condicio){
-        Frase fr = llegir_frase();
+    Frase fr;
+    string line;
+    getline(cin,line);
+    while(line != "***"){
         //fer la consulta del numero de paraules de cada frase;
         // numparaules += Frase::num_paraules
-        
+        fr.llegir_frase();
+
         contingut.insert(make_pair(a, fr ));
         ++a;
     }

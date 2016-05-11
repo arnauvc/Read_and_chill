@@ -95,7 +95,6 @@ void const Text::taula_frequencies(){
 
 void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora de Frase podria retornar un 0, o 1 segons si detecta *** o no.
     
-	int numfrases = 0;
 	int a = 1;
     string line;
 	getline(cin, titol);
@@ -109,6 +108,7 @@ void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora
         contingut.insert(make_pair(a, fr));
         ++a;
         ++numfrases;
+        numparaules += fr.consultar_numparaules();
 		getline(cin, line);
     }
     

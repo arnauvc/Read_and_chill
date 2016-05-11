@@ -64,6 +64,12 @@ class Frase{
         		 \post escriu una frase del p.i
 		*/
 		void const escriu_frase();
+
+		/** @brief canvia una paraula per l'altra
+        		 \pre cert
+        		 \post canvia el s1 pel s2 al p.i
+		*/
+		void canvi_paraules(string s1, string s2);
 };
 
 #endif

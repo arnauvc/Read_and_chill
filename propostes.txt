@@ -1,3 +1,4 @@
 afegir una funcio a Text que guardi les referencies de les cites que s'han fet sobre aquell text. 
 
 1) cada cop que s'afegeixi una cita d'un text, el text seleccionat en guarda la referencia en un vector<string>
+2 ) falta funcio que retorni Titol del text, string const titol_text();

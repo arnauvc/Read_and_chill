@@ -2,6 +2,7 @@
 #include <vector>
 #include <sstream>
 #include <string>
+#include "Taulesaux.hh"
 
 /* Constants */
 
@@ -14,7 +15,7 @@ Frase::Frase() {
 
 Frase::~Frase() {}
 
-void Frase::llegir_frase(string s) {
+void Frase::llegir_frase(string s, /* Taulesaux &ta, int numf*/) {
     string ant;
 		 string op;
 		 istringstream iss(s);
@@ -25,6 +26,14 @@ void Frase::llegir_frase(string s) {
     			string tmp = op;
     			op.erase(l-1);
     			frase_in.push_back(make_pair(op, ant));
+    			/*
+    			int apuntador = map.find(op);
+				vector<int> v = apuntador->second;
+				v.push_back(numf);
+				map.erase(op);
+				map.insert(make_pair(op, v));
+    			*/
+    			//ta.insertar_paraula(op, numf);
     			ant = op;
     			string c;
     			char car = tmp[l-1];
@@ -36,6 +45,7 @@ void Frase::llegir_frase(string s) {
     		}
     		else {
     			frase_in.push_back(make_pair(op, ant));
+    			//ta.insertar_paraula(op, numf);
     		    ant = op;
     	    }
     		++num_paraules;
@@ -108,15 +118,11 @@ bool const Frase::trobat(string s) {
 }
 
 void Frase::canvi_paraules(string s1, string s2) {
-	cout << "3" << endl;
 	int x = frase_in.size();
 	for (int i = 0; i < x; ++i) {
-		cout << "4" << endl;
 		if (s1 == frase_in[i].first) {
-			cout << "000000000000000000000000000" << endl;
 			frase_in[i].first = s2;
 		}
-		cout << "5" << endl;
 	}
 	//CRIDAR A LA TAULA DE FREQUENCIA
 }

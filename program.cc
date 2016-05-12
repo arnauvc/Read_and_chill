@@ -19,7 +19,7 @@ using namespace std;
 
 int main(){
 	Biblioteca biblio;
-        Text texttriat;
+    Text texttriat;
 	string linia,op;
 	getline(cin,linia);
         while( linia != "sortir"){
@@ -55,14 +55,11 @@ int main(){
             else if(liniac == "info ?"){
                 texttriat.info_text();
                 //Falta fer el cout de les cites del textelse if(liniac == "info ?"){
-                texttriat.info_text();
+                
                 //Falta fer el cout de les cites del text
-                texttriat.autor_text();
+                //texttriat.autor_text();
             }
             
-            else if (liniac == "autor ?"){
-                texttriat.autor_text();
-            }
 
             else if (liniac == "contingut ?"){
                 texttriat.contingut_text();
@@ -81,7 +78,7 @@ int main(){
             }
             
             else if (liniac == "autor ?"){
-                texttriat.autor_text();
+                cout << texttriat.autor_text() << endl;
             }
 
             else if (liniac == "contingut ?"){
@@ -103,13 +100,15 @@ int main(){
             
             //consultes amb parametre explicit
             
-            else if(op == "afegir text"){
-                
+            else if(op == "afegirtext"){
                 biblio.afegir_text();
             }
 
-            else if(op == "triar text"){
-                texttriat = biblio.triar_text();
+            else if(op == "triartext"){
+				string s;
+				bool b = false;
+				getline(cin,s);
+                texttriat = biblio.triar_text(s,b);
             }
             
             else if(op == "llegir cita"){

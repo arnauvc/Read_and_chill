@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include "Taulesaux.hh"
 
 using namespace std;
 
@@ -57,7 +58,7 @@ class Frase{
         		\pre cert
         		\post llegeix una frase del p.i
 		*/
-        void llegir_frase(string s);
+        void llegir_frase(string s,Taulesaux &ta, int numf);
 		
 		/** @brief escriptora de frases
         		 \pre cert

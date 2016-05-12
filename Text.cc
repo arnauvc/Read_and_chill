@@ -100,25 +100,16 @@ void const Text::expressio_frases(string s1){//portara feina
     for(map<int,Frase>::const_iterator i = contingut.begin(); i != contingut.end(); ++i) {
         Frase f = i->second;
         j = 0;
-        if (compleix_expressio(s1, j)) {
+        if (/*compleix_expressio(s1, j)*/ true) {
             f.escriu_frase();
         }
     }
 }
 
-<<<<<<< HEAD
-
 
 void const Text::taula_frequencies(){
     tau.taula_frequencies();
 }
-=======
-/*void const Text::taula_frequencies(){
-    for(int i = 0; i < taulafreq.size(); ++i){
-        cout << taulafreq[i].second << " " << taulafreq[i].first <<endl;
-    }
-}*/
->>>>>>> refs/remotes/origin/master
 
 
 void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora de Frase podria retornar un 0, o 1 segons si detecta *** o no.
@@ -132,7 +123,7 @@ void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora
 		Frase fr;
         //fer la consulta del numero de paraules de cada frase;
         // numparaules += Frase::num_paraules
-        fr.llegir_frase(line);
+        fr.llegir_frase(line, tau, a);
         contingut.insert(make_pair(a, fr));
         ++a;
         ++numfrases;

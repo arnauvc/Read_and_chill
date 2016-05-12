@@ -10,8 +10,6 @@
 #include <vector>
 #include <map>
 #include <utility>
-#include "Frase.hh"
-
 
 using namespace std;
 

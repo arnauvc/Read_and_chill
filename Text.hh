@@ -24,19 +24,8 @@ class Text{
 		map<int,Frase> contingut;
 		int numparaules;
 		int numfrases;
-<<<<<<< HEAD
 		
 		Taulesaux tau;
-=======
-		Taulesaux tau;
-		//bool compleix_expressio(const string &exp, int &i);
-
-        /*vector<pair<int,string> > taulafreq;
-		
-		bool static sort_comp(const pair<int,string>& lhs, const pair<int,string>& rhs){
-			return lhs.first<rhs.first || (!(rhs.first<lhs.first) && lhs.second.size()<rhs.second.size() ) || (!(rhs.first<lhs.first) && !(rhs.second.size()<lhs.second.size() )&& lhs.second<rhs.second);
-		}*/
->>>>>>> refs/remotes/origin/master
 		
 	public:
 		/* Constructores */
@@ -126,6 +115,11 @@ class Text{
 			\post mostra les diferents frases del p.i on apareix les paraules consecutives 
 		*/
 		void const paraules_frase(string s1);
+		
+		
+		
+		
+		void const taula_frequencies();
 		
 		/** @brief mostra les cites del p.i
 			\pre text triat

@@ -15,7 +15,7 @@ Frase::Frase() {
 
 Frase::~Frase() {}
 
-void Frase::llegir_frase(string s, /* Taulesaux &ta, int numf*/) {
+void Frase::llegir_frase(string s, Taulesaux &tau, int numf) {
     string ant;
 		 string op;
 		 istringstream iss(s);
@@ -33,7 +33,7 @@ void Frase::llegir_frase(string s, /* Taulesaux &ta, int numf*/) {
 				map.erase(op);
 				map.insert(make_pair(op, v));
     			*/
-    			//ta.insertar_paraula(op, numf);
+    			tau.insertar_paraula(op, numf);
     			ant = op;
     			string c;
     			char car = tmp[l-1];
@@ -45,7 +45,7 @@ void Frase::llegir_frase(string s, /* Taulesaux &ta, int numf*/) {
     		}
     		else {
     			frase_in.push_back(make_pair(op, ant));
-    			//ta.insertar_paraula(op, numf);
+    			tau.insertar_paraula(op, numf);
     		    ant = op;
     	    }
     		++num_paraules;

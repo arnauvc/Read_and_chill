@@ -52,7 +52,7 @@ class Biblioteca{
 			\pre Existeix almenys un text
 			\post el p.i queda triat i retorna el text triat
 		*/ 
-	 	Text const triar_text();
+	 	Text const triar_text(string s, bool &b);
         
 	
 		/** @brief 

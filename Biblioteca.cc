@@ -10,15 +10,21 @@ Biblioteca::~Biblioteca(){
     
 }
 
-Text const Biblioteca::triar_text(string s){
-	for (map<string,Text>::const_iterator i = conjunt_textos.begin(); i < conjunt_textos.end(); ++i) {
-		if (i->second.buscar_paraules(s)) {
+Text const Biblioteca::triar_text(string s, bool &b){
+	
+	for (map<string,Text>::const_iterator i = conjunt_textos.begin(); i != conjunt_textos.end(); ++i) {
+		Text t = i->second;
+		if (t.buscar_paraules(s)) {
 			ttriat = i->second;
 			triat = true;
+			b = true;
 			return ttriat;
 		}
 	}
 	if (not triat) cout << "error" << endl;
+	b = false;
+	return ttriat;
+	
 }
 
 bool const Biblioteca::consultar_triat(){
@@ -41,7 +47,7 @@ void Biblioteca::afegir_text(){
     Text t;
     t.llegir_text();
     string s = t.autor_text();
-    conjunt_textos.insert(s, t);
+    conjunt_textos.insert(make_pair(s, t));
     //hem de buscar que no hi hagi cap autor amb el mateix titol que el nou text afegit sino error 
 }
 

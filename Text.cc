@@ -69,19 +69,9 @@ void const Text::paraules_frase(string s1){
 }
 
 bool const Text::buscar_paraules(string s) {
-    int x = autor.size();
-    int y = titol.size();
-    int z = s.size();
-    for (int i = 0; i < x; ++i) {
-        //autor
-    }
-    for (int i = 0; i < y; ++i) {
-        //titol
-    }
-    for (int i = 0; i < x; ++i) {
-        //contingut
-    }
-    return true;
+	cout << "A" << endl;
+	return tau.existeix_cadena(s);
+	
 }
 
 void Text::substitueix_paraules(string s1, string s2){
@@ -113,7 +103,7 @@ void const Text::taula_frequencies(){
 
 
 void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora de Frase podria retornar un 0, o 1 segons si detecta *** o no.
-    
+    cout << "00" <<endl;
 	int a = 1;
     string line;
 	getline(cin, titol);
@@ -123,17 +113,19 @@ void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora
 		Frase fr;
         //fer la consulta del numero de paraules de cada frase;
         // numparaules += Frase::num_paraules
+		cout << "01" << endl;
         fr.llegir_frase(line, tau, a);
+		cout << "02" << endl;
         contingut.insert(make_pair(a, fr));
+		cout << "03" << endl;
         ++a;
         ++numfrases;
         numparaules += fr.consultar_numparaules();
+		cout << "04" << endl;
 		getline(cin, line);
     }
     
-    //falta emplenar la taula frequencies
     
-    //sort(taulafreq.begin(), taulafreq.end(), sort_comp);
 }
 //....................................................................................................................
 // Retorna true si el paràmetre implicit compleix l'expressio exp, fals altrament

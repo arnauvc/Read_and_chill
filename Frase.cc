@@ -4,11 +4,6 @@
 #include <string>
 #include "Taulesaux.hh"
 
-/* Constants */
-
-const char *ER1 = "error";
-#include <exception>
-
 Frase::Frase() {
 	num_paraules = 0;
 }
@@ -17,52 +12,58 @@ Frase::~Frase() {}
 
 void Frase::llegir_frase(string s, Taulesaux &tau, int numf) {
     string ant;
-		 string op;
-		 istringstream iss(s);
-		 iss >> op;
-		 int l = op.size();
-   		 while (char(op[l-1]) != '.' and char(op[l-1]) != '?' and char(op[l-1]) != '!') {
-    		if (char(op[l-1]) == ',' or char(op[l-1]) == ':' or char(op[l-1]) == ';') {
-    			string tmp = op;
-    			op.erase(l-1);
-    			frase_in.push_back(make_pair(op, ant));
-    			/*
-    			int apuntador = map.find(op);
-				vector<int> v = apuntador->second;
-				v.push_back(numf);
-				map.erase(op);
-				map.insert(make_pair(op, v));
-    			*/
-    			tau.insertar_paraula(op, numf);
-    			ant = op;
-    			string c;
-    			char car = tmp[l-1];
-   		 		if (car == ',') c = ",";
-   		 		else if (car == ':') c = ":";
-   		 		else c = ";";
-    			frase_in.push_back(make_pair(c, ant));
-    			ant = c;
-    		}
-    		else {
-    			frase_in.push_back(make_pair(op, ant));
-    			tau.insertar_paraula(op, numf);
-    		    ant = op;
-    	    }
-    		++num_paraules;
-    		ws(iss);
-    		iss >> op;
-    		l = op.size();
-   		 }
+	string op;
+	istringstream iss(s);
+	iss >> op;
+	
+	int l = op.size();
+	
+   	while (char(op[l-1]) != '.' and char(op[l-1]) != '?' and char(op[l-1]) != '!') {
+		
+    	if (char(op[l-1]) == ',' or char(op[l-1]) == ':' or char(op[l-1]) == ';') {
+    		
+			string tmp = op;
+			
+    		op.erase(l-1);
+			
+   			frase_in.push_back(make_pair(op, ant));
+			
+   			tau.insertar_paraula(op, numf,ant);
+			
+   			ant = op;
+   			string c;
+    		char car = tmp[l-1];
+   	 		if (car == ',') c = ",";
+   	 		else if (car == ':') c = ":";
+   	 		else c = ";";
+    		frase_in.push_back(make_pair(c, ant));
+    		ant = c;
+    	}
+    	else {
+			
+    		frase_in.push_back(make_pair(op, ant));
+			
+    		tau.insertar_paraula(op, numf,ant);
+			
+    	    ant = op;
+			
+        }
+    	++num_paraules;
+    	ws(iss);
+    	iss >> op;
+    	l = op.size();
+   	 }
    		 
-   		 char car = op[l-1];
-   		 string c;
-   		 if (car == '.') c = ".";
-   		 else if (car == '?') c = "?";
-   		 else c = "!";
-   		 op.erase(l-1);
-   		 frase_in.push_back(make_pair(op, ant));
-   		 frase_in.push_back(make_pair(c, ant)); 
-   		 ++num_paraules;
+   	char car = op[l-1];
+   	string c;
+   	if (car == '.') c = ".";
+   	else if (car == '?') c = "?";
+   	else c = "!";
+   	op.erase(l-1);
+   	frase_in.push_back(make_pair(op, ant));
+	tau.insertar_paraula(op, numf,ant);
+   	frase_in.push_back(make_pair(c, ant)); 
+   	++num_paraules;
 }
 
 void const Frase::escriu_frase() {
@@ -89,6 +90,7 @@ int const Frase::consultar_numparaules() {
 }
 
 bool const Frase::trobat(string s) {
+	/*
 	int x = frase_in.size();
 	bool trobat = false;
 	string actual, ant;
@@ -115,6 +117,7 @@ bool const Frase::trobat(string s) {
 		return true;
 	}
 	return false;
+	*/
 }
 
 void Frase::canvi_paraules(string s1, string s2) {

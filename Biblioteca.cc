@@ -11,18 +11,21 @@ Biblioteca::~Biblioteca(){
     
 }
 
-Text const Biblioteca::triar_text(string s, bool &b){
+Text const Biblioteca::triar_text(string s /*,bool &b*/){
+	cout << "B" <<endl;
 	for (map<string,Text>::const_iterator i = conjunt_textos.begin(); i != conjunt_textos.end(); ++i) {
 		Text t = i->second;
+		cout << "0" << endl;
 		if (t.buscar_paraules(s)) {
+			cout << "1" << endl;
 			ttriat = i->second;
 			triat = true;
-			b = true;
+			//b = true;
 			return ttriat;
 		}
 	}
-	if (not triat) cout << "error" << endl;
-	b = false;
+	if (not triat) cout << "error0" << endl;
+	//b = false;
 	return ttriat;
 }
 
@@ -38,7 +41,7 @@ void const Biblioteca::tots_textos(){
     	s = i->first;
     	cout << s << " " << t.titol_text() << endl;
     }
-    cout << "11111111111111111111111111" << endl;
+    
 }
 
 void const Biblioteca::textos_autor(string s){
@@ -54,7 +57,7 @@ void const Biblioteca::textos_autor(string s){
     for (int i = 0; i < titols_autor.size(); ++i) {
     	cout << titols_autor[i] << endl;
     }
-    cout << "22222222222222222222222" << endl;
+    
 }
 
 void const Biblioteca::tots_autors(){
@@ -67,14 +70,17 @@ void const Biblioteca::tots_autors(){
 		cout << s << " " << k.ntextos << " ";
 		cout << k.nfrases << " " << k.nparaules << endl;
     }
-    cout << "3333333333333333333333" << endl;
+    
 }
 
 void Biblioteca::afegir_text(){
     Text t;
+	
     t.llegir_text();
+	
     string s = t.autor_text();
     conjunt_textos.insert(make_pair(s, t));
+	
     //hem de buscar que no hi hagi cap autor amb el mateix titol que el nou text afegit sino error 
 }
 

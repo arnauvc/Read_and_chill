@@ -106,10 +106,12 @@ int main(){
 
             else if(op == "triartext"){
 				string s;
-				bool b = false;
+				//bool b = false;
+				
 				getline(cin,s);
-                texttriat = biblio.triar_text(s,b);
-				if(!b) cout << "No trobat "<< endl;
+				cout << "C" << endl;
+                texttriat = biblio.triar_text(s);
+				//if(!b) cout << "No trobat "<< endl;
             }
             
             else if(op == "llegir cita"){
@@ -121,8 +123,10 @@ int main(){
 
             }
             
-            else if(op == "textos autor"){
-                biblio.textos_autor();
+            else if(op == "textosautor"){
+				string s;
+				getline(cin,s);
+                biblio.textos_autor(s);
             }
             
             //cal tractar paraula per paraula, no la frase
@@ -157,7 +161,7 @@ int main(){
             }
             
             else {
-                cout << "error" << endl;
+                cout << "error1" << endl;
                 while ( iss >> op) cout << op << endl;
             }
 

@@ -103,7 +103,7 @@ bool const Frase::trobat(string s) {
 		ant = frase_in[i].second;
 		iss >> actual;
 		--k;
-		while (k > 0) {
+		while (k > 0 and i<x) {
 			if (frase_in[i].first == actual) {
 				if (frase_in[i].second != ant) return false; 
 			}

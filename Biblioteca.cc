@@ -14,12 +14,12 @@ Text const Biblioteca::triar_text(string s, bool &b){
 	
 	for (map<string,Text>::const_iterator i = conjunt_textos.begin(); i != conjunt_textos.end(); ++i) {
 		Text t = i->second;
-		if (t.buscar_paraules(s)) {
+	     t.paraules_frase(s);
 			ttriat = i->second;
 			triat = true;
 			b = true;
 			return ttriat;
-		}
+		
 	}
 	if (not triat) cout << "error" << endl;
 	b = false;

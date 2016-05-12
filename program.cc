@@ -109,6 +109,7 @@ int main(){
 				bool b = false;
 				getline(cin,s);
                 texttriat = biblio.triar_text(s,b);
+				if(!b) cout << "No trobat "<< endl;
             }
             
             else if(op == "llegir cita"){

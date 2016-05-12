@@ -24,8 +24,19 @@ class Text{
 		map<int,Frase> contingut;
 		int numparaules;
 		int numfrases;
+<<<<<<< HEAD
 		
 		Taulesaux tau;
+=======
+		Taulesaux tau;
+		//bool compleix_expressio(const string &exp, int &i);
+
+        /*vector<pair<int,string> > taulafreq;
+		
+		bool static sort_comp(const pair<int,string>& lhs, const pair<int,string>& rhs){
+			return lhs.first<rhs.first || (!(rhs.first<lhs.first) && lhs.second.size()<rhs.second.size() ) || (!(rhs.first<lhs.first) && !(rhs.second.size()<lhs.second.size() )&& lhs.second<rhs.second);
+		}*/
+>>>>>>> refs/remotes/origin/master
 		
 	public:
 		/* Constructores */
@@ -55,6 +66,12 @@ class Text{
 			\post nombre de frases del contingut del p.i 
 		*/
 		int const consultar_numfrases();
+
+		/** @brief 
+			\pre 
+			\post 
+		*/
+		bool const buscar_paraules(string s);
 		
 		/** @brief el p.i te contingut
 			\pre text triat
@@ -85,12 +102,6 @@ class Text{
 			\post mostra el contingut del p.i dividit en les diferents frases que te per ordre d'entrada original del p.i
 		*/ 
 		void  const contingut_text();
-                
-                /** @brief el p.i te contingut
-			\pre text triat
-			\post mostra el contingut del p.i dividit en les diferents frases que te per ordre d'escritura original del p.i
-		*/ 
-		void const taula_frequencies();
 		
 		/** @brief mostra les frases del p.i entre un interval concret
 			\pre text triat

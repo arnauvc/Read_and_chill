@@ -11,6 +11,7 @@
 #include <map>
 #include <utility>
 #include "Frase.hh"
+#include "Taulesaux.hh"
 
 
 using namespace std;
@@ -24,11 +25,7 @@ class Text{
 		int numparaules;
 		int numfrases;
 		
-                vector<pair<int,string> > taulafreq;
-		
-		bool static sort_comp(const pair<int,string>& lhs, const pair<int,string>& rhs){
-			return lhs.first<rhs.first || (!(rhs.first<lhs.first) && lhs.second.size()<rhs.second.size() ) || (!(rhs.first<lhs.first) && !(rhs.second.size()<lhs.second.size() )&& lhs.second<rhs.second);
-		}
+		Taulesaux tau;
 		
 	public:
 		/* Constructores */
@@ -115,7 +112,7 @@ class Text{
 
 		/** @brief mostra frases del p.i
 			\pre text triat
-			\poset mostra les diferents frases del p.i on apareix les paraules consecutives 
+			\post mostra les diferents frases del p.i on apareix les paraules consecutives 
 		*/
 		void const paraules_frase(string s1);
 		

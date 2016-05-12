@@ -69,9 +69,7 @@ void const Text::paraules_frase(string s1){
 }
 
 void Text::substitueix_paraules(string s1, string s2){
-	cout << "0" << endl;
     for(map<int,Frase>::const_iterator i = contingut.begin(); i != contingut.end(); ++i){
-		cout << "1" << endl;
         Frase f = i->second;
 		int num = i->first;
         f.canvi_paraules(s1,s2);
@@ -88,10 +86,9 @@ void const Text::expressio_frases(string s1){//portara feina
 
 
 void const Text::taula_frequencies(){
-    for(int i = 0; i < taulafreq.size(); ++i){
-        cout << taulafreq[i].second << " " << taulafreq[i].first <<endl;
-    }
+    tau.taula_frequencies();
 }
+
 
 void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora de Frase podria retornar un 0, o 1 segons si detecta *** o no.
     

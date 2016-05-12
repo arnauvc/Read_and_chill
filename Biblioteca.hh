@@ -121,13 +121,13 @@ class Biblioteca{
                         \pre Existeix almenys un autor en el sistema
                         \post mostra tots els autors, amb els seus textos, numero de paraules i de frases de cada text 
         */
-        void tots_autors();
+        void const tots_autors();
                 
-        ** @brief 
+        /** @brief 
 			\pre 
 			\post 
          */
-         void textos_autor();
+        void const textos_autor();
                 
                 
                 

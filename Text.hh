@@ -71,13 +71,17 @@ class Text{
 		*/ 
 		void const info_text();
 
-                string const titol_text();
+		/** @brief el p.i te autor, titol i contingut
+			\pre text triat
+			\post mostra el titol del p.i
+		*/ 
+        string const titol_text();
 		
 		/** @brief el p.i te autor, titol i contingut
 			\pre text triat
 			\post mostra l'autor del p.i
 		*/ 
-                string const autor_text();	
+        string const autor_text();	
 
 		/** @brief el p.i te autor, titol i contingut
 			\pre text triat

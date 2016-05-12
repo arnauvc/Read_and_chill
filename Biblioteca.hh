@@ -10,6 +10,7 @@
 #include <map>
 #include "Frase.hh"
 #include "Text.hh"
+#include <algorithm>
 
 using namespace std;
 
@@ -27,6 +28,9 @@ class Biblioteca{
 		map<string,Text> conjunt_cites; //referencia, Cita
 		map<string,Text> conjunt_textos; // autor, Text
 		map<string,infoautor> conjunt_autors;
+		bool static comp_titols(string a, string b) {
+			return a < b;
+		}
 		
 	public:
 		/* Constructores */
@@ -123,11 +127,11 @@ class Biblioteca{
         */
         void const tots_autors();
                 
-        /** @brief 
-			\pre 
-			\post 
+        /** @brief asdasdsad
+			\pre sadasdsasadsada
+			\post adsadsadsadsadasds
          */
-        void const textos_autor();
+        void const textos_autor(string s);
                 
                 
                 

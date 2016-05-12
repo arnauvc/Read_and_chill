@@ -93,9 +93,7 @@ int main(){
                 cout << texttriat.consultar_numparaules() << endl;
             }
 
-            else if (liniac == "taula de frequencies ?"){
-                texttriat.taula_frequencies();
-            }
+           
             
             
             //consultes amb parametre explicit

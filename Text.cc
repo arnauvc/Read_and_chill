@@ -103,7 +103,7 @@ void const Text::taula_frequencies(){
 
 
 void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora de Frase podria retornar un 0, o 1 segons si detecta *** o no.
-    cout << "00" <<endl;
+    
 	int a = 1;
     string line;
 	getline(cin, titol);
@@ -113,15 +113,15 @@ void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora
 		Frase fr;
         //fer la consulta del numero de paraules de cada frase;
         // numparaules += Frase::num_paraules
-		cout << "01" << endl;
+		
         fr.llegir_frase(line, tau, a);
-		cout << "02" << endl;
+		
         contingut.insert(make_pair(a, fr));
-		cout << "03" << endl;
+		
         ++a;
         ++numfrases;
         numparaules += fr.consultar_numparaules();
-		cout << "04" << endl;
+		
 		getline(cin, line);
     }
     

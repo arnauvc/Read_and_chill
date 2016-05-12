@@ -45,25 +45,25 @@ void Taulesaux::insertar_paraula(string paraula, int numf, string ant){
 		
 //CONSULTORES
 bool const Taulesaux::existeix_cadena(string s){//busca la paraula en el map taulaparaules
-	cout << "2" << endl;
+	
 	bool trobat = false;
 	int k = s.size();
 	string actual, ant;
 	istringstream iss(s);
 	iss >> actual;
 	--k;
-	cout << "3" << endl;
+	
 	map<string, Node>::const_iterator i = taulaparaules.find(actual);
 	if (i != taulaparaules.end()){
-		cout <<"4" << endl;
+		
 		ant = i->first;
 		iss >> actual;
 		--k;
-		cout << "5" << endl;
+		
 		while(k > 0){
 			i = taulaparaules.find(actual);
 			if(i->second.anterior == ant) {
-				cout << "6" << endl;
+				
 				return false;
 				
 			}
@@ -72,12 +72,12 @@ bool const Taulesaux::existeix_cadena(string s){//busca la paraula en el map tau
 			iss >> actual;
 			--k;
 			++i;
-			cout << "7" <<endl;
+			
 		}
-		cout << "8 " <<endl;
+		
 		return true;
 	}
-	cout << "9" << endl;
+	
 	return trobat;
 	
 }

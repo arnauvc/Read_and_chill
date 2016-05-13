@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <set>
 #include <utility>
 #include <algorithm>
 
@@ -31,20 +32,98 @@ class Taulesaux{
 		};
 		
 		map<string,Node> taulaparaules;
-		vector<pair<int,string> > taulafreq;
+		
+		map<string,int> taulafreqe;
+		
+		vector<pair<int,string> > vectorauxiliar;
 		
 		bool static sort_comp(const pair<int,string>& lhs, const pair<int,string>& rhs){
-			return lhs.first<rhs.first || (!(rhs.first<lhs.first) && lhs.second.size()<rhs.second.size() ) || (!(rhs.first<lhs.first) && !(rhs.second.size()<lhs.second.size() )&& lhs.second<rhs.second);
+			
+			
+			if(lhs.first != rhs.first) return lhs.first > rhs.first;
+			else if (lhs.second.size()!=rhs.second.size()) return lhs.second.size()<rhs.second.size();
+			else lhs.second < rhs.second;	/*
+				if(lhs.first < rhs.first) 
+			else if (lhs.first == rhs.first && lhs.second.size()<rhs.second.size()) return lhs < rhs;
+			else if (lhs.first == rhs.first && lhs.second.size()<rhs.second.size() && lhs.second < rhs.second) return lhs < rhs;
+			else return false;
+			*/
+			//return lhs.first>rhs.first || (!(rhs.first>lhs.first) && lhs.second.size()<rhs.second.size() ) || (!(rhs.first>hs.first) && !(rhs.second.size()>lhs.second.size() )&& lhs.second<rhs.second);
 		}
 		
+		
+		/*
+		bool operator<(pair<int,string>& lhs, const pair<int,string>& rhs){
+			return lhs.first<rhs.first || (!(rhs.first<lhs.first) && lhs.second.size()>rhs.second.size() ) || (!(rhs.first<lhs.first) && !(rhs.second.size()<lhs.second.size() ) && lhs.second>rhs.second);
+		}
+		*/
+		/*
+		struct Parella{
+				string paraula;
+				int repeticions;
+				bool operator<(const Parella& p){
+					if (repeticions != p.repeticions) return repeticions < p.repeticions;
+					else if (paraula.size() != p.paraula.size()) return p.paraula.size() > p.paraula.size();
+					else return paraula > p.paraula;
+				}
+		};
+		set<Parella> taulafreqe;
+		
+		
+		*/
+		
+		
+		/*
+		bool const Parella::operator<(const Parella& p){
+			if (repeticions != p.repeticions) return repeticions < p.repeticions;
+			else if (paraula.size() != p.paraula.size()) return n.paraula.size() > p.paraula.size();
+			else return paraula > p.paraula();
+			
+		}
+		*/
+		
+			
+		/*
+			if(repeticions < p.repeticions) return true;
+			if((repeticions == p.repeticions) && (n.paraula.size() > p.paraula.size()) ) return true;
+			if ((repeticions == p.repeticions) && (n.paraula.size() == p.paraula.size()) && paraula > p.paraula) return true;
+			return false;
+		*/
+		
+		
+		
+
+		
+		/*
+		bool operator<(pair<int,string>& lhs, const pair<int,string>& rhs){
+			return lhs.first<rhs.first || (!(rhs.first<lhs.first) && lhs.second.size()>rhs.second.size() ) || (!(rhs.first<lhs.first) && !(rhs.second.size()<lhs.second.size() ) && lhs.second>rhs.second);
+		}
+		
+		*/
+		
+		/*
+		bool parella::operator<(const parella& lhs, const parella& rhs){
+			//return lhs.first<rhs.first || (!(rhs.first<lhs.first) && lhs.second.size()>rhs.second.size() ) || (!(rhs.first<lhs.first) && !(rhs.second.size()<lhs.second.size() ) && lhs.second>rhs.second);
+			if(lhs.first<rhs.first)return true;
+			else if ( (lhs.first == rhs.first) && (lhs.second.size()>rhs.second.size()) ) return true;
+			else if ((lhs.first == rhs.first) && (lhs.second.size() == rhs.second.size()) && (lhs.second > rhs.second)) return true;
+			else return false;
+				
+		}
+		*/
+		
+		
+		////////////////////////////////
+		
+		
+		
+		/*
 		int const busqueda(vector<pair<int,string> > &taulafreq, string valor, int low, int high) {
 			if (high < low) return -1 ;
 			if (taulafreq[((low + high) / 2)].second > valor) return busqueda(taulafreq, valor, low, ((low + high) / 2)-1);
 			else if (taulafreq[((low + high) / 2)].second < valor) return busqueda(taulafreq, valor, ((low + high) / 2)+1, high);
 			else return ((low + high) / 2);
 		}
-		
-			
 		
 		void insertion_sort (int arr[], int length){
 			int j, temp;
@@ -60,6 +139,8 @@ class Taulesaux{
 				}
 			}
 		}
+		///////////////////////////////////
+		*/
 		
 	public:
 		//CREADORA

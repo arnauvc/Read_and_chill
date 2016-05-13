@@ -1,8 +1,4 @@
 #include "Frase.hh"
-#include <vector>
-#include <sstream>
-#include <string>
-#include "Taulesaux.hh"
 
 Frase::Frase() {
 	num_paraules = 0;

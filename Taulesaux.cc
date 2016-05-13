@@ -1,17 +1,17 @@
-
-
-#include <string>
-#include <vector>
-#include <map>
-#include <utility>
 #include <sstream>
 #include "Taulesaux.hh"
 
 //CREADORA
-
+/** @brief 
+	\pre 
+	\post 
+*/ 
 Taulesaux::Taulesaux(){}
 
-		
+/** @brief 
+	\pre 
+	\post 
+*/ 	
 Taulesaux::~Taulesaux(){}
 
 
@@ -44,6 +44,10 @@ void Taulesaux::insertar_paraula(string paraula, int numf, string ant){
 }
 		
 //CONSULTORES
+/** @brief 
+	\pre 
+	\post 
+*/ 
 bool const Taulesaux::existeix_cadena(string s){//busca la paraula en el map taulaparaules
 	
 	bool trobat = false;
@@ -81,6 +85,11 @@ bool const Taulesaux::existeix_cadena(string s){//busca la paraula en el map tau
 	return trobat;
 	
 }
+
+/** @brief 
+	\pre 
+	\post 
+*/ 
 vector<int> const Taulesaux::frases_paraula(string paraula){
 	
 	map<string, Node>::const_iterator i = taulaparaules.find(paraula);
@@ -90,6 +99,10 @@ vector<int> const Taulesaux::frases_paraula(string paraula){
 
 
 //ESCRIPTORA
+/** @brief 
+	\pre 
+	\post 
+*/ 
 void const Taulesaux::taula_frequencies(){
 	
 	for(int i = 0; i < taulafreq.size(); ++i){

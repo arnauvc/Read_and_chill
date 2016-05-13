@@ -1,9 +1,4 @@
 #include "Text.hh"
-#include "Frase.hh"
-#include <string>
-#include <map>
-#include <algorithm>
-#include <iostream>
 
 Text::Text(){
     numfrases = 0;

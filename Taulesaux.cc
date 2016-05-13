@@ -2,30 +2,88 @@
 #include "Taulesaux.hh"
 
 //CREADORA
-/** @brief 
-	\pre 
-	\post 
-*/ 
+
 Taulesaux::Taulesaux(){}
 
-/** @brief 
-	\pre 
-	\post 
-*/ 	
 Taulesaux::~Taulesaux(){}
 
-
 //MODIFICADORA
-/** @brief 
-	\pre 
-	\post 
-*/ 
+
+/////////////////VERSIO1 AMB VECTOR
 void Taulesaux::insertar_paraula(string paraula, int numf, string ant){
-	//insercio en el map
+	
 	Node n;
-	
 	map<string, Node >::const_iterator i = taulaparaules.find(paraula);
+	if (i != taulaparaules.end()) {
+		n = i->second;
+		n.anterior = i->second.anterior;
+		n.posicions.push_back(numf);
+		taulaparaules.insert(make_pair(paraula,n));
+		
+		taulafreq.push_back(make_pair(1,paraula));
+	}
+	else {
+		n.posicions.push_back(numf);
+		taulaparaules.erase(paraula);
+		taulaparaules.insert(make_pair(paraula,n));
+		taulafreq.push_back(make_pair(1,paraula));
+	}
+	//Sempre fem push_back amb frequencia 1 i despres recorrem el vector per eliminar les repeticions i ordenem.
 	
+}
+
+void Taulesaux::ordenar_taulafreq(){
+	int j = 0;
+	int k = 1;
+	string s;
+	s = taulafreq[j].second;
+	while(k < taulafreq.size()){
+		if(k < taulafreq.size() and taulafreq[k].second == s){
+			while(taulafreq[k].second == s){
+				taulafreq[j].first += taulafreq[k].first;
+				++k;
+			}
+			++j;
+			taulafreq[j] = taulafreq[k];
+			++k;
+			s = taulafreq[j].second;
+		}
+		else {
+			if(j+1 == k){
+				++k;
+				++j;
+				s = taulafreq[j].second;
+				}
+			else{
+				++j;
+				taulafreq[j] = taulafreq[k];
+				++k;
+				s = taulafreq[j].second;
+			}
+		}
+	}
+	
+	for(int g = 0;g < taulafreq.size(); ++g){
+		cout << taulafreq[g].second << taulafreq[g].first << endl;
+	}
+	/*
+	cout << "size abans = " << taulafreq.size() <<endl;
+	vector<pair<int,string> >(taulafreq).swap(taulafreq);
+	cout << "size despres = " <<taulafreq.size() << endl;
+	*/
+	sort(taulafreq.begin(), taulafreq.end(), sort_comp);
+}
+
+/////////////////VERSIO1
+
+
+/*
+/////////////////VERSIO2 AMB LLISTA wwwwwait for it bitch, won't do that if not needed, ofc
+void Taulesaux::insertar_paraula(string paraula, int numf, string ant){
+	
+/
+	Node n;
+	map<string, Node >::const_iterator i = taulaparaules.find(paraula);
 	if (i != taulaparaules.end()) {
 		n = i->second;
 		n.anterior = i->second.anterior;
@@ -37,59 +95,58 @@ void Taulesaux::insertar_paraula(string paraula, int numf, string ant){
 		taulaparaules.erase(paraula);
 		taulaparaules.insert(make_pair(paraula,n));
 	}
-	
-	//insercio en la taula de taula_frequencies
-	
-	
+	//Sempre fem push_back amb frequencia 1 i despres recorrem el vector per eliminar les repeticions i ordenem.
+	taulafreq.push_back(make_pair(1,paraula));
 }
+
+void Taulesaux::ordenar_taulafreq(){
+	int num;
+	string s;
+	for(int j = 0; j < taulafreq.size(); ++j){
+		num = taulafreq[j].first;
+		s = taulafreq[j].second;
+		while(taulafreq[j].second){
+			
+		}
 		
-//CONSULTORES
-/** @brief 
-	\pre 
-	\post 
-*/ 
-bool const Taulesaux::existeix_cadena(string s){//busca la paraula en el map taulaparaules
+	}
 	
+	sort(taulafreq.begin(), taulafreq.end(), sort_comp);
+}
+/////////////////VERSIO2
+*/
+
+
+
+
+//CONSULTORES
+bool const Taulesaux::existeix_cadena(string s){//busca la paraula en el map taulaparaules
 	bool trobat = false;
 	int k = s.size();
 	string actual, ant;
 	istringstream iss(s);
 	iss >> actual;
 	--k;
-	
 	map<string, Node>::const_iterator i = taulaparaules.find(actual);
 	if (i != taulaparaules.end()){
-		
 		ant = i->first;
 		iss >> actual;
 		--k;
-		
 		while(k > 0){
 			i = taulaparaules.find(actual);
-			if(i->second.anterior == ant) {
-				
-				return false;
-				
-			}
+			if(i->second.anterior == ant) return false;
 			else trobat = true;
 			ant = i->first;
 			iss >> actual;
 			--k;
 			++i;
-			
 		}
-		
 		return true;
 	}
-	
 	return trobat;
 	
 }
 
-/** @brief 
-	\pre 
-	\post 
-*/ 
 vector<int> const Taulesaux::frases_paraula(string paraula){
 	
 	map<string, Node>::const_iterator i = taulaparaules.find(paraula);
@@ -97,14 +154,8 @@ vector<int> const Taulesaux::frases_paraula(string paraula){
 	
 }
 
-
 //ESCRIPTORA
-/** @brief 
-	\pre 
-	\post 
-*/ 
 void const Taulesaux::taula_frequencies(){
-	
 	for(int i = 0; i < taulafreq.size(); ++i){
 		cout << taulafreq[i].second << " " << taulafreq[i].first <<endl;
 	}

@@ -98,27 +98,45 @@ void const Text::taula_frequencies(){
 
 
 void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora de Frase podria retornar un 0, o 1 segons si detecta *** o no.
-    
-	int a = 1;
-    string line;
-	getline(cin, titol);
+    int a = 1;
+    string line, op;
+    getline(cin, titol);
     getline(cin, autor);
-	getline(cin, line);
-    while(line != "****"){
-		Frase fr;
-        //fer la consulta del numero de paraules de cada frase;
-        // numparaules += Frase::num_paraules
-		
-        fr.llegir_frase(line, tau, a);
-		
-        contingut.insert(make_pair(a, fr));
-        ++a;
-        ++numfrases;
-        numparaules += fr.consultar_numparaules();
-		getline(cin, line);
-    }
-    tau.ordenar_taulafreq();
-    
+    getline(cin, line);
+    int l;
+    string aux;
+      while (line != "****") {
+	istringstream iss(line);
+	while(iss >> op) {
+	     bool primer = true;
+	     iss >> op;
+	     l = op.size();
+             while (char(op[l-1]) != '.' and char(op[l-1]) != '?' and char(op[l-1]) != '!') {
+	         if (primer) {
+		   aux = op;
+		   primer = false;
+	          }
+	          else {
+		    aux.insert(aux.size(), " ");
+		    aux.insert(aux.size(), op);
+		  }
+		  iss >> op;
+		  l = op.size();
+	     }
+	     if (primer) aux.insert(aux.size(), " ");
+             aux.insert(aux.size(), op);
+	     Frase fr;
+             fr.llegir_frase(line, tau, a);	
+             contingut.insert(make_pair(a, fr));	
+             ++a;
+             ++numfrases;
+             numparaules += fr.consultar_numparaules();
+	     aux.clear();
+        }
+        getline(cin, line);
+      } 
+    //tau.ordenar_taulafreq();
+
 }
 //....................................................................................................................
 // Retorna true si el paràmetre implicit compleix l'expressio exp, fals altrament

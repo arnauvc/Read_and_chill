@@ -12,6 +12,7 @@
 #include <utility>
 #include "Frase.hh"
 #include "Taulesaux.hh"
+#include <fstream>
 
 
 using namespace std;

@@ -19,118 +19,85 @@ using namespace std;
 
 int main(){
 	Biblioteca biblio;
-    Text texttriat;
+  Text texttriat;
 	string linia,op;
-    bool triat = false;
+  bool triat = false;
 	getline(cin,linia);
         while( linia != "sortir"){
-            
             cout << linia << endl;
             string liniac = linia;
             istringstream iss(linia);
             iss >> op;
-            //istringstream oss = iss;
-            //string consulta;
-            //ws(iss);
-            //getline(iss,consulta);
-            
             if(!biblio.consultar_triat()){
-                
+
             }
-            
-            //consultes sense parametre explicit
             if(liniac == "eliminar text"){
                 triat = false;
                 biblio.eliminar_text();
-
             }
-            
             else if(liniac == "tots textos ?"){
                 biblio.tots_textos();
             }
-            
             else if(liniac == "tots autors ?"){
                 biblio.tots_autors();
             }
-            
             else if(liniac == "info ?"){
                 texttriat.info_text();
                 //Falta fer el cout de les cites del textelse if(liniac == "info ?"){
-                
                 //Falta fer el cout de les cites del text
                 //texttriat.autor_text();
             }
-            
-
             else if (liniac == "contingut ?"){
                 if (triat) texttriat.contingut_text();
             }
-
             else if (liniac == "nombre de frases ?"){
                 cout << texttriat.consultar_numfrases() << endl;
             }
-
             else if (liniac == "nombre de paraules ?"){
                 cout << texttriat.consultar_numparaules() << endl;
             }
-
             else if (liniac == "taula de frequencies ?"){
                 texttriat.taula_frequencies();
             }
-            
             else if (liniac == "autor ?"){
                 cout << texttriat.autor_text() << endl;
             }
-
             else if (liniac == "contingut ?"){
                 texttriat.contingut_text();
             }
-
             else if (liniac == "nombre de frases ?"){
                 cout << texttriat.consultar_numfrases() << endl;
             }
-
             else if (liniac == "nombre de paraules ?"){
                 cout << texttriat.consultar_numparaules() << endl;
             }
-
-           
-            
-            
             //consultes amb parametre explicit
-            
             else if(op == "afegirtext"){
                 biblio.afegir_text();
             }
-
             else if(op == "triartext"){
-				string s;
-				//bool b = false;
-				
-				getline(cin,s);
+							string s;
+							//bool b = false;
+
+							getline(cin,s);
                 triat = true;
-				cout << "C" << endl;
+								cout << "C" << endl;
                 texttriat = biblio.triar_text(s);
-				//if(!b) cout << "No trobat "<< endl;
+								//if(!b) cout << "No trobat "<< endl;
             }
-            
             else if(op == "llegir cita"){
                 int x,y;
                 ws(iss);
                 iss >> x;
                 iss >> y;
                 biblio.afegir_cita(x,y);
-
             }
-            
             else if(op == "textosautor"){
-				string s;
-				getline(cin,s);
-                biblio.textos_autor(s);
+							string s;
+							getline(cin,s);
+              biblio.textos_autor(s);
             }
-            
             //cal tractar paraula per paraula, no la frase
-            
             else if(op == "substitueix"){
                 string s1,s2;
                 ws(iss);
@@ -138,7 +105,6 @@ int main(){
                 iss >> s2;
                 texttriat.substitueix_paraules(s1,s2);
             }
-            
             else if (op == "frases"){
                 int x,y;
                 string s1;
@@ -157,19 +123,12 @@ int main(){
                     ss >> x;
                     ss >> y;
                     texttriat.interval_frases(x,y);
-                } 
+                }
             }
-            
             else {
                 cout << "comanda incorrecte" << endl;
                 while ( iss >> op) cout << op << endl;
             }
-
             getline(cin, linia);
-
         }
 }
-
-
-
-

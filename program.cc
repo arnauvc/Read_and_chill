@@ -21,6 +21,7 @@ int main(){
 	Biblioteca biblio;
     Text texttriat;
 	string linia,op;
+    bool triat = false;
 	getline(cin,linia);
         while( linia != "sortir"){
             
@@ -39,8 +40,8 @@ int main(){
             
             //consultes sense parametre explicit
             if(liniac == "eliminar text"){
-                cout << "entra";
-                biblio.eliminar_text();
+                triat = false;
+                triat = biblio.eliminar_text();
 
             }
             
@@ -62,7 +63,7 @@ int main(){
             
 
             else if (liniac == "contingut ?"){
-                texttriat.contingut_text();
+                if (triat) texttriat.contingut_text();
             }
 
             else if (liniac == "nombre de frases ?"){
@@ -107,6 +108,7 @@ int main(){
 				//bool b = false;
 				
 				getline(cin,s);
+                triat = true;
 				cout << "C" << endl;
                 texttriat = biblio.triar_text(s);
 				//if(!b) cout << "No trobat "<< endl;

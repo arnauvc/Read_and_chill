@@ -112,11 +112,9 @@ void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora
         fr.llegir_frase(line, tau, a);
 		
         contingut.insert(make_pair(a, fr));
-		
         ++a;
         ++numfrases;
         numparaules += fr.consultar_numparaules();
-		
 		getline(cin, line);
     }
     tau.ordenar_taulafreq();

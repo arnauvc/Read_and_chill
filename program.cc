@@ -159,7 +159,7 @@ int main(){
             }
             
             else {
-                cout << "error1" << endl;
+                cout << "comanda incorrecte" << endl;
                 while ( iss >> op) cout << op << endl;
             }
 

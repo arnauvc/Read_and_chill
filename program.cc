@@ -41,7 +41,7 @@ int main(){
             //consultes sense parametre explicit
             if(liniac == "eliminar text"){
                 triat = false;
-                triat = biblio.eliminar_text();
+                biblio.eliminar_text();
 
             }
             

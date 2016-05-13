@@ -119,7 +119,7 @@ void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora
 		
 		getline(cin, line);
     }
-    
+    tau.ordenar_taulafreq();
     
 }
 //....................................................................................................................

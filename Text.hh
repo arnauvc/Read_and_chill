@@ -10,7 +10,6 @@
 #include <vector>
 #include <map>
 #include <utility>
-#include <algorithm>
 #include "Frase.hh"
 #include "Taulesaux.hh"
 

@@ -22,15 +22,13 @@ class Biblioteca{
 			int nfrases;
 			int nparaules;
 		};
-		
+		int ncites;
 		bool triat;
 		Text ttriat;
 		map<string,Text> conjunt_cites; //referencia, Cita
-		map<string,Text> conjunt_textos; // autor, Text
+		//map<string,Text> conjunt_textos; // autor, Text
+		map<string, map<string, Text> > conjunt_textos;
 		map<string,infoautor> conjunt_autors;
-		bool static comp_titols(string a, string b) {
-			return a < b;
-		}
 		
 	public:
 		/* Constructores */

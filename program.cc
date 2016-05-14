@@ -85,12 +85,33 @@ int main(){
                 texttriat = biblio.triar_text(s);
 								//if(!b) cout << "No trobat "<< endl;
             }
-            else if(op == "llegir cita"){
-                int x,y;
-                ws(iss);
-                iss >> x;
-                iss >> y;
+            else if(op == "llegircita"){
+                int x,y;//primera frase y ultima frase
+               // ws(iss);
+               // iss >> x;
+               // iss >> y;
+                cin >> x >> y;
+                cout << "BBBBBBBBBB";
                 biblio.afegir_cita(x,y);
+                cout << "AAAAAAAAAAAAAAAAA";
+            }
+            else if(op == "infocita"){
+                string s;//referencia
+                cin >> s;
+                biblio.info_cita(s);
+            }
+            else if(op == "citesautor"){
+                string s;//autor
+                cin >> s;
+                biblio.cites_autor(s);
+            }
+            else if(op == "totescites"){
+                biblio.totes_cites();
+            }
+            else if(op == "eliminarcita"){
+                string s;//referencia
+                cin >> s;
+                biblio.eliminar_cita(s);
             }
             else if(op == "textosautor"){
 							string s;

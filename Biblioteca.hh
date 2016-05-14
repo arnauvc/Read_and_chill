@@ -17,18 +17,25 @@ using namespace std;
 class Biblioteca{
 
 	private: 
-		struct infoautor{
+		struct infoautor {
 			int ntextos;
 			int nfrases;
 			int nparaules;
 		};
+		struct infocita {
+			int firstfrase; //x
+			int lastfrase; //y
+			string aut; //autor text original
+			string tit; //titol text original
+			string contingutcita; //frases que la componen
+			int numref; //es el nombre de la referencia EF(1)...EF(2)...
+		};
 		int ncites;
 		bool triat;
 		Text ttriat;
-		map<string,Text> conjunt_cites; //referencia, Cita
-		//map<string,Text> conjunt_textos; // autor, Text
-		map<string, map<string, Text> > conjunt_textos;
-		map<string,infoautor> conjunt_autors;
+		map<string,infocita> conjunt_cites; //referencia, Cita
+		map<string, map<string, Text> > conjunt_textos;//autor, titol text
+		map<string,infoautor> conjunt_autors;//autor, informacio de l'autor
 		
 	public:
 		/* Constructores */

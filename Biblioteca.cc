@@ -26,7 +26,6 @@ Text const Biblioteca::triar_text(string s){
 		}
 	}
 	if (not triat) cout << "NO TROBAT" << endl;
-	//b = false;
 	return ttriat;
 }
 
@@ -51,10 +50,6 @@ void const Biblioteca::textos_autor(string s){
     for (map<string, Text>::const_iterator j = k.begin(); j != k.end(); ++j) {
     	cout << j->first << endl;
     }
-    /*sort(titols_autor.begin(), titols_autor.end(), comp_titols);
-    for (int i = 0; i < titols_autor.size(); ++i) {
-    	cout << titols_autor[i] << endl;
-    }*/
 }
 
 void const Biblioteca::tots_autors(){
@@ -110,37 +105,69 @@ void Biblioteca::afegir_text(){
 }
 
 void Biblioteca::eliminar_text(){
-    //map<string, Text>::const_iterator i = find(ttriat.autor_text());
     conjunt_textos.erase(ttriat.autor_text());
     triat = false;
 }
 
 void Biblioteca::afegir_cita(int x, int y){
-	
-	/*char first, last;
-	first = cin.get();     // get one character
-	cin.ignore(256,' ');   // ignore until space
-	last = cin.get();*/      // get one character
-	
+	string autor = ttriat.autor_text();
+	string titol = ttriat.titol_text();
+	string refe;
+	infocita k;
+	string op;
+	istringstream iss(autor);
+	iss >> op;
+	refe = char(op[0]);
+	iss >> op;
+	refe += char(op[0]);
+	refe += "1";
+	map<string,infocita>::const_iterator i = conjunt_cites.find(refe);
+	if (i == conjunt_cites.end()) {
+		k.firstfrase = x;
+   	    k.lastfrase = y;
+		k.numref = 1;
+		k.aut = autor;
+		k.tit = titol;
+  	    k.contingutcita = "siempre igual!!! para comprobar";
+	}
+	else {
+		k.firstfrase = x;
+   	    k.lastfrase = y;
+		k.numref = i->second.numref + 1;
+		k.aut = autor;
+		k.tit = titol;
+  	    k.contingutcita = "siempre igual!!! para comprobar";
+  	    refe.erase(refe.end()-1);
+  	    refe += char(k.numref);
+	}
+	conjunt_cites.insert(make_pair(refe, k));
 }
 
-/*void const Biblioteca::cites_autor(string autor) {
-	for (map<string,Text>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
-		
+void const Biblioteca::cites_autor(string autor) {
+	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
+		if (autor == i->second.aut) {
+			cout << i->first << " ";
+			cout << i->second.contingutcita << endl;
+			cout << i->second.tit << endl;
+		}
     }
 }
 
 void const Biblioteca::info_cita(string referencia) {
-
+	map<string,infocita>::const_iterator i = conjunt_cites.find(referencia);
+	cout << i->second.aut << " " << i->second.tit << i->second.firstfrase << " " << i->second.lastfrase << endl;
+	cout << i->second.contingutcita << endl;
 }
 
 void const Biblioteca::totes_cites() {
-	for (map<string,Text>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
-
+	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
+		cout << i->first << " ";
+		cout << i->second.contingutcita << endl;
+		cout << i->second.aut << " " << i->second.tit << endl;
     }
 }
 
 void Biblioteca::eliminar_cita(string referencia) {
-	//map<string, Text>::const_iterator i = find(ttriat.autor_text());
-    conjunt_cites.erase(ttriat.autor_text());
-}*/
+    conjunt_cites.erase(referencia);
+    //donar error si no existeix referencia al program!
+}

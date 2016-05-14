@@ -132,9 +132,9 @@ class Biblioteca{
         */
         void const tots_autors();
                 
-        /** @brief asdasdsad
-			\pre sadasdsasadsada
-			\post adsadsadsadsadasds
+        /** @brief mostra tots els titols de lautor 
+			\pre autor existeix
+			\post mostra tots els titols dels textos de l'autor
          */
         void const textos_autor(string s);
                 

@@ -87,22 +87,25 @@ int main(){
             }
             else if(op == "llegircita"){
                 int x,y;//primera frase y ultima frase
-               // ws(iss);
-               // iss >> x;
-               // iss >> y;
-                cin >> x >> y;
-                cout << "BBBBBBBBBB";
+                ws(iss);
+                iss >> x;
+                iss >> y;
+                //cin >> x >> y;
                 biblio.afegir_cita(x,y);
-                cout << "AAAAAAAAAAAAAAAAA";
             }
             else if(op == "infocita"){
                 string s;//referencia
-                cin >> s;
+                //cin >> s;
+                ws(iss);
+                iss >> s;
                 biblio.info_cita(s);
             }
             else if(op == "citesautor"){
                 string s;//autor
-                cin >> s;
+                //cin >> s;
+                //ws(iss);
+                //iss >> s;
+                getline(cin, s);
                 biblio.cites_autor(s);
             }
             else if(op == "totescites"){
@@ -110,7 +113,9 @@ int main(){
             }
             else if(op == "eliminarcita"){
                 string s;//referencia
-                cin >> s;
+                //cin >> s;
+                ws(iss);
+                iss >> s;
                 biblio.eliminar_cita(s);
             }
             else if(op == "textosautor"){

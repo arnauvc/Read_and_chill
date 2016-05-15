@@ -28,12 +28,11 @@ Text const Biblioteca::triar_text(string s){
 			if (t.buscar_paraules(s)) {
 				ttriat = j->second;
 				triat = true;
-				cout << "TROBAT" << endl;
 				return ttriat;
 			}
 		}
 	}
-	if (not triat) cout << "NO TROBAT" << endl;
+	if (not triat) cout << "error" << endl;
 	return ttriat;
 }
 
@@ -73,9 +72,9 @@ void const Biblioteca::tots_autors(){
     
 }
 
-void Biblioteca::afegir_text(){
+void Biblioteca::afegir_text(string op){
     Text t;
-    t.llegir_text();
+    t.llegir_text(op);
 	
     string s = t.autor_text();
     string ti = t.titol_text();

@@ -80,7 +80,7 @@ class Biblioteca{
 			\pre que existeixi almenys una biblioteca
 			\post El p.i es el mateix que l'original pero amb un text mes
 		*/ 
-		void afegir_text();
+		void afegir_text(string op);
                 
 		
 		/** @brief Elimina un text de la biblioteca

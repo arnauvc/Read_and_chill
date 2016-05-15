@@ -11,6 +11,7 @@
 #include <map>
 #include <set>
 #include <utility>
+#include <cstddef>
 #include "Frase.hh"
 #include "Taulesaux.hh"
 #include <fstream>
@@ -134,7 +135,7 @@ class Text{
 			\pre cert
 			\post llegeix el titol, l'autor i el contigut del p.i
 		*/
-		void llegir_text();
+		void llegir_text(string ti);
 };
 
 #endif

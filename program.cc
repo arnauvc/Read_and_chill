@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <cstddef>
 #include "Biblioteca.hh"
 #include "Text.hh"
 
@@ -19,7 +20,7 @@ using namespace std;
 
 int main(){
 	Biblioteca biblio;
-  Text texttriat;
+        Text texttriat;
 	string linia,op;
   bool triat = false;
 	getline(cin,linia);
@@ -28,9 +29,7 @@ int main(){
             string liniac = linia;
             istringstream iss(linia);
             iss >> op;
-            if(!biblio.consultar_triat()){
-
-            }
+            
             if(liniac == "eliminar text"){
                 triat = false;
                 biblio.eliminar_text();
@@ -41,7 +40,7 @@ int main(){
             else if(liniac == "tots autors ?"){
                 biblio.tots_autors();
             }
-            else if(liniac == "info ?"){
+            else if(liniac == "info ?" && triat){
                 texttriat.info_text();
                 //Falta fer el cout de les cites del textelse if(liniac == "info ?"){
                 //Falta fer el cout de les cites del text
@@ -72,24 +71,34 @@ int main(){
                 cout << texttriat.consultar_numparaules() << endl;
             }
             //consultes amb parametre explicit
-            else if(op == "afegirtext"){
-                biblio.afegir_text();
+            else if(op == "afegir"){
+                ws(iss);
+                iss >> op;
+                if(op == "text"){
+                    string::size_type i = liniac.find(op);
+                    if (i != string::npos) liniac.erase(0, i+(op.length()+1));
+                    biblio.afegir_text(liniac);
+                }
+                else if(op == "cita"){
+                    int x,y;//primera frase y ultima frase
+                    ws(iss);
+                    iss >> x;
+                    iss >> y;
+                    biblio.afegir_cita(x,y);
+                }
+                
             }
-            else if(op == "triartext"){
+            else if(op == "triar"){
                 string s;
                 //bool b = false;
-                getline(cin,s);
+                iss >> op;
+                string::size_type i = liniac.find("text");
+                if (i != string::npos) liniac.erase(0,i+(op.length()+1));
+                liniac.erase(liniac.begin(), liniac.begin()+1);
+                liniac.erase(liniac.size()-1, liniac.size());
                 triat = true;
-                texttriat = biblio.triar_text(s);
+                texttriat = biblio.triar_text(liniac);
                 //if(!b) cout << "No trobat "<< endl;
-            }
-            else if(op == "llegircita"){
-                int x,y;//primera frase y ultima frase
-                ws(iss);
-                iss >> x;
-                iss >> y;
-                //cin >> x >> y;
-                biblio.afegir_cita(x,y);
             }
             else if(op == "infocita"){
                 string s;//referencia
@@ -122,17 +131,25 @@ int main(){
                 biblio.textos_autor(s);
             }
             //cal tractar paraula per paraula, no la frase
-            else if(op == "substitueix"){ //FUNCIONA
+            else if(op == "substitueix" && triat){
                 string s1,tmp,s2;
                 ws(iss);
                 iss >> s1;
                 iss >> tmp;
                 iss >> s2;
+                s1.erase(s1.begin(), s1.begin()+1);
+                s1.erase(s1.size()-1, s1.size());
+                s2.erase(s2.begin(), s2.begin()+1);
+                s2.erase(s2.size()-1, s2.size());
+                cout << "arriba aqui" <<endl;
                 texttriat.substitueix_paraules(s1,s2);
+                texttriat = biblio.triar_text(s2);
+                cout << "surt" <<endl;
             }
             else if (op == "frases"){
-                string s1;
+                string s1,tmp;
                 ws(iss);
+                tmp = op;
                 iss >> op;
                 if(op[0] == '"'){
                     op.erase(op.begin(), op.begin()+1);
@@ -152,22 +169,25 @@ int main(){
                     texttriat.paraules_frase(s1);
                 }
                 else if(op[0] == '(' ){
-                    cout<< "ha entrat a expressio" <<endl;
-                    cout << linia <<endl;
+                    string::size_type i = liniac.find(tmp);
+                    if (i != string::npos) liniac.erase(i, tmp.length()+1);
+                    cout << liniac <<endl;
                     //texttriat.expressio_frases(linia);
                 }
                 else{
                     int x,y;
-                    /*
+                    
                     istringstream ss(op);
                     ss >> x;
                     ss >> y;
-                    */
-                    cout << linia << endl;
+                    
+                    /*
                     iss >> x;
                     ws(iss);
                     iss >> y;
-                    map<int,Frase> m = texttriat.interval_frases(y,x);
+                    */
+                    cout << x <<" " <<y <<endl;
+                    map<int,Frase> m = texttriat.interval_frases(x,y);
                     for(map<int,Frase>::iterator j = m.begin();j != m.end();++j){
                         cout << j->first << " ";
                         j->second.escriu_frase();
@@ -175,8 +195,7 @@ int main(){
                 }
             }
             else {
-                cout << "comanda incorrecte" << endl;
-                while ( iss >> op) cout << op << endl;
+                if(!(linia.empty()))cout << "comanda incorrecte" << endl;
             }
             getline(cin, linia);
         }

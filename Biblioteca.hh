@@ -11,6 +11,7 @@
 #include "Frase.hh"
 #include "Text.hh"
 #include <algorithm>
+#include <sstream>
 
 using namespace std;
 
@@ -28,7 +29,6 @@ class Biblioteca{
 			string aut; //autor text original
 			string tit; //titol text original
 			map<int,Frase> contingutcita; //frases que la componen
-			int numref; //es el nombre de la referencia EF(1)...EF(2)...
 		};
 		int ncites;
 		bool triat;

@@ -27,7 +27,7 @@ class Biblioteca{
 			int lastfrase; //y
 			string aut; //autor text original
 			string tit; //titol text original
-			string contingutcita; //frases que la componen
+			map<int,Frase> contingutcita; //frases que la componen
 			int numref; //es el nombre de la referencia EF(1)...EF(2)...
 		};
 		int ncites;

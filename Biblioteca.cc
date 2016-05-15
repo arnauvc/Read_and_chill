@@ -128,7 +128,7 @@ void Biblioteca::afegir_cita(int x, int y){
 		k.numref = 1;
 		k.aut = autor;
 		k.tit = titol;
-  	    k.contingutcita = "siempre igual!!! para comprobar";
+  	    k.contingutcita = ttriat.interval_frases(x, y);
 	}
 	else {
 		k.firstfrase = x;
@@ -136,7 +136,7 @@ void Biblioteca::afegir_cita(int x, int y){
 		k.numref = i->second.numref + 1;
 		k.aut = autor;
 		k.tit = titol;
-  	    k.contingutcita = "siempre igual!!! para comprobar";
+  	    k.contingutcita = ttriat.interval_frases(x, y);
   	    refe.erase(refe.end()-1);
   	    refe += char(k.numref);
 	}
@@ -147,7 +147,11 @@ void const Biblioteca::cites_autor(string autor) {
 	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
 		if (autor == i->second.aut) {
 			cout << i->first << " ";
-			cout << i->second.contingutcita << endl;
+			for (map<int,Frase>::const_iterator j = i->second.contingutcita.begin(); j != i->second.contingutcita.end(); ++j) {
+				Frase fr = j->second;
+				cout << j->first << " "; 
+				fr.escriu_frase();
+			}
 			cout << i->second.tit << endl;
 		}
     }
@@ -155,19 +159,30 @@ void const Biblioteca::cites_autor(string autor) {
 
 void const Biblioteca::info_cita(string referencia) {
 	map<string,infocita>::const_iterator i = conjunt_cites.find(referencia);
-	cout << i->second.aut << " " << i->second.tit << i->second.firstfrase << " " << i->second.lastfrase << endl;
-	cout << i->second.contingutcita << endl;
+	if (i != conjunt_cites.end()){
+		cout << i->second.aut << " " << i->second.tit << " " << i->second.firstfrase << " " << i->second.lastfrase << endl;
+		for (map<int,Frase>::const_iterator j = i->second.contingutcita.begin(); j != i->second.contingutcita.end(); ++j) {
+				Frase fr = j->second;
+				cout << j->first << " "; 
+				fr.escriu_frase();
+		}
+    }
 }
 
 void const Biblioteca::totes_cites() {
 	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
-		cout << i->first << " ";
-		cout << i->second.contingutcita << endl;
+		cout << i->first << endl;
+		for (map<int,Frase>::const_iterator j = i->second.contingutcita.begin(); j != i->second.contingutcita.end(); ++j) {
+				Frase fr = j->second;
+				cout << j->first << " "; 
+				fr.escriu_frase();
+		}
 		cout << i->second.aut << " " << i->second.tit << endl;
     }
 }
 
 void Biblioteca::eliminar_cita(string referencia) {
-    conjunt_cites.erase(referencia);
+	map<string,infocita>::iterator i = conjunt_cites.find(referencia);
+    conjunt_cites.erase(i);
     //donar error si no existeix referencia al program!
 }

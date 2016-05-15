@@ -54,12 +54,12 @@ class Frase{
          
 		/* Llegir i escriure */
 
-        /* Llegir i escriure */
-        /** @brief Lectora de frases
-        		\pre cert
-        		\post llegeix una frase del p.i
+                /* Llegir i escriure */
+                /** @brief Lectora de frases
+                    \pre cert
+                    \post llegeix una frase del p.i
 		*/
-        void llegir_frase(string s,Taulesaux &ta, int numf);
+                void llegir_frase(string s,Taulesaux &ta, int numf);
 		
 		/** @brief escriptora de frases
         		 \pre cert

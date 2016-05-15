@@ -76,14 +76,12 @@ int main(){
                 biblio.afegir_text();
             }
             else if(op == "triartext"){
-							string s;
-							//bool b = false;
-
-							getline(cin,s);
+                string s;
+                //bool b = false;
+                getline(cin,s);
                 triat = true;
-								cout << "C" << endl;
                 texttriat = biblio.triar_text(s);
-								//if(!b) cout << "No trobat "<< endl;
+                //if(!b) cout << "No trobat "<< endl;
             }
             else if(op == "llegircita"){
                 int x,y;//primera frase y ultima frase
@@ -91,9 +89,7 @@ int main(){
                // iss >> x;
                // iss >> y;
                 cin >> x >> y;
-                cout << "BBBBBBBBBB";
                 biblio.afegir_cita(x,y);
-                cout << "AAAAAAAAAAAAAAAAA";
             }
             else if(op == "infocita"){
                 string s;//referencia
@@ -114,36 +110,61 @@ int main(){
                 biblio.eliminar_cita(s);
             }
             else if(op == "textosautor"){
-							string s;
-							getline(cin,s);
-              biblio.textos_autor(s);
+                string s;
+                getline(cin,s);
+                biblio.textos_autor(s);
             }
             //cal tractar paraula per paraula, no la frase
-            else if(op == "substitueix"){
-                string s1,s2;
+            else if(op == "substitueix"){ //FUNCIONA
+                string s1,tmp,s2;
                 ws(iss);
                 iss >> s1;
+                iss >> tmp;
                 iss >> s2;
                 texttriat.substitueix_paraules(s1,s2);
             }
             else if (op == "frases"){
-                int x,y;
                 string s1;
+                ws(iss);
                 iss >> op;
-                if(op == "//afegir signe de cometes  "){
-                    getline(iss,s1);
+                if(op[0] == '"'){
+                    op.erase(op.begin(), op.begin()+1);
+                    s1 += op;
+                    s1 += " ";
+                    ws(iss);
+                    iss >> op;
+                    while(op[op.size()-1] != '"'){
+                        s1 += op;
+                        s1 += " ";
+                        ws(iss);
+                        iss >> op;
+                    }
+                    op.erase(op.size()-1, op.size());
+                    s1 += op;
+                    s1 += " ";
                     texttriat.paraules_frase(s1);
                 }
-                else if(op == "(" ){
-                    getline(iss,s1);
-                    texttriat.expressio_frases(s1);
+                else if(op[0] == '(' ){
+                    cout<< "ha entrat a expressio" <<endl;
+                    cout << linia <<endl;
+                    //texttriat.expressio_frases(linia);
                 }
                 else{
-                    //string::size_type sz;
+                    int x,y;
+                    /*
                     istringstream ss(op);
                     ss >> x;
                     ss >> y;
-                    texttriat.interval_frases(x,y);
+                    */
+                    cout << linia << endl;
+                    iss >> x;
+                    ws(iss);
+                    iss >> y;
+                    map<int,Frase> m = texttriat.interval_frases(y,x);
+                    for(map<int,Frase>::iterator j = m.begin();j != m.end();++j){
+                        cout << j->first << " ";
+                        j->second.escriu_frase();
+                    }
                 }
             }
             else {

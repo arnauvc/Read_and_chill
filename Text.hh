@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <set>
 #include <utility>
 #include "Frase.hh"
 #include "Taulesaux.hh"
@@ -20,30 +21,29 @@ using namespace std;
 class Text{
 
 	private:
-		string titol;
-		string autor;
-		map<int,Frase> contingut;
-		int numparaules;
-		int numfrases;
-		
-		Taulesaux tau;
+            string titol;
+            string autor;
+            map<int,Frase> contingut;
+            int numparaules;
+            int numfrases;
+            Taulesaux tau;
 		
 	public:
-		/* Constructores */
+            /* Constructores */
 
-		/** @brief Creadora per defecte.
-			\pre cert
-			\post crea un text sense titol ni autor ni contingut(buit)
-		*/ 
-		Text();
+            /** @brief Creadora per defecte.
+                    \pre cert
+                    \post crea un text sense titol ni autor ni contingut(buit)
+            */ 
+            Text();
 	
-		/* Destructora */
+            /* Destructora */
 		
-		/** @brief Destructora per defecte.
-			\pre cert
-			\post destrueix el text
-		*/
-		~Text();
+            /** @brief Destructora per defecte.
+                    \pre cert
+                    \post destrueix el text
+            */
+            ~Text();
 		
 		/* Modificadores*/
 
@@ -79,13 +79,13 @@ class Text{
 			\pre text triat
 			\post mostra el titol del p.i
 		*/ 
-        string const titol_text();
+                string const titol_text();
 		
 		/** @brief el p.i te autor, titol i contingut
 			\pre text triat
 			\post mostra l'autor del p.i
 		*/ 
-        string const autor_text();	
+            string const autor_text();	
 
 		/** @brief el p.i te autor, titol i contingut
 			\pre text triat
@@ -97,7 +97,7 @@ class Text{
 			\pre text triat
 			\post mostra les diferents frases entre la "x" i la "y" del p.i
 		*/
-		void const interval_frases(int x, int y);
+		map<int,Frase> const interval_frases(int x, int y);
 
 		/** @brief mostra frases del p.i
 			\pre text triat

@@ -31,50 +31,63 @@ void const Text::info_text(){//aquesta funcio no retorna les cites associades al
 
 void const Text::contingut_text(){
     for(map<int,Frase>::const_iterator i=contingut.begin(); i != contingut.end(); ++i){
-		cout << (i->first) << " ";
+        cout << (i->first) << " ";
         Frase f = i->second;
         f.escriu_frase();
     }
 }
 
-void const Text::interval_frases(int x, int y){
+map<int,Frase> const Text::interval_frases(int x, int y){
+    map<int,Frase> m;
     map<int,Frase>::const_iterator j;
     if( x>y or x>contingut.size() or y>contingut.size() or contingut.empty() ){
-        cout << "error" <<endl;
+        cout << "error del interval" <<endl;
     }
+    /*
+    else if(x == y){
+        map<int,Frase>::const_iterator k = contingut.find(x);
+        
+        m.insert(make_pair(k->first,k->second));
+        return m;
+    }
+    */
     else{
+        
         for(int i = x; i <= y; ++i){
-            j = contingut.find(i);
-			      cout << j->first;
-            Frase f = (*j).second;
+            map<int,Frase>::const_iterator j = contingut.find(i);
+            m.insert(make_pair(j->first,j->second));
+        }
+        return m;
+    }
+}
+
+void const Text::paraules_frase(string s1){ //ara per ara, funciona amb la funcio TROBAT !!!
+    //
+    istringstream iss(s1);
+    ws(iss);
+    string op;
+    iss >> op;
+    set<int> s = tau.frases_paraula(op);
+    for(set<int>::const_iterator j = s.begin(); j != s.end(); ++j){
+        map<int,Frase>::const_iterator i = contingut.find(*j);
+        Frase f = i->second;
+        if(f.trobat(s1)) {
+            cout << i->first << " ";
             f.escriu_frase();
         }
     }
 }
 
-void const Text::paraules_frase(string s1){
-	for(map<int,Frase>::const_iterator i = contingut.begin(); i != contingut.end(); ++i){
-        Frase f = i->second;
-        if(f.trobat(s1)) {
-    			cout << i->first << " ";
-    			f.escriu_frase();
-    		}
-    }
-}
-
 bool const Text::buscar_paraules(string s) {
-	cout << "A" << endl;
 	return tau.existeix_cadena(s);
 
 }
 
 void Text::substitueix_paraules(string s1, string s2){
-    for(map<int,Frase>::const_iterator i = contingut.begin(); i != contingut.end(); ++i){
-        Frase f = i->second;
-		    int num = i->first;
-        f.canvi_paraules(s1,s2);
-		    contingut.erase(num);
-		    contingut.insert(make_pair(num,f));
+    tau.intercanviar(s1,s2);
+    
+    for(map<int,Frase>::iterator i = contingut.begin(); i != contingut.end(); ++i){
+        i->second.canvi_paraules(s1,s2);
     }
 }
 
@@ -93,7 +106,7 @@ void const Text::taula_frequencies(){
     tau.taula_frequencies();
 }
 
-void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora de Frase podria retornar un 0, o 1 segons si detecta *** o no.
+void Text::llegir_text(){
     int a = 1;
     string line, op;
     getline(cin, titol);
@@ -103,37 +116,34 @@ void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora
     string aux;
     bool primer;
     while (line != "****") {
-      istringstream iss(line);
-      while(iss >> op) {
-        primer = true;
-        //iss >> op;
-        l = op.size();
-        while (char(op[l-1]) != '.' and char(op[l-1]) != '?' and char(op[l-1]) != '!') {
-          if (primer) {
-            aux = op;
-            primer = false;
-  	      }
-  	      else {
-            aux += " ";
-            aux += op;
-            //aux.insert(aux.size(), " ");
-            //aux.insert(aux.size(), op);
-          }
-          iss >> op;
-          l = op.size();
+        istringstream iss(line);
+        while(iss >> op) {
+            primer = true;
+            //iss >> op;
+            l = op.size();
+            while (char(op[l-1]) != '.' and char(op[l-1]) != '?' and char(op[l-1]) != '!') {
+                if (primer) {
+                    aux = op;
+                    primer = false;
+                }
+                else {
+                    aux += " ";
+                    aux += op;
+                }
+                iss >> op;
+                l = op.size();
+            }
+            if (not primer) aux += " ";//aux.insert(aux.size(), " ");
+            aux += op; //aux.insert(aux.size(), op);
+            Frase fr;
+            fr.llegir_frase(aux, tau, a);
+            contingut.insert(make_pair(a, fr));
+            ++a;
+            ++numfrases;
+            numparaules += fr.consultar_numparaules();
+            aux.clear();
         }
-  	    if (not primer) aux += " ";//aux.insert(aux.size(), " ");
-        aux += op; //aux.insert(aux.size(), op);
-  	    Frase fr;
-        fr.llegir_frase(aux, tau, a);
-        contingut.insert(make_pair(a, fr));
-        ++a;
-        ++numfrases;
-        numparaules += fr.consultar_numparaules();
-        cout << aux << endl;
-  	    aux.clear();
-       }
-       getline(cin, line);
+        getline(cin, line);
     }
     tau.ordenar_taulafreq();
 }

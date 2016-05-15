@@ -20,14 +20,16 @@ class Taulesaux{
 	private:
 
 		struct Node {
-			vector<int> posicions;
+			set<int> posicions;
 			string anterior;
+                        /*
 			void const operator=(Node rhs){
 				anterior = rhs.anterior;
 				for(int i = 0; i < posicions.size(); ++i){
 					posicions[i] = rhs.posicions[i];
 				}
 			}
+			*/
 		};
 
 		map<string,Node> taulaparaules;
@@ -78,7 +80,13 @@ class Taulesaux{
 			\pre
 			\post
 		*/
-		vector<int> const frases_paraula(string s);
+		set<int> const frases_paraula(string s);
+                
+                /** @brief
+			\pre
+			\post
+		*/
+                void intercanviar(string s1, string s2);
 
 		//ESCRIPTORA
 		/** @brief

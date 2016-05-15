@@ -17,6 +17,14 @@ Text const Biblioteca::triar_text(string s){
 		map<string, Text> k = i->second;
 		for (map<string, Text>::const_iterator j = k.begin(); j != k.end(); ++j) {
 			Text t = j->second;
+                        /*
+                        for(){
+                            
+                        }
+                        for(){
+                            
+                        }
+                        */
 			if (t.buscar_paraules(s)) {
 				ttriat = j->second;
 				triat = true;

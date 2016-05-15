@@ -101,11 +101,12 @@ void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora
     getline(cin, line);
     int l;
     string aux;
+    bool primer;
     while (line != "****") {
       istringstream iss(line);
       while(iss >> op) {
-        bool primer = true;
-        iss >> op;
+        primer = true;
+        //iss >> op;
         l = op.size();
         while (char(op[l-1]) != '.' and char(op[l-1]) != '?' and char(op[l-1]) != '!') {
           if (primer) {
@@ -113,26 +114,28 @@ void Text::llegir_text(){ // falta definir l'acabament de la lectura, La lectora
             primer = false;
   	      }
   	      else {
-            aux.insert(aux.size(), " ");
-            aux.insert(aux.size(), op);
+            aux += " ";
+            aux += op;
+            //aux.insert(aux.size(), " ");
+            //aux.insert(aux.size(), op);
           }
           iss >> op;
           l = op.size();
         }
-  	    if (primer) aux.insert(aux.size(), " ");
-        aux.insert(aux.size(), op);
+  	    if (not primer) aux += " ";//aux.insert(aux.size(), " ");
+        aux += op; //aux.insert(aux.size(), op);
   	    Frase fr;
-        fr.llegir_frase(line, tau, a);
+        fr.llegir_frase(aux, tau, a);
         contingut.insert(make_pair(a, fr));
         ++a;
         ++numfrases;
         numparaules += fr.consultar_numparaules();
+        cout << aux << endl;
   	    aux.clear();
        }
        getline(cin, line);
     }
     tau.ordenar_taulafreq();
-
 }
 //....................................................................................................................
 // Retorna true si el paràmetre implicit compleix l'expressio exp, fals altrament

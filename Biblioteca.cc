@@ -1,7 +1,6 @@
 #include "Biblioteca.hh"
 #include "Text.hh"
 #include "Frase.hh"
-#include <algorithm>
 
 Biblioteca::Biblioteca(){
     triat = false;
@@ -117,9 +116,11 @@ void Biblioteca::eliminar_text(){
 }
 
 void Biblioteca::afegir_cita(int x, int y){
+	//2 o 3 incials y despres el numero! per la referencia!
 	string autor = ttriat.autor_text();
 	string titol = ttriat.titol_text();
 	string refe;
+	int numref = 1;
 	infocita k;
 	string op;
 	istringstream iss(autor);
@@ -127,25 +128,42 @@ void Biblioteca::afegir_cita(int x, int y){
 	refe = char(op[0]);
 	iss >> op;
 	refe += char(op[0]);
-	refe += "1";
-	map<string,infocita>::const_iterator i = conjunt_cites.find(refe);
+	string Result;
+	stringstream convert;
+	convert << numref;
+	Result = convert.str();
+	refe += Result;
+	map<string,infocita>::iterator i = conjunt_cites.find(refe);
 	if (i == conjunt_cites.end()) {
 		k.firstfrase = x;
    	    k.lastfrase = y;
-		k.numref = 1;
 		k.aut = autor;
 		k.tit = titol;
   	    k.contingutcita = ttriat.interval_frases(x, y);
 	}
 	else {
+		while (i != conjunt_cites.end()) {
+			op.clear();
+			refe.clear();
+			//++ncites;
+			++numref;
+			istringstream iss(autor);
+			iss >> op;
+			refe = char(op[0]);
+			iss >> op;
+			refe += char(op[0]);
+			string Result;
+			stringstream convert;
+			convert << numref;
+			Result = convert.str();
+			refe += Result;
+			i = conjunt_cites.find(refe);
+		}
 		k.firstfrase = x;
    	    k.lastfrase = y;
-		k.numref = i->second.numref + 1;
 		k.aut = autor;
 		k.tit = titol;
   	    k.contingutcita = ttriat.interval_frases(x, y);
-  	    refe.erase(refe.end()-1);
-  	    refe += char(k.numref);
 	}
 	conjunt_cites.insert(make_pair(refe, k));
 }

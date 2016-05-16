@@ -14,7 +14,7 @@
 #include <cstddef>
 #include "Frase.hh"
 #include "Taulesaux.hh"
-#include <fstream>
+#include <sstream>
 
 
 using namespace std;
@@ -120,14 +120,7 @@ class Text{
 		
 		
 		
-		
 		void const taula_frequencies();
-		
-		/** @brief mostra les cites del p.i
-			\pre text triat
-			\post mostra totes les cites del p.i
-		*/
-		void const cites_text();
 		
 		/* Llegir */
 		

@@ -139,22 +139,20 @@ void Biblioteca::afegir_cita(int x, int y){
 	map<string,infocita>::iterator i = conjunt_cites.find(refe);
 	if (i == conjunt_cites.end()) {
 		k.firstfrase = x;
-   	    k.lastfrase = y;
+   	        k.lastfrase = y;
 		k.aut = autor;
 		k.tit = titol;
-  	    k.contingutcita = ttriat.interval_frases(x, y);
+  	        k.contingutcita = ttriat.interval_frases(x, y);
 	}
 	else {
 		while (i != conjunt_cites.end()) {
 			op.clear();
 			refe.clear();
-			//++ncites;
 			++numref;
 			istringstream iss(autor);
-			iss >> op;
-			refe = char(op[0]);
-			iss >> op;
-			refe += char(op[0]);
+		        while (iss >> op) {
+		            refe += char(op[0]);
+	                }
 			string Result;
 			stringstream convert;
 			convert << numref;
@@ -163,10 +161,10 @@ void Biblioteca::afegir_cita(int x, int y){
 			i = conjunt_cites.find(refe);
 		}
 		k.firstfrase = x;
-   	    k.lastfrase = y;
+   	        k.lastfrase = y;
 		k.aut = autor;
 		k.tit = titol;
-  	    k.contingutcita = ttriat.interval_frases(x, y);
+  	        k.contingutcita = ttriat.interval_frases(x, y);
 	}
 	conjunt_cites.insert(make_pair(refe, k));
 }
@@ -210,6 +208,7 @@ void const Biblioteca::totes_cites() {
 }
 
 void const Biblioteca::cites_text() {
+	cout << "Cites associades:" << endl;
 	string titol = ttriat.titol_text();
 	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
 		if(i->second.tit == titol) {

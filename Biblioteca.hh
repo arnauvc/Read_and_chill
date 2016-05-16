@@ -124,6 +124,12 @@ class Biblioteca{
 		*/
 		void const cites_autor(string autor);
 
+		/** @brief mostra les cites del p.i
+			\pre text triat
+			\post mostra totes les cites del p.i
+		*/
+		void const cites_text();
+
         //FUNCIONS EXTRA        
 
         /** @brief mostra tots els autors amb textos en el sistema

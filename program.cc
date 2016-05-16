@@ -42,6 +42,7 @@ int main(){
             }
             else if(liniac == "info ?" && triat){
                 texttriat.info_text();
+                biblio.cites_text();
                 //Falta fer el cout de les cites del textelse if(liniac == "info ?"){
                 //Falta fer el cout de les cites del text
                 //texttriat.autor_text();

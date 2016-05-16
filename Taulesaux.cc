@@ -29,11 +29,15 @@ void Taulesaux::insertar_paraula(string paraula, int numf, string ant){
 }
 
 void Taulesaux::ordenar_taulafreq(){
+    
     vectorauxiliar.clear();
     for (map<string, int >::iterator j = taulafreqe.begin(); j != taulafreqe.end(); ++j){
+        
         vectorauxiliar.push_back(make_pair(j->second,j->first));
     }
+    
     sort(vectorauxiliar.begin(), vectorauxiliar.end(), sort_comp);
+    
 }
 
 //CONSULTORES
@@ -64,20 +68,27 @@ bool const Taulesaux::existeix_cadena(string s){//busca la paraula en el map tau
 }
 
 set<int> const Taulesaux::frases_paraula(string paraula){
+
   map<string, Node>::const_iterator i = taulaparaules.find(paraula);
+  
 	return i->second.posicions;
 }
 
 void Taulesaux::intercanviar(string s1, string s2){
     //taulaparaules
-    
+    Node n;
     map<string, Node >::iterator i = taulaparaules.find(s1);
-    Node n = i->second;
+    if(i != taulaparaules.end()){
+        n = i->second;
+        
+    }
+    else cout << "error no troba: " << s1 <<endl;
+    
     map<string, Node >::const_iterator j = taulaparaules.find(s2);
     
     if(j != taulaparaules.end()){
         
-        i->second.posicions.insert(j->second.posicions.begin(),j->second.posicions.end());
+        (i->second).posicions.insert((j->second).posicions.begin(),(j->second).posicions.end());
         taulaparaules.erase(s2);
         
     }
@@ -91,18 +102,24 @@ void Taulesaux::intercanviar(string s1, string s2){
     //taulafreqe
     map<string, int >::iterator k = taulafreqe.find(s1);
     map<string, int >::iterator l = taulafreqe.find(s2);
-    int rep = k->second;
+    int rep;
+    if(k != taulafreqe.end()){
+        
+        rep = k->second;
+    }
     if(l != taulafreqe.end()){
+        
         l->second += rep;
         taulafreqe.erase(s1); 
     }
     else {
+        
         taulafreqe.insert(make_pair(s2,rep));
         taulafreqe.erase(s1); 
     }
-     
+    
     ordenar_taulafreq();
-        
+    
 }
 
 //ESCRIPTORA

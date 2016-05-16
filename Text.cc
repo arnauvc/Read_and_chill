@@ -44,7 +44,6 @@ map<int,Frase> const Text::interval_frases(int x, int y){
         cout << "error del interval" <<endl;
     }
     else{
-        
         for(int i = x; i <= y; ++i){
             map<int,Frase>::const_iterator j = contingut.find(i);
             m.insert(make_pair(j->first,j->second));
@@ -72,17 +71,13 @@ void const Text::paraules_frase(string s1){ //ara per ara, funciona amb la funci
 
 bool const Text::buscar_paraules(string s) {
 	return tau.existeix_cadena(s);
-
 }
 
 void Text::substitueix_paraules(string s1, string s2){
-    cout << "0"<<endl;
     tau.intercanviar(s1,s2);
-    cout << "1" <<endl;
     for(map<int,Frase>::iterator i = contingut.begin(); i != contingut.end(); ++i){
         i->second.canvi_paraules(s1,s2);
     }
-    cout << "2"<<endl;
 }
 
 void const Text::expressio_frases(string s1){//portara feina
@@ -106,11 +101,11 @@ void Text::llegir_text(string ti){
     titol = ti;
     string tmp;
     getline(cin, tmp);
+    
     string::size_type i = tmp.find("autor");
     if (i != string::npos) tmp.erase(0,6);
     tmp.erase(tmp.begin(), tmp.begin()+1);
     tmp.erase(tmp.size()-1, tmp.size());
-
     autor = tmp;
     getline(cin, line);
     

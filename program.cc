@@ -70,7 +70,6 @@ int main(){
             else if (liniac == "nombre de paraules ?"){
                 cout << texttriat.consultar_numparaules() << endl;
             }
-            //consultes amb parametre explicit
             else if(op == "afegir"){
                 ws(iss);
                 iss >> op;
@@ -86,7 +85,6 @@ int main(){
                     iss >> y;
                     biblio.afegir_cita(x,y);
                 }
-                
             }
             else if(op == "triar"){
                 string s;
@@ -125,10 +123,13 @@ int main(){
                 iss >> s;
                 biblio.eliminar_cita(s);
             }
-            else if(op == "textosautor"){
+            else if(op == "textos"){
                 string s;
-                getline(cin,s);
-                biblio.textos_autor(s);
+                string::size_type i = liniac.find("autor");
+                if (i != string::npos) liniac.erase(0,i+(op.length()+1));
+                liniac.erase(liniac.begin(), liniac.begin());
+                liniac.erase(liniac.size()-3, liniac.size());
+                biblio.textos_autor(liniac);
             }
             //cal tractar paraula per paraula, no la frase
             else if(op == "substitueix" && triat){
@@ -137,14 +138,10 @@ int main(){
                 iss >> s1;
                 iss >> tmp;
                 iss >> s2;
-                s1.erase(s1.begin(), s1.begin()+1);
-                s1.erase(s1.size()-1, s1.size());
-                s2.erase(s2.begin(), s2.begin()+1);
-                s2.erase(s2.size()-1, s2.size());
-                cout << "arriba aqui" <<endl;
+                s1 = s1.substr(1, (s1.size()-2));
+                s2 = s2.substr(1, (s2.size()-2));
+                cout << s1 << " " <<s2 << endl;
                 texttriat.substitueix_paraules(s1,s2);
-                texttriat = biblio.triar_text(s2);
-                cout << "surt" <<endl;
             }
             else if (op == "frases"){
                 string s1,tmp;
@@ -176,17 +173,8 @@ int main(){
                 }
                 else{
                     int x,y;
-                    
-                    istringstream ss(op);
-                    ss >> x;
-                    ss >> y;
-                    
-                    /*
-                    iss >> x;
-                    ws(iss);
+                    x = stoi(op);
                     iss >> y;
-                    */
-                    cout << x <<" " <<y <<endl;
                     map<int,Frase> m = texttriat.interval_frases(x,y);
                     for(map<int,Frase>::iterator j = m.begin();j != m.end();++j){
                         cout << j->first << " ";

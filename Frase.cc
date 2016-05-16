@@ -104,12 +104,12 @@ bool const Frase::trobat(string s) {
 
 }
 
-void Frase::canvi_paraules(string s1, string s2) { // a tot el contingut
-	for (int i = 0; i < frase_in.size(); ++i) {
-            if (frase_in[i].first == s1) {
-                (frase_in[i]).first = s2;
-            }
-	}
+void Frase::canvi_paraules(string s1, string s2) {
+    for (int i = 0; i < frase_in.size(); ++i) {
+        if (frase_in[i].first == s1) {
+            (frase_in[i]).first = s2;
+        }
+    }
 }
 
 

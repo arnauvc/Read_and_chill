@@ -124,10 +124,13 @@ void Biblioteca::afegir_cita(int x, int y){
 	infocita k;
 	string op;
 	istringstream iss(autor);
-	iss >> op;
+	while (iss >> op) {
+		refe += char(op[0]);
+	}
+	/*iss >> op;
 	refe = char(op[0]);
 	iss >> op;
-	refe += char(op[0]);
+	refe += char(op[0]);*/
 	string Result;
 	stringstream convert;
 	convert << numref;
@@ -203,6 +206,21 @@ void const Biblioteca::totes_cites() {
 				fr.escriu_frase();
 		}
 		cout << i->second.aut << " " << i->second.tit << endl;
+    }
+}
+
+void const Biblioteca::cites_text() {
+	string titol = ttriat.titol_text();
+	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
+		if(i->second.tit == titol) {
+			cout << i->first << endl;
+			for (map<int,Frase>::const_iterator j = i->second.contingutcita.begin(); j != i->second.contingutcita.end(); ++j) {
+					Frase fr = j->second;
+					cout << j->first << " "; 
+					fr.escriu_frase();
+			}
+			cout << i->second.aut << " " << i->second.tit << endl;
+	    }
     }
 }
 

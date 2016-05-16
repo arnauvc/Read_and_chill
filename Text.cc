@@ -108,30 +108,41 @@ void Text::llegir_text(string ti){
     tmp.erase(tmp.size()-1, tmp.size());
     autor = tmp;
     getline(cin, line);
-    
+    bool pam = false;
     int l;
     string aux;
-    bool primer;
-    while (line != "****") {
+    bool primer = true;
+    string vamos;
+    bool yeah = true;
+    bool superprimer = true;
+    while(line != "****") {
         istringstream iss(line);
-        while(iss >> op) {
-            primer = true;
-            //iss >> op;
+        yeah = false;
+        while(not yeah) {
+        pam = false;
+        while ((iss >> op and not pam) or primer) {
+            vamos = op;
             l = op.size();
-            while (char(op[l-1]) != '.' and char(op[l-1]) != '?' and char(op[l-1]) != '!') {
-                if (primer) {
-                    aux = op;
-                    primer = false;
-                }
-                else {
-                    aux += " ";
+            if ((char(op[l-1]) == '.') or (char(op[l-1]) == '?') or (char(op[l-1]) == '!')) {
+                pam = true;     
+            }
+            if (primer) {
+                 primer = false;
+                if (char(op[0]) >= 'a' and char(op[0]) <= 'z') {
+                    aux += " "; 
                     aux += op;
                 }
-                iss >> op;
-                l = op.size();
+                if (superprimer) {
+                    aux = op;
+                    superprimer = false;
+                }
             }
-            if (not primer) aux += " ";//aux.insert(aux.size(), " ");
-            aux += op; //aux.insert(aux.size(), op);
+            else {
+                aux += " ";
+                aux += op;
+            }
+        }
+        if (pam) {
             Frase fr;
             fr.llegir_frase(aux, tau, a);
             contingut.insert(make_pair(a, fr));
@@ -140,7 +151,16 @@ void Text::llegir_text(string ti){
             numparaules += fr.consultar_numparaules();
             aux.clear();
         }
-        getline(cin, line);
+        if (op == vamos) { 
+             getline(cin, line);
+             yeah = true;
+        }
+        else {
+            yeah = false;
+            aux += op;
+            primer = true;
+        }
+        }
     }
     tau.ordenar_taulafreq();
 }

@@ -19,9 +19,10 @@ Text Biblioteca::triar_text(string s){
 	istringstream ass(s);
 	while (ass >> op) ++count;//contador de cuantes paraules hem de tractar en total
 	int auxcount = count;
-	bool primer,segon,tr,tr1 = false;
+	bool primer,segon,tr,tr1,final = false;
        for (map<string, map<string, Text> >::const_iterator i = conjunt_textos.begin(); i != conjunt_textos.end() and not segon and not tr1; ++i) {
 		tr = false;
+		primer = false;
 		s = aux;
 		count = auxcount;
 		map<string, Text> k = i->second;
@@ -29,9 +30,12 @@ Text Biblioteca::triar_text(string s){
 		for (map<string, Text>::const_iterator j = k.begin(); j != k.end() and not segon and not tr1; ++j) {
 			Text t = j->second;
             while (iss >> op) {
+            	//cout << "0" << endl;
             	istringstream oss(i->first);
             	while (oss >> op1) { //bucle per buscar paraules a l'autor
+            		//cout << "aut " << "op: " << op << " " << "op1: " << op1 << endl;
             		if (op == op1) {
+            			//cout << "encontrado en autor" << endl;
             			string::size_type i = s.find(op);
             			if (i != string::npos){
 				            s.erase(0, i+op.length()+1);
@@ -41,7 +45,9 @@ Text Biblioteca::triar_text(string s){
             	}
             	istringstream ess(j->first);
             	while (ess >> op1) { //bucle per buscar paraules al titol
+            		//cout << "tit " << "op: " << op << " " << "op1: " << op1 << endl;
             		if (op == op1) {
+            			//cout << "encontrado en titulo" << endl;
             			string::size_type i = s.find(op);
             			if (i != string::npos){
 				            s.erase(0, i+op.length()+1);
@@ -51,33 +57,41 @@ Text Biblioteca::triar_text(string s){
             	}
             }           
 			if (count > 0) {//si falten paraules per trobar, si aixo es 0 es que s'ha trobat totes les paraules entre el titol i l'autor
+				//cout << "1" << endl;
+			    //cout << "super important string s recortado: " << s << endl;
 				if (t.buscar_paraules(s)) {
 					ttriat = j->second;
 					if (not segon and primer) {//segon text que cumpleix la condicio
 						segon = true;
+						//cout << "encontrado en contenido segunda vez" << endl;
 				    }
 					if(not primer) {//primer text que compleix la condicio
 						primer = true;
+						final = true;
+						//cout << "encontrado en contenido primera vez" << endl;
 				    }
 				}
 		    }
 		    else {
 		    	if (tr and not tr1) {//segon text que es cumpleix per titol i autor
 		        	tr1 = true;
+		        	//cout << "encontrado en titulo i autor todo segunda vez" << endl;
 		        }
 		    	if(not tr) {//primer text que es cumpleix per titol i autor
 		    	    triat = true;
 		    		ttriat = j->second;
 		    		tr = true;
+		    		//cout << "encontrado en titulo i autor todo primera vez" << endl;
 		        }
 		    }
 		}
 	}
-	if (primer and not segon and not tr1) {
+	if ((primer and not segon and not tr1) or (not primer and tr and not tr1) or (final and not primer)) {
 		triat = true;
+		//cout << "yeah men!" << endl;
 		return ttriat;
 	}
-	if (not triat or not primer or segon or tr1) cout << "error triar text" << endl;
+	if (not triat) cout << "error" << endl;
 	return ttriat;
 }
 
@@ -91,7 +105,7 @@ void Biblioteca::tots_textos(){
     	map<string, Text> k = i->second;
     	for (map<string, Text>::const_iterator j = k.begin(); j != k.end(); ++j) {
 			t = j->second;
-    		cout << t.autor_text() << " " << t.titol_text() << endl;
+    		cout << t.autor_text() << " " << "\"" << t.titol_text() << "\"" << endl;
     	}
     }
 }
@@ -101,7 +115,7 @@ void Biblioteca::textos_autor(string s){
 	if(i != conjunt_textos.end()){
         map<string, Text> k = i->second;
         for (map<string, Text>::const_iterator j = k.begin(); j != k.end(); ++j) {
-            cout << j->first << endl;
+            cout << "\"" << j->first << "\"" << endl;
         }
     }
 }
@@ -142,7 +156,7 @@ void Biblioteca::afegir_text(string op){
         }
         else { 
         	es = true;
-        	cout << "error afegir text" << endl;
+        	cout << "error" << endl;
         }
     }
     if (not es) {
@@ -234,7 +248,7 @@ void Biblioteca::afegir_cita(int x, int y){
   	    }
 	}
 	if(si) conjunt_cites.insert(make_pair(refe, k));
-	else cout << "error afegir cita" << endl;
+	else cout << "error" << endl;
 }
 
 void Biblioteca::cites_autor(string autor) {
@@ -246,7 +260,7 @@ void Biblioteca::cites_autor(string autor) {
 				cout << j->first << " "; 
 				fr.escriu_frase();
 			}
-			cout << i->second.aut << " " << i->second.tit << endl;
+			cout << i->second.aut << " " << "\"" << i->second.tit << "\"" << endl;
 		}
     }
 }
@@ -254,7 +268,7 @@ void Biblioteca::cites_autor(string autor) {
 void Biblioteca::info_cita(string referencia) {
 	map<string,infocita>::const_iterator i = conjunt_cites.find(referencia);
 	if (i != conjunt_cites.end()){
-		cout << i->second.aut << " " << i->second.tit << endl; 
+		cout << i->second.aut << " " << "\"" << i->second.tit << "\"" << endl; 
 		cout << i->second.firstfrase << "-" << i->second.lastfrase << endl;
 		for (map<int,Frase>::const_iterator j = i->second.contingutcita.begin(); j != i->second.contingutcita.end(); ++j) {
 				Frase fr = j->second;
@@ -262,7 +276,7 @@ void Biblioteca::info_cita(string referencia) {
 				fr.escriu_frase();
 		}
     }
-    else cout << "error info cita" << endl;
+    else cout << "error" << endl;
 }
 
 void Biblioteca::totes_cites() {
@@ -273,7 +287,7 @@ void Biblioteca::totes_cites() {
 				cout << j->first << " "; 
 				fr.escriu_frase();
 		}
-		cout << i->second.aut << " " << i->second.tit << endl;
+		cout << i->second.aut << " " << "\"" << i->second.tit << "\"" << endl;
     }
 }
 
@@ -288,7 +302,7 @@ void Biblioteca::cites_text(bool b) {
 					cout << j->first << " "; 
 					fr.escriu_frase();
 			}
-			if(not b) cout << i->second.aut << " " << i->second.tit << endl;
+			if(not b) cout << i->second.aut << " " << "\"" << i->second.tit << "\"" << endl;
 	    }
     }
 }
@@ -298,5 +312,5 @@ void Biblioteca::eliminar_cita(string referencia) {
     if(i != conjunt_cites.end()) {
     	conjunt_cites.erase(i);
     }
-    else cout << "error eliminar cita" << endl;
+    else cout << "error" << endl;
 }

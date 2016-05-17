@@ -7,7 +7,7 @@ Taulesaux::Taulesaux(){}
 Taulesaux::~Taulesaux(){}
 
 //MODIFICADORA
-void Taulesaux::insertar_paraula(string paraula, int numf, string ant){
+void Taulesaux::insertar_paraula(string paraula, int numf){
     Node n;
     map<string, Node >::const_iterator i = taulaparaules.find(paraula);
     map<string, int >::iterator j = taulafreqe.find(paraula);
@@ -41,11 +41,11 @@ void Taulesaux::ordenar_taulafreq(){
 }
 
 //CONSULTORES
-bool const Taulesaux::existeix_cadena(string s){//busca la paraula en el map taulaparaules
+bool Taulesaux::existeix_cadena(string s){//busca la paraula en el map taulaparaules
 	
 	bool trobat = false;
 	//int k = s.size();
-	string actual, ant;
+	string actual;
 	istringstream iss(s);
 	iss >> actual;
 	//--k;
@@ -53,7 +53,7 @@ bool const Taulesaux::existeix_cadena(string s){//busca la paraula en el map tau
 	map<string, Node>::const_iterator i = taulaparaules.find(actual);
 	
 	if (i != taulaparaules.end()){
-           // ant = i->first;
+           
             iss >> actual;
            // --k;
             while(iss >> actual){
@@ -69,11 +69,17 @@ bool const Taulesaux::existeix_cadena(string s){//busca la paraula en el map tau
 	return trobat;
 }
 
-set<int> const Taulesaux::frases_paraula(string paraula){
+set<int> Taulesaux::frases_paraula(string paraula){
 
-  map<string, Node>::const_iterator i = taulaparaules.find(paraula);
-  
-	return i->second.posicions;
+    map<string, Node>::const_iterator i = taulaparaules.find(paraula);
+    if(i != taulaparaules.end()){
+        return i->second.posicions;
+    }
+    else {
+        set<int> m;
+        m.insert(-1);//en cas que no trobi la paraula retorna un map amb un element -1
+        return m;
+    }
 }
 
 void Taulesaux::intercanviar(string s1, string s2){
@@ -125,7 +131,7 @@ void Taulesaux::intercanviar(string s1, string s2){
 }
 
 //ESCRIPTORA
-void const Taulesaux::taula_frequencies(){
+void Taulesaux::taula_frequencies(){
     for(int i = 0; i < vectorauxiliar.size(); ++i){
         cout << vectorauxiliar[i].second << " " << vectorauxiliar[i].first <<endl;
     }

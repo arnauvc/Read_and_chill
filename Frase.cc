@@ -18,7 +18,7 @@ void Frase::llegir_frase(string s, Taulesaux &tau, int numf) {
             string tmp = op;
             op.erase(l-1);
             frase_in.push_back(make_pair(op, ant));
-            tau.insertar_paraula(op, numf,ant);
+            tau.insertar_paraula(op, numf);
             ant = op;
             string c;
             char car = tmp[l-1];
@@ -30,7 +30,7 @@ void Frase::llegir_frase(string s, Taulesaux &tau, int numf) {
     	}
     	else {
             frase_in.push_back(make_pair(op, ant));
-            tau.insertar_paraula(op, numf,ant);
+            tau.insertar_paraula(op, numf);
     	    ant = op;
         }
     	++num_paraules;
@@ -45,12 +45,12 @@ void Frase::llegir_frase(string s, Taulesaux &tau, int numf) {
     else c = "!";
     op.erase(l-1);
     frase_in.push_back(make_pair(op, ant));
-    tau.insertar_paraula(op, numf,ant);
+    tau.insertar_paraula(op, numf);
     frase_in.push_back(make_pair(c, ant)); 
     ++num_paraules;
 }
 
-void const Frase::escriu_frase() {
+void Frase::escriu_frase() {
     int x = frase_in.size();
     bool primer = true;
     for (int i = 0; i < x; ++i) {
@@ -69,11 +69,11 @@ void const Frase::escriu_frase() {
     cout << endl;
 }
 
-int const Frase::consultar_numparaules() {
+int Frase::consultar_numparaules() {
 	return num_paraules;
 }
 
-bool const Frase::trobat(string s) {
+bool Frase::trobat(string s) {
     
     int x = frase_in.size();
     bool trobat = false;
@@ -81,21 +81,19 @@ bool const Frase::trobat(string s) {
     istringstream iss(s);
     iss >> actual;
     int i;
-    int k = s.size();
     for (i = 0; i < x and not trobat; ++i) {
         if (actual == frase_in[i].first) trobat = true;
     }
     if (trobat) {
         ant = frase_in[i].second;
-        iss >> actual;
-        --k;
-        while (k > 0 and i<x) {
+        while (iss >>actual and i<x) {
             if (frase_in[i].first == actual) {
                 if (frase_in[i].second != ant) return false; 
             }
+            else {
+                return false;
+            }
             ant = frase_in[i].first;
-            iss >> actual;
-            --k;
             ++i;
         }
         return true;

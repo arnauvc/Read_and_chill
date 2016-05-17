@@ -11,7 +11,7 @@ Biblioteca::~Biblioteca(){
     
 }
 
-Text const Biblioteca::triar_text(string s){
+Text Biblioteca::triar_text(string s){
 	triat = false;
 	bool primer,segon = false;
 	
@@ -49,11 +49,11 @@ Text const Biblioteca::triar_text(string s){
 	return ttriat;
 }
 
-bool const Biblioteca::consultar_triat(){
+bool Biblioteca::consultar_triat(){
     return triat;
 }
 
-void const Biblioteca::tots_textos(){
+void Biblioteca::tots_textos(){
 	Text t;
     for (map<string, map<string, Text> >::const_iterator i = conjunt_textos.begin(); i != conjunt_textos.end(); ++i) {
     	map<string, Text> k = i->second;
@@ -64,15 +64,17 @@ void const Biblioteca::tots_textos(){
     }
 }
 
-void const Biblioteca::textos_autor(string s){
+void Biblioteca::textos_autor(string s){
 	map<string, map<string, Text> >::const_iterator i = conjunt_textos.find(s);
-	map<string, Text> k = i->second;
-    for (map<string, Text>::const_iterator j = k.begin(); j != k.end(); ++j) {
-    	cout << j->first << endl;
+	if(i != conjunt_textos.end()){
+        map<string, Text> k = i->second;
+        for (map<string, Text>::const_iterator j = k.begin(); j != k.end(); ++j) {
+            cout << j->first << endl;
+        }
     }
 }
 
-void const Biblioteca::tots_autors(){
+void Biblioteca::tots_autors(){
 	//RAPID!
 	string s;
 	infoautor k;
@@ -132,8 +134,17 @@ void Biblioteca::afegir_text(string op){
 
 void Biblioteca::eliminar_text(){
 	map<string, map<string, Text> >::iterator i = conjunt_textos.find(ttriat.autor_text());
-    conjunt_textos.erase(i);
-    triat = false;
+    map<string, Text>::iterator j = i->second.find(ttriat.titol_text());
+    if(i != conjunt_textos.end() && j != i->second.end() ){
+        if(i->second.size() == 1 && j->first == ttriat.titol_text()){
+            conjunt_textos.erase(ttriat.autor_text());
+            triat = false;
+        }
+        else{
+            i->second.erase(ttriat.titol_text());
+            triat = false;
+        }
+    }
 }
 
 void Biblioteca::afegir_cita(int x, int y){
@@ -160,7 +171,8 @@ void Biblioteca::afegir_cita(int x, int y){
    	    k.lastfrase = y;
 		k.aut = autor;
 		k.tit = titol;
-  	    k.contingutcita = ttriat.interval_frases(x, y);
+        bool nec = true;//Aquest bool no afecta a la funcio afegir_cita, pero fa falta per mi
+  	    k.contingutcita = ttriat.interval_frases(x, y, nec);
 	}
 	else {
 		while (i != conjunt_cites.end()) {
@@ -185,14 +197,15 @@ void Biblioteca::afegir_cita(int x, int y){
    	        k.lastfrase = y;
 			k.aut = autor;
 			k.tit = titol;
-  	        k.contingutcita = ttriat.interval_frases(x, y);
+            bool nec = true;//Aquest bool no afecta a la funcio afegir_cita, pero fa falta per mi
+  	        k.contingutcita = ttriat.interval_frases(x, y, nec);
   	    }
 	}
 	if(si) conjunt_cites.insert(make_pair(refe, k));
 	else cout << "error afegir cita" << endl;
 }
 
-void const Biblioteca::cites_autor(string autor) {
+void Biblioteca::cites_autor(string autor) {
 	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
 		if (autor == i->second.aut) {
 			cout << i->first << endl;
@@ -206,7 +219,7 @@ void const Biblioteca::cites_autor(string autor) {
     }
 }
 
-void const Biblioteca::info_cita(string referencia) {
+void Biblioteca::info_cita(string referencia) {
 	map<string,infocita>::const_iterator i = conjunt_cites.find(referencia);
 	if (i != conjunt_cites.end()){
 		cout << i->second.aut << " " << i->second.tit << endl; 
@@ -220,7 +233,7 @@ void const Biblioteca::info_cita(string referencia) {
     else cout << "error info cita" << endl;
 }
 
-void const Biblioteca::totes_cites() {
+void Biblioteca::totes_cites() {
 	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
 		cout << i->first << endl;
 		for (map<int,Frase>::const_iterator j = i->second.contingutcita.begin(); j != i->second.contingutcita.end(); ++j) {
@@ -232,7 +245,7 @@ void const Biblioteca::totes_cites() {
     }
 }
 
-void const Biblioteca::cites_text(bool b) {
+void Biblioteca::cites_text(bool b) {
 	if(b) cout << "Cites Associades:" << endl;
 	string titol = ttriat.titol_text();
 	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {

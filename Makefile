@@ -3,7 +3,7 @@
 # los ficheros estrictamente necesarios.
 #
 
-all: Biblioteca.o Text.o Frase.o Taulesaux.o program.o program.exe
+all: Biblioteca.o Text.o Frase.o Taulesaux.o program.o program.exe clean
 	
 Biblioteca.o: Biblioteca.cc Biblioteca.hh
 	g++ -c Biblioteca.cc -D_GLIBCXX_DEBUG
@@ -30,4 +30,6 @@ program.exe: program.o Biblioteca.o Text.o Frase.o Taulesaux.o
 #
 clean:
 	rm *.o
+	
+clean1:
 	rm *.exe

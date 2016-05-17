@@ -80,12 +80,12 @@ int main(){
 			}
         }
 		else if(triat && !(linia.empty())){
+            
 			if(linia == "eliminar text"){
                 biblio.eliminar_text();
-				triat = false;
+				triat = biblio.consultar_triat();
             }
             else if(linia == "info ?"){
-				cout << "entra dins de info ?" << endl;
 				bool b = true;
                 texttriat.info_text();
                 biblio.cites_text(b);
@@ -112,11 +112,19 @@ int main(){
 				ws(iss);
 				iss >> op;
 				if (op == "autor"){
-					string s;
+					/*string s;
 					ws(iss);
 					iss >> s;
-					s = s.substr(1, (s.size()-2));
-					biblio.cites_autor(s);
+                    */
+                    string::size_type i = linia.find(op);
+                    if (i != string::npos){
+                        linia.erase(0, i+op.size()+2);
+                        linia.erase(linia.size()-3, linia.size());
+                        biblio.cites_autor(linia);
+                    }
+					//s = linia.substr(12, s.size()-2);
+                    
+					
 				}
 			}
 			else if(op == "afegir"){ //FUNCIONA
@@ -155,6 +163,7 @@ int main(){
                 cout << texttriat.consultar_numparaules() << endl;
             }
             else if(op == "eliminar"){
+                iss >> op;
 				if (op == "cita"){
 					string s;//referencia
 					ws(iss);
@@ -202,7 +211,6 @@ int main(){
                     if (i != string::npos) {
 						linia.erase(0, i+tmp.length()+1);
 						linia.erase(linia.size()-2, linia.size());
-						cout << linia <<endl;
 						//texttriat.expressio_frases(linia);
 					}
                 }
@@ -218,10 +226,13 @@ int main(){
 					ws(iss);
                     iss >> y;
 					cout << "l'interval es: " << x << " " << y << endl;
-                    map<int,Frase> m = texttriat.interval_frases(x,y);
-                    for(map<int,Frase>::iterator j = m.begin();j != m.end();++j){
-                        cout << j->first << " ";
-                        j->second.escriu_frase();
+                    bool b = false;
+                    map<int,Frase> m = texttriat.interval_frases(x,y,b);
+                    if(b){
+                        for(map<int,Frase>::iterator j = m.begin();j != m.end();++j){
+                            cout << j->first << " ";
+                            j->second.escriu_frase();
+                        }
                     }
                 }
 			}

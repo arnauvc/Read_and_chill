@@ -39,7 +39,7 @@ class Taulesaux{
 		bool static sort_comp(const pair<int,string>& lhs, const pair<int,string>& rhs){
 			if(lhs.first != rhs.first) return lhs.first > rhs.first;
 			else if (lhs.second.size()!=rhs.second.size()) return lhs.second.size()<rhs.second.size();
-			else lhs.second < rhs.second;
+			else return lhs.second < rhs.second;
 		}
 
 	public:
@@ -61,7 +61,7 @@ class Taulesaux{
 			\pre
 			\post
 		*/
-		void insertar_paraula(string paraula, int numf, string anterior);
+		void insertar_paraula(string paraula, int numf);
 
 		/** @brief
 			\pre
@@ -74,26 +74,26 @@ class Taulesaux{
 			\pre
 			\post
 		*/
-		bool const existeix_cadena(string s); //busca la paraula en el map taulaparaules
+		bool existeix_cadena(string s); //busca la paraula en el map taulaparaules
 
 		/** @brief
 			\pre
 			\post
 		*/
-		set<int> const frases_paraula(string s);
+		set<int> frases_paraula(string s);
                 
                 /** @brief
 			\pre
 			\post
 		*/
-                void intercanviar(string s1, string s2);
+        void intercanviar(string s1, string s2);
 
 		//ESCRIPTORA
 		/** @brief
 			\pre
 			\post
 		*/
-		void const taula_frequencies();
+		void taula_frequencies();
 
 };
 #endif

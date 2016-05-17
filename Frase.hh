@@ -44,13 +44,13 @@ class Frase{
 			\pre cert
 			\post consulta numero de paraules de la frase
 		*/
-		int const consultar_numparaules();
+		int consultar_numparaules();
 
 		/** @brief consulta un string
 			\pre cert
 			\post consulta si existeix un string a una frase
 		*/
-		bool const trobat(string s);
+		bool trobat(string s);
          
 		/* Llegir i escriure */
 
@@ -59,13 +59,13 @@ class Frase{
                     \pre cert
                     \post llegeix una frase del p.i
 		*/
-                void llegir_frase(string s,Taulesaux &ta, int numf);
+        void llegir_frase(string s,Taulesaux &ta, int numf);
 		
 		/** @brief escriptora de frases
         		 \pre cert
         		 \post escriu una frase del p.i
 		*/
-		void const escriu_frase();
+		void escriu_frase();
 
 		/** @brief canvia una paraula per l'altra
         		 \pre cert

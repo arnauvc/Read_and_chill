@@ -9,27 +9,27 @@ Text::~Text(){
 
 }
 
-int const Text::consultar_numfrases(){
+int Text::consultar_numfrases(){
     return numfrases;
 }
 
-int const Text::consultar_numparaules(){
+int Text::consultar_numparaules(){
     return numparaules;
 }
 
-string const Text::titol_text(){
+string Text::titol_text(){
     return titol;
 }
 
-string const Text::autor_text(){
+string Text::autor_text(){
    return autor;
 }
 
-void const Text::info_text(){//aquesta funcio no retorna les cites associades al text
+void Text::info_text(){//aquesta funcio no retorna les cites associades al text
    cout << autor << " " << titol << " " << numfrases << " " << numparaules << endl;
 }
 
-void const Text::contingut_text(){
+void Text::contingut_text(){
     for(map<int,Frase>::const_iterator i=contingut.begin(); i != contingut.end(); ++i){
         cout << (i->first) << " ";
         Frase f = i->second;
@@ -37,39 +37,48 @@ void const Text::contingut_text(){
     }
 }
 
-map<int,Frase> const Text::interval_frases(int x, int y){
+map<int,Frase> Text::interval_frases(int x, int y, bool &b){
     map<int,Frase> m;
     map<int,Frase>::const_iterator j;
     if( x>y or x>contingut.size() or y>contingut.size() or contingut.empty() ){
         cout << "error del interval" <<endl;
+        b = false;
+        return m;
     }
     else{
         for(int i = x; i <= y; ++i){
             map<int,Frase>::const_iterator j = contingut.find(i);
             m.insert(make_pair(j->first,j->second));
         }
+        b = true;
         return m;
     }
 }
 
-void const Text::paraules_frase(string s1){ //ara per ara, funciona amb la funcio TROBAT !!!
+void Text::paraules_frase(string s1){ //ara per ara, funciona amb la funcio TROBAT !!!
     //
     istringstream iss(s1);
     ws(iss);
     string op;
     iss >> op;
     set<int> s = tau.frases_paraula(op);
-    for(set<int>::const_iterator j = s.begin(); j != s.end(); ++j){
+    set<int>::const_iterator j = s.begin();
+    if(*j != -1){
+        for(j = s.begin(); j != s.end(); ++j){
         map<int,Frase>::const_iterator i = contingut.find(*j);
-        Frase f = i->second;
-        if(f.trobat(s1)) {
-            cout << i->first << " ";
-            f.escriu_frase();
+            if(i != contingut.end()){
+                Frase f = i->second;
+                if(f.trobat(s1)) {
+                    cout << i->first << " ";
+                    f.escriu_frase();
+                }
+            }
         }
     }
+    
 }
 
-bool const Text::buscar_paraules(string s) {
+bool Text::buscar_paraules(string s) {
 	return tau.existeix_cadena(s);
 }
 
@@ -80,18 +89,18 @@ void Text::substitueix_paraules(string s1, string s2){
     }
 }
 
-void const Text::expressio_frases(string s1){//portara feina
-    int j;
+void Text::expressio_frases(string s1){//portara feina
     for(map<int,Frase>::const_iterator i = contingut.begin(); i != contingut.end(); ++i) {
         Frase f = i->second;
-        j = 0;
-        if (/*compleix_expressio(s1, j)*/ true) {
+        int j = 0;
+        if (compleix_expressio(s1, j, f)) {
             f.escriu_frase();
         }
+        cout << s1;
     }
 }
 
-void const Text::taula_frequencies(){
+void Text::taula_frequencies(){
     tau.taula_frequencies();
 }
 

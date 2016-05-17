@@ -31,7 +31,7 @@ Text const Biblioteca::triar_text(string s){
 			}
 		}
 	}
-	if (not triat) cout << "error" << endl;
+	if (not triat) cout << "error triar text" << endl;
 	return ttriat;
 }
 
@@ -72,9 +72,9 @@ void const Biblioteca::tots_autors(){
 }
 
 void Biblioteca::afegir_text(string op){
+	bool es;
     Text t;
     t.llegir_text(op);
-	
     string s = t.autor_text();
     string ti = t.titol_text();
     map<string, map<string, Text> >::iterator i = conjunt_textos.find(s);
@@ -82,32 +82,38 @@ void Biblioteca::afegir_text(string op){
     	map<string, Text> u;
     	u.insert(make_pair(ti, t));
     	conjunt_textos.insert(make_pair(s, u));
+    	es = false;
     }
     else {
-    	i->second.insert(make_pair(ti, t));
+    	map<string, Text> h;
+    	h = i->second;
+    	map<string, Text>::iterator j = h.find(ti);
+    	if (j == h.end()) {
+    		i->second.insert(make_pair(ti, t));
+    		es = false;
+        }
+        else { 
+        	es = true;
+        	cout << "error afegir text" << endl;
+        }
     }
-    //hem de buscar que no hi hagi cap autor amb el mateix titol que el nou text afegit sino error 
-    
-    infoautor k;
-    map<string, infoautor>::const_iterator j = conjunt_autors.find(s);
-    if (j == conjunt_autors.end()) {
-		
-    	k.ntextos = 1;
-	    k.nfrases = t.consultar_numfrases();
-	    k.nparaules = t.consultar_numparaules();
-    	conjunt_autors.insert(make_pair(s, k));
-		
+    if (not es) {
+    	infoautor k;
+    	map<string, infoautor>::const_iterator j = conjunt_autors.find(s);
+    	if (j == conjunt_autors.end()) {
+    		k.ntextos = 1;
+	    	k.nfrases = t.consultar_numfrases();
+	    	k.nparaules = t.consultar_numparaules();
+    		conjunt_autors.insert(make_pair(s, k));	
+    	}
+    	else {
+    		k.ntextos = j->second.ntextos + 1;
+			k.nfrases = j->second.nfrases + t.consultar_numfrases();
+			k.nparaules = j->second.nparaules + t.consultar_numparaules();
+			conjunt_autors.erase(s);
+			conjunt_autors.insert(make_pair(s, k));	
+		}
     }
-    else {
-		
-    	k.ntextos = j->second.ntextos + 1;
-		k.nfrases = j->second.nfrases + t.consultar_numfrases();
-		k.nparaules = j->second.nparaules + t.consultar_numparaules();
-		conjunt_autors.erase(s);
-		conjunt_autors.insert(make_pair(s, k));
-		
-	}
-	
 }
 
 void Biblioteca::eliminar_text(){
@@ -117,6 +123,7 @@ void Biblioteca::eliminar_text(){
 
 void Biblioteca::afegir_cita(int x, int y){
 	//2 o 3 incials y despres el numero! per la referencia!
+	bool si = true;
 	string autor = ttriat.autor_text();
 	string titol = ttriat.titol_text();
 	string refe;
@@ -127,10 +134,6 @@ void Biblioteca::afegir_cita(int x, int y){
 	while (iss >> op) {
 		refe += char(op[0]);
 	}
-	/*iss >> op;
-	refe = char(op[0]);
-	iss >> op;
-	refe += char(op[0]);*/
 	string Result;
 	stringstream convert;
 	convert << numref;
@@ -139,20 +142,22 @@ void Biblioteca::afegir_cita(int x, int y){
 	map<string,infocita>::iterator i = conjunt_cites.find(refe);
 	if (i == conjunt_cites.end()) {
 		k.firstfrase = x;
-   	        k.lastfrase = y;
+   	    k.lastfrase = y;
 		k.aut = autor;
 		k.tit = titol;
-  	        k.contingutcita = ttriat.interval_frases(x, y);
+  	    k.contingutcita = ttriat.interval_frases(x, y);
 	}
 	else {
 		while (i != conjunt_cites.end()) {
+            infocita e = i->second;
+            if (e.firstfrase == x and e.lastfrase == y and e.aut == autor and e.tit == titol) si = false;
 			op.clear();
 			refe.clear();
 			++numref;
 			istringstream iss(autor);
-		        while (iss >> op) {
-		            refe += char(op[0]);
-	                }
+		    while (iss >> op) {
+		        refe += char(op[0]);
+	        }
 			string Result;
 			stringstream convert;
 			convert << numref;
@@ -160,13 +165,16 @@ void Biblioteca::afegir_cita(int x, int y){
 			refe += Result;
 			i = conjunt_cites.find(refe);
 		}
-		k.firstfrase = x;
+		if(si) {
+			k.firstfrase = x;
    	        k.lastfrase = y;
-		k.aut = autor;
-		k.tit = titol;
+			k.aut = autor;
+			k.tit = titol;
   	        k.contingutcita = ttriat.interval_frases(x, y);
+  	    }
 	}
-	conjunt_cites.insert(make_pair(refe, k));
+	if(si) conjunt_cites.insert(make_pair(refe, k));
+	else cout << "error afegir cita" << endl;
 }
 
 void const Biblioteca::cites_autor(string autor) {
@@ -194,6 +202,7 @@ void const Biblioteca::info_cita(string referencia) {
 				fr.escriu_frase();
 		}
     }
+    else cout << "error info cita" << endl;
 }
 
 void const Biblioteca::totes_cites() {
@@ -229,5 +238,5 @@ void Biblioteca::eliminar_cita(string referencia) {
     if(i != conjunt_cites.end()) {
     	conjunt_cites.erase(i);
     }
-    else cout << "error" << endl;
+    else cout << "error eliminar cita" << endl;
 }

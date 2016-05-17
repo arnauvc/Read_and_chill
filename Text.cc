@@ -25,8 +25,8 @@ string Text::autor_text(){
    return autor;
 }
 
-void Text::info_text(){//aquesta funcio no retorna les cites associades al text
-   cout << autor << " " << titol << " " << numfrases << " " << numparaules << endl;
+void Text::info_text(){
+   cout << autor << " " << "\"" << titol << "\"" << " " << numfrases << " " << numparaules << endl;
 }
 
 void Text::contingut_text(){

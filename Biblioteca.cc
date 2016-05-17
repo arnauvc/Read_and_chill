@@ -12,9 +12,12 @@ Biblioteca::~Biblioteca(){
 }
 
 Text const Biblioteca::triar_text(string s){
-	for (map<string, map<string, Text> >::const_iterator i = conjunt_textos.begin(); i != conjunt_textos.end(); ++i) {
+	triat = false;
+	bool primer,segon = false;
+	
+	for (map<string, map<string, Text> >::const_iterator i = conjunt_textos.begin(); i != conjunt_textos.end() and primer; ++i) {
 		map<string, Text> k = i->second;
-		for (map<string, Text>::const_iterator j = k.begin(); j != k.end(); ++j) {
+		for (map<string, Text>::const_iterator j = k.begin(); j != k.end() and primer; ++j) {
 			Text t = j->second;
                         /*
                         for(){
@@ -24,14 +27,25 @@ Text const Biblioteca::triar_text(string s){
                             
                         }
                         */
+                        
 			if (t.buscar_paraules(s)) {
 				ttriat = j->second;
-				triat = true;
-				return ttriat;
+				if (not segon and primer) {
+					segon = true;
+				}
+				
+				if(not primer) {
+					primer = true;
+				}
+				
 			}
 		}
 	}
-	if (not triat) cout << "error triar text" << endl;
+	if (primer and not segon) {
+		triat = true;
+		return ttriat;
+	}
+	if (not triat or not primer or segon) cout << "error triar text" << endl;
 	return ttriat;
 }
 

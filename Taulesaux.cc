@@ -42,25 +42,27 @@ void Taulesaux::ordenar_taulafreq(){
 
 //CONSULTORES
 bool const Taulesaux::existeix_cadena(string s){//busca la paraula en el map taulaparaules
+	
 	bool trobat = false;
-	int k = s.size();
+	//int k = s.size();
 	string actual, ant;
 	istringstream iss(s);
 	iss >> actual;
-	--k;
+	//--k;
+	
 	map<string, Node>::const_iterator i = taulaparaules.find(actual);
+	
 	if (i != taulaparaules.end()){
-            ant = i->first;
+           // ant = i->first;
             iss >> actual;
-            --k;
-            while(k > 0){
+           // --k;
+            while(iss >> actual){
                 i = taulaparaules.find(actual);
-                if(i->second.anterior == ant) return false;
+                if(i == taulaparaules.end()) return false;
                 else trobat = true;
-                ant = i->first;
-                iss >> actual;
-                --k;
-                ++i;
+                //iss >> actual;
+                //--k;
+                //++i;
             }
             return true;
 	}

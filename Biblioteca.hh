@@ -128,7 +128,7 @@ class Biblioteca{
 			\pre text triat
 			\post mostra totes les cites del p.i
 		*/
-		void const cites_text();
+		void const cites_text(bool b);
 
         //FUNCIONS EXTRA        
 

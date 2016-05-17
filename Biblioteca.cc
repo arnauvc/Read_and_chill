@@ -13,39 +13,71 @@ Biblioteca::~Biblioteca(){
 
 Text const Biblioteca::triar_text(string s){
 	triat = false;
-	bool primer,segon = false;
-	
-	for (map<string, map<string, Text> >::const_iterator i = conjunt_textos.begin(); i != conjunt_textos.end() and not segon; ++i) {
+	string op, op1;
+	string aux = s;
+	int count = 0;
+	istringstream ass(s);
+	while (ass >> op) ++count;//contador de cuantes paraules hem de tractar en total
+	int auxcount = count;
+	bool primer,segon,tr,tr1 = false;
+       for (map<string, map<string, Text> >::const_iterator i = conjunt_textos.begin(); i != conjunt_textos.end() and not segon and not tr1; ++i) {
+		tr = false;
+		s = aux;
+		count = auxcount;
 		map<string, Text> k = i->second;
-		for (map<string, Text>::const_iterator j = k.begin(); j != k.end() and not segon; ++j) {
+		istringstream iss(s);
+		for (map<string, Text>::const_iterator j = k.begin(); j != k.end() and not segon and not tr1; ++j) {
 			Text t = j->second;
-                        /*
-                        for(){
-                            
-                        }
-                        for(){
-                            
-                        }
-                        */
-                        
-			if (t.buscar_paraules(s)) {
-				ttriat = j->second;
-				if (not segon and primer) {
-					segon = true;
+            while (iss >> op) {
+            	istringstream oss(i->first);
+            	while (oss >> op1) { //bucle per buscar paraules a l'autor
+            		if (op == op1) {
+            			string::size_type i = s.find(op);
+            			if (i != string::npos){
+				            s.erase(0, i+op.length()+1);
+			            }
+			            --count;
+            		}
+            	}
+            	istringstream ess(j->first);
+            	while (ess >> op1) { //bucle per buscar paraules al titol
+            		if (op == op1) {
+            			string::size_type i = s.find(op);
+            			if (i != string::npos){
+				            s.erase(0, i+op.length()+1);
+			            }
+			            --count;
+            		}
+            	}
+            }           
+			if (count > 0) {//si falten paraules per trobar, si aixo es 0 es que s'ha trobat totes les paraules entre el titol i l'autor
+				if (t.buscar_paraules(s)) {
+					ttriat = j->second;
+					if (not segon and primer) {//segon text que cumpleix la condicio
+						segon = true;
+				    }
+					if(not primer) {//primer text que compleix la condicio
+						primer = true;
+				    }
 				}
-				
-				if(not primer) {
-					primer = true;
-				}
-				
-			}
+		    }
+		    else {
+		    	if (tr and not tr1) {//segon text que es cumpleix per titol i autor
+		        	tr1 = true;
+		        }
+		    	if(not tr) {//primer text que es cumpleix per titol i autor
+		    	    triat = true;
+		    		ttriat = j->second;
+		    		tr = true;
+		        }
+		    }
 		}
 	}
-	if (primer and not segon) {
+	if (primer and not segon and not tr1) {
 		triat = true;
 		return ttriat;
 	}
-	if (not triat or not primer or segon) cout << "error triar text" << endl;
+	if (not triat or not primer or segon or tr1) cout << "error triar text" << endl;
 	return ttriat;
 }
 

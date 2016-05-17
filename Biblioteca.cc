@@ -172,13 +172,13 @@ void Biblioteca::afegir_cita(int x, int y){
 void const Biblioteca::cites_autor(string autor) {
 	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
 		if (autor == i->second.aut) {
-			cout << i->first << " ";
+			cout << i->first << endl;
 			for (map<int,Frase>::const_iterator j = i->second.contingutcita.begin(); j != i->second.contingutcita.end(); ++j) {
 				Frase fr = j->second;
 				cout << j->first << " "; 
 				fr.escriu_frase();
 			}
-			cout << i->second.tit << endl;
+			cout << i->second.aut << " " << i->second.tit << endl;
 		}
     }
 }
@@ -186,7 +186,8 @@ void const Biblioteca::cites_autor(string autor) {
 void const Biblioteca::info_cita(string referencia) {
 	map<string,infocita>::const_iterator i = conjunt_cites.find(referencia);
 	if (i != conjunt_cites.end()){
-		cout << i->second.aut << " " << i->second.tit << " " << i->second.firstfrase << " " << i->second.lastfrase << endl;
+		cout << i->second.aut << " " << i->second.tit << endl; 
+		cout << i->second.firstfrase << "-" << i->second.lastfrase << endl;
 		for (map<int,Frase>::const_iterator j = i->second.contingutcita.begin(); j != i->second.contingutcita.end(); ++j) {
 				Frase fr = j->second;
 				cout << j->first << " "; 
@@ -207,8 +208,8 @@ void const Biblioteca::totes_cites() {
     }
 }
 
-void const Biblioteca::cites_text() {
-	cout << "Cites associades:" << endl;
+void const Biblioteca::cites_text(bool b) {
+	if(b) cout << "Cites associades:" << endl;
 	string titol = ttriat.titol_text();
 	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
 		if(i->second.tit == titol) {
@@ -218,13 +219,15 @@ void const Biblioteca::cites_text() {
 					cout << j->first << " "; 
 					fr.escriu_frase();
 			}
-			cout << i->second.aut << " " << i->second.tit << endl;
+			if(not b) cout << i->second.aut << " " << i->second.tit << endl;
 	    }
     }
 }
 
 void Biblioteca::eliminar_cita(string referencia) {
 	map<string,infocita>::iterator i = conjunt_cites.find(referencia);
-    conjunt_cites.erase(i);
-    //donar error si no existeix referencia al program!
+    if(i != conjunt_cites.end()) {
+    	conjunt_cites.erase(i);
+    }
+    else cout << "error" << endl;
 }

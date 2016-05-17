@@ -15,9 +15,9 @@ Text const Biblioteca::triar_text(string s){
 	triat = false;
 	bool primer,segon = false;
 	
-	for (map<string, map<string, Text> >::const_iterator i = conjunt_textos.begin(); i != conjunt_textos.end() and primer; ++i) {
+	for (map<string, map<string, Text> >::const_iterator i = conjunt_textos.begin(); i != conjunt_textos.end() and not segon; ++i) {
 		map<string, Text> k = i->second;
-		for (map<string, Text>::const_iterator j = k.begin(); j != k.end() and primer; ++j) {
+		for (map<string, Text>::const_iterator j = k.begin(); j != k.end() and not segon; ++j) {
 			Text t = j->second;
                         /*
                         for(){
@@ -131,7 +131,8 @@ void Biblioteca::afegir_text(string op){
 }
 
 void Biblioteca::eliminar_text(){
-    conjunt_textos.erase(ttriat.autor_text());
+	map<string, map<string, Text> >::iterator i = conjunt_textos.find(ttriat.autor_text());
+    conjunt_textos.erase(i);
     triat = false;
 }
 
@@ -232,7 +233,7 @@ void const Biblioteca::totes_cites() {
 }
 
 void const Biblioteca::cites_text(bool b) {
-	if(b) cout << "Cites associades:" << endl;
+	if(b) cout << "Cites Associades:" << endl;
 	string titol = ttriat.titol_text();
 	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
 		if(i->second.tit == titol) {

@@ -15,28 +15,21 @@ Text Biblioteca::triar_text(string s){
 	triat = false;
 	string op, op1;
 	string aux = s;
-	int count = 0;
+	int count,veg = 0;
 	istringstream ass(s);
-	while (ass >> op) ++count;//contador de cuantes paraules hem de tractar en total
+	while (ass >> op) ++count;
 	int auxcount = count;
-	bool primer,segon,tr,tr1,final = false;
-       for (map<string, map<string, Text> >::const_iterator i = conjunt_textos.begin(); i != conjunt_textos.end() and not segon and not tr1; ++i) {
-		tr = false;
-		primer = false;
+       for (map<string, map<string, Text> >::const_iterator i = conjunt_textos.begin(); i != conjunt_textos.end() and veg < 2; ++i) {
 		s = aux;
 		count = auxcount;
 		map<string, Text> k = i->second;
 		istringstream iss(s);
-		for (map<string, Text>::const_iterator j = k.begin(); j != k.end() and not segon and not tr1; ++j) {
-            //primer = false;
+		for (map<string, Text>::const_iterator j = k.begin(); j != k.end() and veg < 2; ++j) {
 			Text t = j->second;
             while (iss >> op) {
-            	//cout << "0" << endl;
             	istringstream oss(i->first);
-            	while (oss >> op1) { //bucle per buscar paraules a l'autor
-            		//cout << "aut " << "op: " << op << " " << "op1: " << op1 << endl;
+            	while (oss >> op1) {
             		if (op == op1) {
-            			//cout << "encontrado en autor" << endl;
             			string::size_type i = s.find(op);
             			if (i != string::npos){
 				            s.erase(0, i+op.length()+1);
@@ -45,10 +38,8 @@ Text Biblioteca::triar_text(string s){
             		}
             	}
             	istringstream ess(j->first);
-            	while (ess >> op1) { //bucle per buscar paraules al titol
-            		//cout << "tit " << "op: " << op << " " << "op1: " << op1 << endl;
+            	while (ess >> op1) {
             		if (op == op1) {
-            			//cout << "encontrado en titulo" << endl;
             			string::size_type i = s.find(op);
             			if (i != string::npos){
 				            s.erase(0, i+op.length()+1);
@@ -57,42 +48,23 @@ Text Biblioteca::triar_text(string s){
             		}
             	}
             }           
-			if (count > 0) {//si falten paraules per trobar, si aixo es 0 es que s'ha trobat totes les paraules entre el titol i l'autor
-				//cout << "1" << endl;
-			    //cout << "super important string s recortado: " << s << endl;
+			if (count > 0) {
 				if (t.buscar_paraules(s)) {
 					ttriat = j->second;
-					if (not segon and primer) {//segon text que cumpleix la condicio
-						segon = true;
-						//cout << "encontrado en contenido segunda vez" << endl;
-				    }
-					if(not primer) {//primer text que compleix la condicio
-						primer = true;
-						final = true;
-						//cout << "encontrado en contenido primera vez" << endl;
-				    }
+					++veg;
 				}
 		    }
 		    else {
-		    	if (tr and not tr1) {//segon text que es cumpleix per titol i autor
-		        	tr1 = true;
-		        	//cout << "encontrado en titulo i autor todo segunda vez" << endl;
-		        }
-		    	if(not tr) {//primer text que es cumpleix per titol i autor
-		    	    triat = true;
-		    		ttriat = j->second;
-		    		tr = true;
-		    		//cout << "encontrado en titulo i autor todo primera vez" << endl;
-		        }
+		    	ttriat = j->second;
+		    	++veg;
 		    }
 		}
 	}
-	if ((primer and not segon and not tr1) or (not primer and tr and not tr1) or (final and not primer)) {
+	if (veg == 1) {
 		triat = true;
-		//cout << "yeah men!" << endl;
 		return ttriat;
 	}
-	if (not triat) cout << "error" << endl;
+	else cout << "error" << endl;
 	return ttriat;
 }
 
@@ -204,18 +176,28 @@ void Biblioteca::eliminar_text(){
 }
 
 void Biblioteca::afegir_cita(int x, int y){
-	//2 o 3 incials y despres el numero! per la referencia!
+	bool trobat1 = false;
 	bool si = true;
 	string autor = ttriat.autor_text();
 	string titol = ttriat.titol_text();
 	string refe;
-	int numref = 1;
+	int numref;
 	infocita k;
 	string op;
 	istringstream iss(autor);
 	while (iss >> op) {
 		refe += char(op[0]);
 	}
+	map<string,int>::iterator f = freqrefe.find(refe);
+	if (f != freqrefe.end()) {
+		numref = f->second + 1;
+		f->second = numref;
+		trobat1 = true;
+	}
+	else {
+		freqrefe.insert(make_pair(refe, 1));
+	}
+	if (not trobat1) numref = 1;
 	string Result;
 	stringstream convert;
 	convert << numref;
@@ -258,7 +240,6 @@ void Biblioteca::afegir_cita(int x, int y){
   	    }
 	}
 	if(si) {
-        cout << "insereix la cita nova" <<endl;
         conjunt_cites.insert(make_pair(refe, k));
     }
 	else cout << "error" << endl;

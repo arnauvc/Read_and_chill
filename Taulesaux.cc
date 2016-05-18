@@ -90,7 +90,6 @@ void Taulesaux::intercanviar(string s1, string s2){
         n = i->second;
         
     }
-    else cout << "error no troba: " << s1 <<endl;
     
     map<string, Node >::const_iterator j = taulaparaules.find(s2);
     

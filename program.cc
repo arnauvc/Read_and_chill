@@ -25,6 +25,7 @@ int main(){
 	bool triat = false;
 	getline(cin,linia);
     while( linia != "sortir"){
+        op = "";
 		cout << linia << endl;
         istringstream iss(linia);
         iss >> op;
@@ -100,8 +101,13 @@ int main(){
 			ws(iss);
 			iss >> op;
 			if(op == "autor"){
-				
-			}
+				string::size_type i = linia.find(op);
+                if (i != string::npos){
+                    linia.erase(0, i+op.size()+2);
+					linia.erase(linia.size()-3, linia.size());
+					biblio.cites_autor(linia);
+				}
+            }
 			else if (op == "?"){
 				if(triat){
 				bool b = false;
@@ -109,8 +115,9 @@ int main(){
 				}
 				else cout << "error"<<endl;
 			}
+            
 		}
-		else if(linia == "info"){
+		else if(op == "info"){
 			ws(iss);
 			iss >> op;
 			if(op == "?"){
@@ -182,27 +189,14 @@ int main(){
             iss >> tmp;
 			ws(iss);
 			iss >> s2;
-			cout << s1 <<" "<< s2 << endl;
-			linia1 = linia;
+        
+			//linia1 = linia;
 			
-			string::size_type i = linia1.find(s1);
-            if (i != string::npos) {
-				linia1.erase(0, 13);
-				linia1.erase(i+(s1.length()), linia1.size());
-			}
-			string::size_type j = linia.find(s2);
-            if (j != string::npos) {
-				linia.erase(0, j+s1.length()+3);
-				linia.erase(j+s2.length(), linia.size());
-			cout << s1 <<" "<< s2 << endl;
-			}
-		/*
             s1 = s1.substr(1, (s1.size()-2));
             s2 = s2.substr(1, (s2.size()-2));
 		
-		*/	
-			cout << s1 <<" "<< s2 << endl;
-            texttriat.substitueix_paraules(linia1,linia);
+			
+            texttriat.substitueix_paraules(s1,s2);
 			}
 			else cout << "error" << endl;
 		}

@@ -182,66 +182,63 @@ void Biblioteca::afegir_cita(int x, int y){
 	string titol = ttriat.titol_text();
 	string refe;
 	int numref;
-	infocita k;
+	int auxnum = 0;
+	infocita k, e;
 	string op;
 	istringstream iss(autor);
 	while (iss >> op) {
 		refe += char(op[0]);
 	}
 	map<string,int>::iterator f = freqrefe.find(refe);
+	map<string,infocita>::iterator i;
 	if (f != freqrefe.end()) {
 		numref = f->second + 1;
-		f->second = numref;
 		trobat1 = true;
+		while (auxnum < numref and si) {
+			++auxnum;
+			op.clear();
+		    refe.clear();
+			istringstream ass(autor);
+		    while (ass >> op) {
+		        refe += char(op[0]);
+	        }
+			string Result;
+			stringstream convert;
+			convert << auxnum;
+			Result = convert.str();
+			refe += Result;
+			i = conjunt_cites.find(refe);
+            if (i != conjunt_cites.end()) {
+            	e = i->second;
+                if (e.firstfrase == x and e.lastfrase == y and e.aut == autor and e.tit == titol) si = false;
+			}
+		}
+		if (si) f->second = numref;
 	}
 	else {
 		freqrefe.insert(make_pair(refe, 1));
 	}
 	if (not trobat1) numref = 1;
-	string Result;
-	stringstream convert;
-	convert << numref;
-	Result = convert.str();
-	refe += Result;
-	map<string,infocita>::iterator i = conjunt_cites.find(refe);
-	if (i == conjunt_cites.end()) {
+	if(si) {
+		op.clear();
+		refe.clear();
+		istringstream ess(autor);
+		while (ess >> op) {
+		    refe += char(op[0]);
+	    }
+		string Result;
+		stringstream convert;
+		convert << numref;
+		Result = convert.str();
+		refe += Result;
 		k.firstfrase = x;
    	    k.lastfrase = y;
 		k.aut = autor;
 		k.tit = titol;
         bool nec = true;//Aquest bool no afecta a la funcio afegir_cita, pero fa falta per mi
   	    k.contingutcita = ttriat.interval_frases(x, y, nec);
-	}
-	else {
-		while (i != conjunt_cites.end()) {
-            infocita e = i->second;
-            if (e.firstfrase == x and e.lastfrase == y and e.aut == autor and e.tit == titol) si = false;
-			op.clear();
-			refe.clear();
-			++numref;
-			istringstream iss(autor);
-		    while (iss >> op) {
-		        refe += char(op[0]);
-	        }
-			string Result;
-			stringstream convert;
-			convert << numref;
-			Result = convert.str();
-			refe += Result;
-			i = conjunt_cites.find(refe);
-		}
-		if(si) {
-			k.firstfrase = x;
-   	        k.lastfrase = y;
-			k.aut = autor;
-			k.tit = titol;
-            bool nec = true;//Aquest bool no afecta a la funcio afegir_cita, pero fa falta per mi
-  	        k.contingutcita = ttriat.interval_frases(x, y, nec);
-  	    }
-	}
-	if(si) {
-        conjunt_cites.insert(make_pair(refe, k));
-    }
+  	    conjunt_cites.insert(make_pair(refe, k));
+  	}
 	else cout << "error" << endl;
 }
 

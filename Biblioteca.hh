@@ -30,6 +30,7 @@ class Biblioteca{
 			string tit; //titol text original
 			map<int,Frase> contingutcita; //frases que la componen
 		};
+		map<string,int> freqrefe;
 		int ncites;
 		bool triat;
 		Text ttriat;

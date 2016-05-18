@@ -9,7 +9,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include <cstddef>
+//#include <cstddef>
 #include "Biblioteca.hh"
 #include "Text.hh"
 
@@ -21,12 +21,12 @@ using namespace std;
 int main(){
 	Biblioteca biblio;
     Text texttriat;
-	string linia,op, auxiliar;
+	string linia,op;
 	bool triat = false;
 	getline(cin,linia);
-	auxiliar = linia;
+	
     while( linia != "sortir"){
-		auxiliar = linia;
+		
 		cout << linia << endl;
         istringstream iss(linia);
         iss >> op;
@@ -38,18 +38,11 @@ int main(){
 				iss >> op;
 				string::size_type i = linia.find(op);
                 if (i != string::npos){
-                    linia.erase(0, 12);
-					linia.erase(linia.size(), linia.size());
+                    linia.erase(0, 13);
+					linia.erase(linia.size()-1, linia.size());
 					biblio.afegir_text(linia);
 				}
             }
-            else if(op == "cita"){
-				int x,y;//primera frase y ultima frase
-                ws(iss);
-                iss >> x;
-                iss >> y;
-                biblio.afegir_cita(x,y);
-                }
         }
 		else if(op == "triar"){ //FUNCIONA . FALTA MIRA TITOL I AUTOR
                 string s;
@@ -69,6 +62,44 @@ int main(){
         else if(linia == "totes cites ?"){
             biblio.totes_cites();
         }
+        else if(linia == "eliminar text"){
+                biblio.eliminar_text();
+				triat = biblio.consultar_triat();
+        }
+        else if(op == "eliminar"){
+                iss >> op;
+				if (op == "cita"){
+					string s;//referencia
+					ws(iss);
+					iss >> s;
+					s = s.substr(1, (s.size()-2));
+					biblio.eliminar_cita(s);
+				}
+        }
+        
+        else if(linia == "info ?"){
+                if(triat){
+                    cout << "ha entrar a info" <<endl;
+				bool bc = true;
+                texttriat.info_text();
+                biblio.cites_text(bc);
+                }
+                else {
+                    cout << "error" << endl;
+                }
+        }
+        
+        else if(op == "info"){
+            ws(iss);
+            iss >> op;
+            if(op == "cita"){
+                string s;
+                ws(iss);
+                iss >> s;
+                s = s.substr(1, (s.size()-2));
+                biblio.info_cita(s);
+            }
+        }
         else if(op == "textos"){ //textos autor " " ?
 			ws(iss);
 			iss >> op;
@@ -79,55 +110,13 @@ int main(){
 				biblio.textos_autor(linia);
 			}
         }
-		else if(triat && !(linia.empty())){
+        
+        
+        
+		else if(!(linia.empty())){
             
-			if(linia == "eliminar text"){
-                biblio.eliminar_text();
-				triat = biblio.consultar_triat();
-            }
-            else if(linia == "info ?"){
-				bool b = true;
-                texttriat.info_text();
-                biblio.cites_text(b);
-                //Falta fer el cout de les cites del textelse if(liniac == "info ?"){
-                //Falta fer el cout de les cites del text
-                //texttriat.autor_text();
-            }
-            else if(op == "info"){
-				ws(iss);
-				iss >> op;
-				if(op == "cita"){
-					string s;
-					ws(iss);
-					iss >> s;
-					s = s.substr(1, (s.size()-2));
-					biblio.info_cita(s);
-				}
-            }
-            else if (linia == "cites ?"){
-				bool b = false;
-				biblio.cites_text(b);
-			}
-			else if(op == "cites"){
-				ws(iss);
-				iss >> op;
-				if (op == "autor"){
-					/*string s;
-					ws(iss);
-					iss >> s;
-                    */
-                    string::size_type i = linia.find(op);
-                    if (i != string::npos){
-                        linia.erase(0, i+op.size()+2);
-                        linia.erase(linia.size()-3, linia.size());
-                        biblio.cites_autor(linia);
-                    }
-					//s = linia.substr(12, s.size()-2);
-                    
-					
-				}
-			}
-			else if(op == "afegir"){ //FUNCIONA
+            if(op == "afegir"){ //FUNCIONA
+                cout << "entra a afegir cita" <<endl;
 				ws(iss);
 				iss >> op;
 				if(op == "cita"){
@@ -137,7 +126,13 @@ int main(){
 					iss >> y;
 					biblio.afegir_cita(x,y);
 					}
-			}
+            }
+			else if (linia == "cites ?"){
+				bool b = false;
+				biblio.cites_text(b);
+            }
+
+            
             else if (linia == "contingut ?"){
                 texttriat.contingut_text();
             }
@@ -162,16 +157,7 @@ int main(){
             else if (linia == "nombre de paraules ?"){
                 cout << texttriat.consultar_numparaules() << endl;
             }
-            else if(op == "eliminar"){
-                iss >> op;
-				if (op == "cita"){
-					string s;//referencia
-					ws(iss);
-					iss >> s;
-					s = s.substr(1, (s.size()-2));
-					biblio.eliminar_cita(s);
-				}
-			}
+            
             else if(op == "substitueix"){
                 string s1,tmp,s2;
                 ws(iss);
@@ -211,24 +197,18 @@ int main(){
                     if (i != string::npos) {
 						linia.erase(0, i+tmp.length()+1);
 						linia.erase(linia.size()-2, linia.size());
-						//texttriat.expressio_frases(linia);
+						texttriat.expressio_frases(linia);
 					}
                 }
                 else{
 					int x,y;
-					/*
-					cout <<"auxiliar: "<<auxiliar << endl;
-					istringstream isss(auxiliar);
-					*/
-					//iss >> x;
 					stringstream convert(op);
 					convert >> x;
 					ws(iss);
                     iss >> y;
-					cout << "l'interval es: " << x << " " << y << endl;
-                    bool b = false;
-                    map<int,Frase> m = texttriat.interval_frases(x,y,b);
-                    if(b){
+                    bool ba = false;
+                    map<int,Frase> m = texttriat.interval_frases(x,y,ba);
+                    if(ba){
                         for(map<int,Frase>::iterator j = m.begin();j != m.end();++j){
                             cout << j->first << " ";
                             j->second.escriu_frase();
@@ -237,11 +217,11 @@ int main(){
                 }
 			}
 			else {
-				cout << "error de comanda" << endl;
+				cout << "error" << endl;
 			}
 		}
         else {
-			if(!(linia.empty()))cout << "comanda incorrecte" << endl;
+			if(!(linia.empty()))cout << "error" << endl;
 			triat = biblio.consultar_triat();
         }
         getline(cin, linia);

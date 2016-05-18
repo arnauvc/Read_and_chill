@@ -28,6 +28,7 @@ Text Biblioteca::triar_text(string s){
 		map<string, Text> k = i->second;
 		istringstream iss(s);
 		for (map<string, Text>::const_iterator j = k.begin(); j != k.end() and not segon and not tr1; ++j) {
+            //primer = false;
 			Text t = j->second;
             while (iss >> op) {
             	//cout << "0" << endl;
@@ -191,6 +192,15 @@ void Biblioteca::eliminar_text(){
             triat = false;
         }
     }
+    map<string, infoautor>::iterator k = conjunt_autors.find(ttriat.autor_text());
+    if(k != conjunt_autors.end()){
+        if(k->second.ntextos == 1) conjunt_autors.erase(ttriat.autor_text());
+        else{
+            --k->second.ntextos;
+            k->second.nfrases -= ttriat.consultar_numfrases();
+            k->second.nparaules -= ttriat.consultar_numparaules();
+        }
+    } 
 }
 
 void Biblioteca::afegir_cita(int x, int y){
@@ -247,7 +257,10 @@ void Biblioteca::afegir_cita(int x, int y){
   	        k.contingutcita = ttriat.interval_frases(x, y, nec);
   	    }
 	}
-	if(si) conjunt_cites.insert(make_pair(refe, k));
+	if(si) {
+        cout << "insereix la cita nova" <<endl;
+        conjunt_cites.insert(make_pair(refe, k));
+    }
 	else cout << "error" << endl;
 }
 

@@ -94,9 +94,10 @@ void Text::expressio_frases(string s1){//portara feina
         Frase f = i->second;
         int j = 0;
         if (compleix_expressio(s1, j, f)) {
+            cout << i->first << " ";
             f.escriu_frase();
         }
-        cout << s1;
+        //cout << s1;
     }
 }
 

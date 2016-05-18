@@ -64,7 +64,7 @@ void Frase::escriu_frase() {
             }
             else cout << " " << frase_in[i].first;
         }
-        else cout << frase_in[i].first;
+        else cout << frase_in[i].first << " ";
     }
     cout << endl;
 }

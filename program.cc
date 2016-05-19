@@ -255,13 +255,11 @@ int main(){
                     }
                     else cout << "error" << endl;
                 }
-			}
-			else cout << "error" <<endl;
 		}
         else {
 			if(!(linia.empty()))cout << "error" << endl;
 			triat = biblio.consultar_triat();
         }
-        getline(cin, linia);
+    getline(cin, linia);
 	}
 }

@@ -48,7 +48,6 @@ class Text{
                             }
                             else{
                                 e.push_back(exp[i]);
-                                
                                 ++i;
                             }
                         }
@@ -58,20 +57,20 @@ class Text{
                 }
                 else { 
                     ++i;  
-                    bool r1 = compleix_expressio(exp,i,f); 
-                                    
+                    bool r1 = compleix_expressio(exp,i,f);                  
                     while(exp[i] == ' '){ 
                         ++i;
                     }    
-                    
                     char c = exp[i];
+		    /* //hauria d'ajudar a millor l'eficiencia considerablement
+		    if (c=='&' and not r1)return false;
+		    if (c=='|' and r1)return true;
+		    */
                     ++i;
-                    
                     while(exp[i] ==' '){
                         ++i; 
                     }
-                    bool r2 = compleix_expressio(exp,i,f); 
-                                       
+                    bool r2 = compleix_expressio(exp,i,f);               
                     ++i;			//Avancem una posicio, per que "i" retorni el valor adequat (sempre 
                                 // una posicio despres de l'element analitzat en aquesta iteracio).
                     if (c=='&') {		// Haviem guardat "." o "," a "c". 

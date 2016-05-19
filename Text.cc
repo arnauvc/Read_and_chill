@@ -138,10 +138,10 @@ void Text::llegir_text(string ti){
             }
             if (primer) {
                  primer = false;
-                if (char(op[0]) >= 'a' and char(op[0]) <= 'z') {
+                //if (char(op[0]) >= 'a' and char(op[0]) <= 'z') {
                     aux += " "; 
                     aux += op;
-                }
+                //}
                 if (superprimer) {
                     aux = op;
                     superprimer = false;

@@ -7,7 +7,6 @@ Frase::Frase() {
 Frase::~Frase() {}
 
 void Frase::llegir_frase(string s, Taulesaux &tau, int numf) {
-    
     string ant;
     string op;
     istringstream iss(s);
@@ -46,8 +45,10 @@ void Frase::llegir_frase(string s, Taulesaux &tau, int numf) {
     op.erase(l-1);
     frase_in.push_back(make_pair(op, ant));
     tau.insertar_paraula(op, numf);
+    
     frase_in.push_back(make_pair(c, ant)); 
     ++num_paraules;
+    
 }
 
 void Frase::escriu_frase() {

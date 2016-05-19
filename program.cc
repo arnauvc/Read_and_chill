@@ -182,31 +182,32 @@ int main(){
         }   
         else if(op == "substitueix"){
 			if(triat){
-			string s1,tmp,s2, linia1;
-            ws(iss);
-			iss >> s1;
-			ws(iss);
-            iss >> tmp;
-			ws(iss);
-			iss >> s2;
-        
-			//linia1 = linia;
-			
-            s1 = s1.substr(1, (s1.size()-2));
-            s2 = s2.substr(1, (s2.size()-2));
-		
+                string s1,tmp,s2, linia1;
+                ws(iss);
+                iss >> s1;
+                ws(iss);
+                iss >> tmp;
+                ws(iss);
+                iss >> s2;
+            
+                //linia1 = linia;
+                
+                s1 = s1.substr(1, (s1.size()-2));
+                s2 = s2.substr(1, (s2.size()-2));
+            
 			
             texttriat.substitueix_paraules(s1,s2);
 			}
 			else cout << "error" << endl;
 		}
         else if (op == "frases"){
-			if(triat){
+			
                 string s1,tmp;
                 ws(iss);
 				tmp = op;
                 iss >> op;
                 if(op[0] == '"'){
+                    if(triat){
                     op.erase(op.begin(), op.begin()+1);
                     s1 += op;
                     s1 += " ";
@@ -222,16 +223,22 @@ int main(){
                     s1 += op;
                     s1 += " ";
                     texttriat.paraules_frase(s1);
+                    }
+                    else cout << "error" <<endl;
                 }
                 else if(op[0] == '(' ){
-                    string::size_type i = linia.find(tmp);
-                    if (i != string::npos) {
-						linia.erase(0, i+tmp.length()+1);
-						linia.erase(linia.size()-2, linia.size());
-						texttriat.expressio_frases(linia);
-					}
+                    if(triat){
+                        string::size_type i = linia.find(tmp);
+                        if (i != string::npos) {
+                            linia.erase(0, i+tmp.length()+1);
+                            linia.erase(linia.size()-2, linia.size());
+                            texttriat.expressio_frases(linia);
+                        }
+                    }
+                    else cout << "error" << endl;
                 }
                 else{
+                    if(triat){
 					int x,y;
 					stringstream convert(op);
 					convert >> x;
@@ -245,6 +252,8 @@ int main(){
                             j->second.escriu_frase();
                         }
                     }
+                    }
+                    else cout << "error" << endl;
                 }
 			}
 			else cout << "error" <<endl;

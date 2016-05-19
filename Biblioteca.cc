@@ -251,7 +251,7 @@ void Biblioteca::cites_autor(string autor) {
 				cout << j->first << " "; 
 				fr.escriu_frase();
 			}
-			cout << i->second.aut << " " << "\"" << i->second.tit << "\"" << endl;
+			cout /*<< i->second.aut << " "*/ << "\"" << i->second.tit << "\"" << endl;
 		}
     }
 }
@@ -283,10 +283,14 @@ void Biblioteca::totes_cites() {
 }
 
 void Biblioteca::cites_text(bool b) {
-	if(b) cout << "Cites Associades:" << endl;
+	bool primer = true;
 	string titol = ttriat.titol_text();
 	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
 		if(i->second.tit == titol) {
+            if(b and primer) {
+                primer = false;
+                cout << "Cites Associades:" << endl;
+            }
 			cout << i->first << endl;
 			for (map<int,Frase>::const_iterator j = i->second.contingutcita.begin(); j != i->second.contingutcita.end(); ++j) {
 					Frase fr = j->second;

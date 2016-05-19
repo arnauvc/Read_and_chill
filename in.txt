@@ -47,7 +47,7 @@ afegir text "Los sistemas de riego antes del siglo X"
 autor "Mariona Blay Andreu"
 Los Puquios son construcciones sofisticadas en forma de espiral que se hunden en la tierra. Estas construcciones se distribuyen 
 por la desertica zona de Nazca, al sur de Peru, que fue el hogar de la cultura del mismo nombre entre los anos 200 y 600. Estas 
-construcciones en espiral eran una especie de sistema de ventilacion que conducia el viento hasta una red de canales subterraneos. 
+construcciones en espiral eran una especie de sistema de ventilacion que conducia el viento hasta una red de canales subterraneos.
 Los Puquios fueron claves para distribuir el agua y que el pueblo Nazca pudiera sobrevivir en esa zona desertica.
 ****
 

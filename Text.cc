@@ -105,18 +105,18 @@ void Text::taula_frequencies(){
     tau.taula_frequencies();
 }
 
-void Text::llegir_text(string ti){
+void Text::llegir_text(string ti, string autorr){
     int a = 1;
     string line, op;
     titol = ti;
-    string tmp;
+    /*string tmp;
     getline(cin, tmp);
-    
     string::size_type i = tmp.find("autor");
     if (i != string::npos) tmp.erase(0,6);
     tmp.erase(tmp.begin(), tmp.begin()+1);
     tmp.erase(tmp.size()-1, tmp.size());
-    autor = tmp;
+    autor = tmp;*/
+    autor = autorr;
     getline(cin, line);
     bool pam = false;
     int l;

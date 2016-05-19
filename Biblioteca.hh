@@ -30,6 +30,7 @@ class Biblioteca{
 			string tit; //titol text original
 			map<int,Frase> contingutcita; //frases que la componen
 		};
+		bool textsiafegit;
 		map<string,int> freqrefe;
 		int ncites;
 		bool triat;
@@ -146,7 +147,7 @@ class Biblioteca{
         void textos_autor(string s);
                 
                 
-                
+        bool text_si_afegit();
 
 };
 

@@ -3,7 +3,7 @@
 */
 
 /** @file program.cc
-    @brief Programa principal de <em>Pràctica PRO2 - Gestor de textos i cites</em>.
+    @brief Programa principal de <em>Practica PRO2 - Gestor de textos i cites</em>.
 */
 
 #include <iostream>
@@ -40,6 +40,12 @@ int main(){
                     linia.erase(0, 13);
 					linia.erase(linia.size()-1, linia.size());
 					biblio.afegir_text(linia);
+					if (not biblio.text_si_afegit()) {
+						string jeje;
+						getline(cin, jeje);
+						while (jeje != "****") getline(cin, jeje);
+						cout << "error" << endl;
+					}
 				}
             }
             else if (op == "cita"){
@@ -148,38 +154,51 @@ int main(){
 				}
 			}
         }
-        else if (linia == "contingut ?"){
-            if (triat)texttriat.contingut_text();
-			else cout << "error"<<endl;
+        else if (op == "contingut"){
+            ws(iss);
+            iss >> op;
+            if(op == "?"){
+                if (triat)texttriat.contingut_text();
+                else cout << "error"<<endl;
+            }
         }
-        else if (linia == "nombre de frases ?"){
-            if(triat) cout << texttriat.consultar_numfrases() << endl;
-			else cout <<"error"<<endl;
+        else if (op == "autor"){
+            ws(iss);
+            iss >> op;
+            if(op == "?"){
+                if(triat) cout << texttriat.autor_text() << endl;
+                else cout << "error" << endl;
+            }
         }
-        else if (linia == "nombre de paraules ?"){
-            if(triat) cout << texttriat.consultar_numparaules() << endl;
-			else cout << "error" << endl;		
-		}
-        else if (linia == "taula de frequencies ?"){
-            if(triat)texttriat.taula_frequencies();
-			else cout << "error" << endl;
+        else if (op == "nombre"){
+            ws(iss);
+            iss >> op;
+            if(op == "de"){
+                ws(iss);
+                iss >> op;
+                if(op == "frases"){
+                    if(triat) cout << texttriat.consultar_numfrases() << endl;
+                    else cout <<"error"<<endl;
+                }
+                else if(op == "paraules"){
+                    if(triat) cout << texttriat.consultar_numparaules() << endl;
+                    else cout << "error" << endl;	
+                }
+            }
         }
-        else if (linia == "autor ?"){
-            if(triat) cout << texttriat.autor_text() << endl;
-			else cout << "error" << endl;
+        else if (op == "taula"){
+            ws(iss);
+            iss >> op;
+            if(op == "de"){
+                ws(iss);
+                iss >> op;
+                if(op == "frequencies"){
+                    if(triat)texttriat.taula_frequencies();
+                    else cout << "error" << endl;
+                }
+            }
+            
         }
-        else if (linia == "contingut ?"){
-			if(triat)texttriat.contingut_text();
-			else cout << "error" <<endl;
-        }
-        else if (linia == "nombre de frases ?"){
-            if(triat) cout << texttriat.consultar_numfrases() << endl;
-			else cout << "error" <<endl;
-        }
-        else if (linia == "nombre de paraules ?"){
-             if(triat)cout << texttriat.consultar_numparaules() << endl;
-			 else cout << "error" << endl;
-        }   
         else if(op == "substitueix"){
 			if(triat){
                 string s1,tmp,s2, linia1;
@@ -201,37 +220,51 @@ int main(){
 			else cout << "error" << endl;
 		}
         else if (op == "frases"){
-			
                 string s1,tmp;
+                bool bac = true;
                 ws(iss);
 				tmp = op;
                 iss >> op;
+                
                 if(op[0] == '"'){
                     if(triat){
+                    
                     op.erase(op.begin(), op.begin()+1);
                     s1 += op;
                     s1 += " ";
-                    ws(iss);
-                    iss >> op;
-                    while(op[op.size()-1] != '"'){
-                        s1 += op;
-                        s1 += " ";
-                        ws(iss);
-                        iss >> op;
+                    
+                    while(iss >> op and op != "?"){
+                        
+                        if(op[op.size()-1] != '"'){
+                            s1 += op;
+                            s1 += " ";
+                            ws(iss);
+                        }
+                        else {
+                            op.erase(op.size()-1, op.size());
+                            s1 += op;
+                            s1 += " ";
+                        }
+                        bac = false;
+                        
                     }
-                    op.erase(op.size()-1, op.size());
-                    s1 += op;
-                    s1 += " ";
+                    
+                    if(bac){
+                        s1.erase(s1.size()-2, s1.size());
+                    }
+                    
                     texttriat.paraules_frase(s1);
                     }
                     else cout << "error" <<endl;
                 }
                 else if(op[0] == '(' ){
                     if(triat){
+                        
                         string::size_type i = linia.find(tmp);
                         if (i != string::npos) {
                             linia.erase(0, i+tmp.length()+1);
                             linia.erase(linia.size()-2, linia.size());
+                            
                             texttriat.expressio_frases(linia);
                         }
                     }
@@ -246,12 +279,12 @@ int main(){
                     iss >> y;
                     bool ba = false;
                     map<int,Frase> m = texttriat.interval_frases(x,y,ba);
-                    if(ba){
-                        for(map<int,Frase>::iterator j = m.begin();j != m.end();++j){
-                            cout << j->first << " ";
-                            j->second.escriu_frase();
+                        if(ba){
+                            for(map<int,Frase>::iterator j = m.begin();j != m.end();++j){
+                                cout << j->first << " ";
+                                j->second.escriu_frase();
+                            }
                         }
-                    }
                     }
                     else cout << "error" << endl;
                 }

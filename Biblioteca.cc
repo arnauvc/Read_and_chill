@@ -5,6 +5,7 @@
 Biblioteca::Biblioteca(){
     triat = false;
     ncites = 1;
+    textsiafegit = false;
 }
 
 Biblioteca::~Biblioteca(){
@@ -16,6 +17,7 @@ Text Biblioteca::triar_text(string s){
 	string op, op1;
 	string aux = s;
 	int count,veg = 0;
+	int l;
 	istringstream ass(s);
 	while (ass >> op) ++count;
 	int auxcount = count;
@@ -39,6 +41,10 @@ Text Biblioteca::triar_text(string s){
             	}
             	istringstream ess(j->first);
             	while (ess >> op1) {
+            		l = op1.size();
+            		if (char(op1[l-1]) == '.' or char(op1[l-1]) == '?' or char(op1[l-1]) == '!' or char(op1[l-1]) == ',' or char(op1[l-1]) == ';' or char(op1[l-1]) == ':') {
+            			op1.erase(l-1, l-1);
+            		}
             		if (op == op1) {
             			string::size_type i = s.find(op);
             			if (i != string::npos){
@@ -109,11 +115,20 @@ void Biblioteca::tots_autors(){
 void Biblioteca::afegir_text(string op){
 	bool es;
     Text t;
-    t.llegir_text(op);
-    string s = t.autor_text();
-    string ti = t.titol_text();
+    string tmp;
+    getline(cin, tmp);
+    string::size_type kk = tmp.find("autor");
+    if (kk != string::npos) tmp.erase(0,6);
+    tmp.erase(tmp.begin(), tmp.begin()+1);
+    tmp.erase(tmp.size()-1, tmp.size());    
+    string ti = op;
+    string s = tmp;
+    //string s = t.autor_text();
+    //string ti = t.titol_text();
     map<string, map<string, Text> >::iterator i = conjunt_textos.find(s);
     if (i == conjunt_textos.end()) {
+    	t.llegir_text(ti, s);
+    	textsiafegit = true;
     	map<string, Text> u;
     	u.insert(make_pair(ti, t));
     	conjunt_textos.insert(make_pair(s, u));
@@ -124,12 +139,14 @@ void Biblioteca::afegir_text(string op){
     	h = i->second;
     	map<string, Text>::iterator j = h.find(ti);
     	if (j == h.end()) {
+    		t.llegir_text(ti, s);
+    		textsiafegit = true;
     		i->second.insert(make_pair(ti, t));
     		es = false;
         }
         else { 
         	es = true;
-        	cout << "error" << endl;
+        	//cout << "error" << endl;
         }
     }
     if (not es) {
@@ -151,7 +168,16 @@ void Biblioteca::afegir_text(string op){
     }
 }
 
+ bool Biblioteca::text_si_afegit() {
+ 	if (textsiafegit) {
+ 		textsiafegit = false;
+ 		return true;
+ 	}
+ 	return false;
+ }
+
 void Biblioteca::eliminar_text(){
+	if (triat) {
 	map<string, map<string, Text> >::iterator i = conjunt_textos.find(ttriat.autor_text());
     map<string, Text>::iterator j = i->second.find(ttriat.titol_text());
     if(i != conjunt_textos.end() && j != i->second.end() ){
@@ -173,11 +199,16 @@ void Biblioteca::eliminar_text(){
             k->second.nparaules -= ttriat.consultar_numparaules();
         }
     } 
+    }
 }
 
 void Biblioteca::afegir_cita(int x, int y){
+	int espotafegir = ttriat.consultar_numfrases();
 	bool trobat1 = false;
 	bool si = true;
+	bool finjeje = true;
+	if (espotafegir > 0 and x >= 1 and y <= espotafegir and x <= y) {
+	finjeje = false;
 	string autor = ttriat.autor_text();
 	string titol = ttriat.titol_text();
 	string refe;
@@ -237,9 +268,10 @@ void Biblioteca::afegir_cita(int x, int y){
 		k.tit = titol;
         bool nec = true;//Aquest bool no afecta a la funcio afegir_cita, pero fa falta per mi
   	    k.contingutcita = ttriat.interval_frases(x, y, nec);
-  	    conjunt_cites.insert(make_pair(refe, k));
+  	    if (nec) conjunt_cites.insert(make_pair(refe, k));
   	}
-	else cout << "error" << endl;
+    }
+    if (not si or finjeje) cout << "error" << endl;
 }
 
 void Biblioteca::cites_autor(string autor) {

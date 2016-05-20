@@ -291,8 +291,9 @@ int main(){
 		}
         else {
 			if(!(linia.empty()))cout << "error" << endl;
-			triat = biblio.consultar_triat();
+			
         }
+    triat = biblio.consultar_triat();
     getline(cin, linia);
 	}
 }

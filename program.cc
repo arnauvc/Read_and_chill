@@ -301,7 +301,7 @@ int main(){
 		}
 		
         else {
-			if(!(linia.empty()))cout << "error comanda" << endl;
+			if(!(linia.empty()))cout << "error" << endl;
 			
         }
         

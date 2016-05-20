@@ -78,23 +78,55 @@ bool Frase::trobat(string s) {
     
     int x = frase_in.size();
     bool trobat = false;
-    string actual, ant;
+    string actual, ant, op1, op2;
     istringstream iss(s);
     iss >> actual;
-    int i;
+    int i,l;
+	
     for (i = 0; i < x and not trobat; ++i) {
-        if (actual == frase_in[i].first) trobat = true;
+		op1 = frase_in[i].first;
+		l = op1.size();
+        if (char(op1[l-1]) == '.' or char(op1[l-1]) == '?' or char(op1[l-1]) == '!' or char(op1[l-1]) == ',' or char(op1[l-1]) == ';' or char(op1[l-1]) == ':') {
+            	op1.erase(l-1, l-1);	
+        }
+        if(actual == op1) trobat =true;
+		
     }
+    cout << "1" << endl;
     if (trobat) {
-        ant = frase_in[i].second;
+		op1 = frase_in[i].second;
+		l = op1.size();
+		if (char(op1[l-1]) == '.' or char(op1[l-1]) == '?' or char(op1[l-1]) == '!' or char(op1[l-1]) == ',' or char(op1[l-1]) == ';' or char(op1[l-1]) == ':') {
+            	op1.erase(l-1, l-1);	
+		}
+        ant = op1;
         while (iss >>actual and i<x) {
-            if (frase_in[i].first == actual) {
-                if (frase_in[i].second != ant) return false; 
+			cout << "2" << endl;
+			op1= frase_in[i].first;
+			l = op1.size();
+			if (char(op1[l-1]) == '.' or char(op1[l-1]) == '?' or char(op1[l-1]) == '!' or char(op1[l-1]) == ',' or char(op1[l-1]) == ';' or char(op1[l-1]) == ':') {
+            	op1.erase(l-1, l-1);	
+			}
+			op2 = frase_in[i].second;
+			l = op2.size();
+			cout << "3" << endl;
+			
+			
+			op2 = frase_in[i].second;
+			if (char(op2[l-1]) == '.' or char(op2[l-1]) == '?' or char(op2[l-1]) == '!' or char(op2[l-1]) == ',' or char(op2[l-1]) == ';' or char(op2[l-1]) == ':') {
+            	
+				op2.erase(l-1, l-1);	
+			}
+			cout << "4" << endl;
+            if (op1 == actual) {
+                if (op2 != ant) return false; 
             }
             else {
                 return false;
             }
-            ant = frase_in[i].first;
+            
+            cout << "5" << endl;
+            ant = op1;
             ++i;
         }
         return true;

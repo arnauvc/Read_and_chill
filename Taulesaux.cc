@@ -88,7 +88,6 @@ void Taulesaux::intercanviar(string s1, string s2){
     map<string, Node >::iterator i = taulaparaules.find(s1);
     if(i != taulaparaules.end()){
         n = i->second;
-        
     }
     
     map<string, Node >::const_iterator j = taulaparaules.find(s2);

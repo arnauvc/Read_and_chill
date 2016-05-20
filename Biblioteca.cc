@@ -16,7 +16,8 @@ Text Biblioteca::triar_text(string s){
 	triat = false;
 	string op, op1;
 	string aux = s;
-	int count,veg = 0;
+	int count = 0;
+	int veg = 0;
 	int l;
 	istringstream ass(s);
 	while (ass >> op) ++count;
@@ -34,9 +35,10 @@ Text Biblioteca::triar_text(string s){
             		if (op == op1) {
             			string::size_type i = s.find(op);
             			if (i != string::npos){
-				            s.erase(0, i+op.length()+1);
+				            s.erase(i, i+op.length());
+							iss >> op;
+							--count;
 			            }
-			            --count;
             		}
             	}
             	istringstream ess(j->first);
@@ -48,12 +50,15 @@ Text Biblioteca::triar_text(string s){
             		if (op == op1) {
             			string::size_type i = s.find(op);
             			if (i != string::npos){
-				            s.erase(0, i+op.length()+1);
+				            s.erase(i, i+op.length());
+							iss >> op;
+							--count;
 			            }
-			            --count;
+			            
             		}
             	}
-            }           
+            } 
+            
 			if (count > 0) {
 				if (t.buscar_paraules(s)) {
 					ttriat = j->second;
@@ -66,6 +71,7 @@ Text Biblioteca::triar_text(string s){
 		    }
 		}
 	}
+	
 	if (veg == 1) {
 		triat = true;
 		return ttriat;

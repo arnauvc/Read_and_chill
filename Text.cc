@@ -87,6 +87,7 @@ void Text::substitueix_paraules(string s1, string s2){
     for(map<int,Frase>::iterator i = contingut.begin(); i != contingut.end(); ++i){
         i->second.canvi_paraules(s1,s2);
     }
+    
 }
 
 void Text::expressio_frases(string s1){//portara feina

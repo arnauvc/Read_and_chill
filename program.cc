@@ -60,12 +60,15 @@ int main(){
 			}
         }
 		else if(op == "triar"){
+			
                 string s;
                 iss >> op;
 				if(op == "text"){
+					
 					linia.erase(0, 12);
 					linia.erase(linia.size()-1, linia.size());
 					texttriat = biblio.triar_text(linia);
+					triat = biblio.consultar_triat();
 				}
         }
         else if(op == "tots"){
@@ -101,7 +104,7 @@ int main(){
 				triat = biblio.consultar_triat();
 				}
 				else cout << "error"<<endl;
-			}
+				}
         }
 		else if (op == "cites"){
 			ws(iss);
@@ -187,13 +190,20 @@ int main(){
             }
         }
         else if (op == "taula"){
+			
+			triat = true;
             ws(iss);
             iss >> op;
             if(op == "de"){
+				
                 ws(iss);
                 iss >> op;
                 if(op == "frequencies"){
-                    if(triat)texttriat.taula_frequencies();
+					
+                    if(triat){
+						
+						texttriat.taula_frequencies();
+					}
                     else cout << "error" << endl;
                 }
             }
@@ -289,10 +299,12 @@ int main(){
                     else cout << "error" << endl;
                 }
 		}
+		
         else {
-			if(!(linia.empty()))cout << "error" << endl;
+			if(!(linia.empty()))cout << "error comanda" << endl;
 			
         }
+        
     triat = biblio.consultar_triat();
     getline(cin, linia);
 	}

@@ -33,7 +33,9 @@ class Taulesaux{
 		};
 
 		map<string,Node> taulaparaules;
+		
 		map<string,int> taulafreqe;
+		
 		vector<pair<int,string> > vectorauxiliar;
 
 		bool static sort_comp(const pair<int,string>& lhs, const pair<int,string>& rhs){

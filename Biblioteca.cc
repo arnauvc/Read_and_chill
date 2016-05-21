@@ -16,7 +16,8 @@ Text Biblioteca::triar_text(string s){
 	triat = false;
 	string op, op1;
 	string aux = s;
-	int count,veg = 0;
+	int count = 0;
+	int veg = 0;
 	int l;
 	istringstream ass(s);
 	while (ass >> op) ++count;
@@ -34,9 +35,10 @@ Text Biblioteca::triar_text(string s){
             		if (op == op1) {
             			string::size_type i = s.find(op);
             			if (i != string::npos){
-				            s.erase(0, i+op.length()+1);
+				            s.erase(i, i+op.length());
+							iss >> op;
+							--count;
 			            }
-			            --count;
             		}
             	}
             	istringstream ess(j->first);
@@ -48,12 +50,15 @@ Text Biblioteca::triar_text(string s){
             		if (op == op1) {
             			string::size_type i = s.find(op);
             			if (i != string::npos){
-				            s.erase(0, i+op.length()+1);
+				            s.erase(i, i+op.length());
+							iss >> op;
+							--count;
 			            }
-			            --count;
+			            
             		}
             	}
-            }           
+            } 
+            
 			if (count > 0) {
 				if (t.buscar_paraules(s)) {
 					ttriat = j->second;
@@ -66,6 +71,7 @@ Text Biblioteca::triar_text(string s){
 		    }
 		}
 	}
+	
 	if (veg == 1) {
 		triat = true;
 		return ttriat;
@@ -177,29 +183,28 @@ void Biblioteca::afegir_text(string op){
  }
 
 void Biblioteca::eliminar_text(){
-	if (triat) {
 	map<string, map<string, Text> >::iterator i = conjunt_textos.find(ttriat.autor_text());
     map<string, Text>::iterator j = i->second.find(ttriat.titol_text());
-    if(i != conjunt_textos.end() && j != i->second.end() ){
-        if(i->second.size() == 1 && j->first == ttriat.titol_text()){
-            conjunt_textos.erase(ttriat.autor_text());
+    if(i != conjunt_textos.end() and j != i->second.end() ){
+        if(i->second.size() < 2 and j->first == ttriat.titol_text()){
+            conjunt_textos.erase(i);
             triat = false;
         }
         else{
-            i->second.erase(ttriat.titol_text());
+            i->second.erase(j);
             triat = false;
         }
     }
     map<string, infoautor>::iterator k = conjunt_autors.find(ttriat.autor_text());
     if(k != conjunt_autors.end()){
-        if(k->second.ntextos == 1) conjunt_autors.erase(ttriat.autor_text());
+        if(k->second.ntextos == 1) conjunt_autors.erase(k);
         else{
-            --k->second.ntextos;
+            k->second.ntextos = k->second.ntextos - 1;
             k->second.nfrases -= ttriat.consultar_numfrases();
             k->second.nparaules -= ttriat.consultar_numparaules();
         }
-    } 
     }
+    triat = false; 
 }
 
 void Biblioteca::afegir_cita(int x, int y){
@@ -315,16 +320,18 @@ void Biblioteca::totes_cites() {
 }
 
 void Biblioteca::cites_text(bool b) {
-	bool primer = true;
+	//bool primer = true;
+	if (b) cout << "Cites Associades:" << endl;
 	string titol = ttriat.titol_text();
 	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
 		if(i->second.tit == titol) {
-            if(b and primer) {
+            /*if(b and primer) {
                 primer = false;
                 cout << "Cites Associades:" << endl;
-            }
+            }*/
 			cout << i->first << endl;
-			for (map<int,Frase>::const_iterator j = i->second.contingutcita.begin(); j != i->second.contingutcita.end(); ++j) {
+			map<int,Frase> u = i->second.contingutcita;
+			for (map<int,Frase>::const_iterator j = u.begin(); j != u.end(); ++j) {
 					Frase fr = j->second;
 					cout << j->first << " "; 
 					fr.escriu_frase();

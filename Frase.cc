@@ -45,7 +45,6 @@ void Frase::llegir_frase(string s, Taulesaux &tau, int numf) {
     op.erase(l-1);
     frase_in.push_back(make_pair(op, ant));
     tau.insertar_paraula(op, numf);
-    
     frase_in.push_back(make_pair(c, ant)); 
     ++num_paraules;
     
@@ -75,32 +74,57 @@ int Frase::consultar_numparaules() {
 }
 
 bool Frase::trobat(string s) {
-    
     int x = frase_in.size();
     bool trobat = false;
-    string actual, ant;
+    string actual, ant, op1, op2;
     istringstream iss(s);
     iss >> actual;
-    int i;
+    int i,l;
+	
     for (i = 0; i < x and not trobat; ++i) {
-        if (actual == frase_in[i].first) trobat = true;
+		op1 = frase_in[i].first;
+		l = op1.size();
+        if (char(op1[l-1]) == '.' or char(op1[l-1]) == '?' or char(op1[l-1]) == '!') {
+            	op1.erase(l-1, l-1);	
+        }
+        if(actual == op1) trobat =true;
     }
     if (trobat) {
-        ant = frase_in[i].second;
+		op1 = frase_in[i].second;
+		l = op1.size();
+		if (char(op1[l-1]) == '.' or char(op1[l-1]) == '?' or char(op1[l-1]) == '!') {
+            	op1.erase(l-1, l-1);	
+		}
+        ant = op1;
         while (iss >>actual and i<x) {
-            if (frase_in[i].first == actual) {
-                if (frase_in[i].second != ant) return false; 
+			
+			op1= frase_in[i].first;
+			l = op1.size();
+			if (char(op1[l-1]) == '.' or char(op1[l-1]) == '?' or char(op1[l-1]) == '!') {
+            	op1.erase(l-1, l-1);	
+			}
+			op2 = frase_in[i].second;
+			l = op2.size();
+			
+			op2 = frase_in[i].second;
+			if (char(op2[l-1]) == '.' or char(op2[l-1]) == '?' or char(op2[l-1]) == '!') {
+            	
+				op2.erase(l-1, l-1);	
+			}
+			
+            if (op1 == actual) {
+                if (op2 != ant) return false; 
             }
             else {
                 return false;
             }
-            ant = frase_in[i].first;
+            
+            ant = op1;
             ++i;
         }
         return true;
     }
     return false;
-
 }
 
 void Frase::canvi_paraules(string s1, string s2) {

@@ -11,18 +11,22 @@ void Taulesaux::insertar_paraula(string paraula, int numf){
     Node n;
     map<string, Node >::const_iterator i = taulaparaules.find(paraula);
     map<string, int >::iterator j = taulafreqe.find(paraula);
+    set<int>::iterator it;
     if (i != taulaparaules.end()) {
+    	it = n.posicions.end();
         n = i->second;
         n.anterior = i->second.anterior;
-        n.posicions.insert(numf);
+        n.posicions.insert(it, numf);
         //n.posicions.push_back(numf);
+        taulaparaules.erase(paraula);
         taulaparaules.insert(make_pair(paraula,n));
         ++(j->second);//taulafreqe
     }
     else {
-        n.posicions.insert(numf);
+    	it = n.posicions.begin();
+        n.posicions.insert(it, numf);
         //n.posicions.push_back(numf);
-        taulaparaules.erase(paraula);
+        //taulaparaules.erase(paraula);
         taulaparaules.insert(make_pair(paraula,n));
         taulafreqe.insert(make_pair(paraula,1));
     }
@@ -84,48 +88,54 @@ set<int> Taulesaux::frases_paraula(string paraula){
 
 void Taulesaux::intercanviar(string s1, string s2){
     //taulaparaules
-    Node n;
-    map<string, Node >::iterator i = taulaparaules.find(s1);
-    if(i != taulaparaules.end()){
-        n = i->second;
-    }
-    
-    map<string, Node >::const_iterator j = taulaparaules.find(s2);
-    
-    if(j != taulaparaules.end()){
-        
-        (i->second).posicions.insert((j->second).posicions.begin(),(j->second).posicions.end());
-        taulaparaules.erase(s2);
-        
-    }
-    else{
-       
-        taulaparaules.erase(s1);
-        taulaparaules.insert(make_pair(s2,n));
-        
-    }
-    
-    //taulafreqe
-    map<string, int >::iterator k = taulafreqe.find(s1);
-    map<string, int >::iterator l = taulafreqe.find(s2);
-    int rep;
-    if(k != taulafreqe.end()){
-        
-        rep = k->second;
-    }
-    if(l != taulafreqe.end()){
-        
-        l->second += rep;
-        taulafreqe.erase(s1); 
-    }
-    else {
-        
-        taulafreqe.insert(make_pair(s2,rep));
-        taulafreqe.erase(s1); 
-    }
-    
-    ordenar_taulafreq();
-    
+    if(s1 != s2){
+		Node n;
+		map<string, Node >::iterator i = taulaparaules.find(s1);
+		if(i != taulaparaules.end()){
+			n = i->second;
+		}
+		
+		map<string, Node >::const_iterator j = taulaparaules.find(s2);
+		
+		if(j != taulaparaules.end()){
+			
+			(i->second).posicions.insert((j->second).posicions.begin(),(j->second).posicions.end());
+			taulaparaules.erase(s2);
+			
+		}
+		else{
+		
+			taulaparaules.erase(s1);
+			taulaparaules.insert(make_pair(s2,n));
+			
+		}
+		
+		//taulafreqe
+		map<string, int >::iterator k = taulafreqe.find(s1);
+		map<string, int >::iterator l = taulafreqe.find(s2);
+		int rep;
+		
+		
+		
+		if(k != taulafreqe.end()){
+			
+			rep = k->second;
+			if(l != taulafreqe.end()){
+			
+			l->second += rep;
+			taulafreqe.erase(s1); 
+			}
+			
+			else {
+				
+				taulafreqe.insert(make_pair(s2,rep));
+				taulafreqe.erase(s1); 
+			}
+		}
+		
+		
+		ordenar_taulafreq();
+	}
 }
 
 //ESCRIPTORA

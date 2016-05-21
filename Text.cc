@@ -63,19 +63,20 @@ void Text::paraules_frase(string s1){ //ara per ara, funciona amb la funcio TROB
     iss >> op;
     set<int> s = tau.frases_paraula(op);
     set<int>::const_iterator j = s.begin();
-    if(*j != -1){
-        for(j = s.begin(); j != s.end(); ++j){
-        map<int,Frase>::const_iterator i = contingut.find(*j);
-            if(i != contingut.end()){
-                Frase f = i->second;
-                if(f.trobat(s1)) {
-                    cout << i->first << " ";
-                    f.escriu_frase();
+    if (j != s.end()) {
+        if(*j != -1){
+            for(j = s.begin(); j != s.end(); ++j){
+                map<int,Frase>::const_iterator i = contingut.find(*j);
+                if(i != contingut.end()){
+                    Frase f = i->second;
+                    if(f.trobat(s1)) {
+                        cout << i->first << " ";
+                        f.escriu_frase();
+                    }
                 }
             }
         }
     }
-    
 }
 
 bool Text::buscar_paraules(string s) {
@@ -87,6 +88,7 @@ void Text::substitueix_paraules(string s1, string s2){
     for(map<int,Frase>::iterator i = contingut.begin(); i != contingut.end(); ++i){
         i->second.canvi_paraules(s1,s2);
     }
+    
 }
 
 void Text::expressio_frases(string s1){//portara feina
@@ -109,68 +111,54 @@ void Text::llegir_text(string ti, string autorr){
     int a = 1;
     string line, op;
     titol = ti;
-    /*string tmp;
-    getline(cin, tmp);
-    string::size_type i = tmp.find("autor");
-    if (i != string::npos) tmp.erase(0,6);
-    tmp.erase(tmp.begin(), tmp.begin()+1);
-    tmp.erase(tmp.size()-1, tmp.size());
-    autor = tmp;*/
     autor = autorr;
     getline(cin, line);
     bool pam = false;
     int l;
     string aux;
+	bool juntar = false;
     bool primer = true;
-    string vamos;
-    bool yeah = true;
-    bool superprimer = true;
-    while(line != "****") {
-        istringstream iss(line);
-        yeah = false;
-        while(not yeah) {
-        pam = false;
-        while ((iss >> op and not pam) or primer) {
-            vamos = op;
-            l = op.size();
-            if ((char(op[l-1]) == '.') or (char(op[l-1]) == '?') or (char(op[l-1]) == '!')) {
-                pam = true;     
-            }
-            if (primer) {
-                 primer = false;
-                //if (char(op[0]) >= 'a' and char(op[0]) <= 'z') {
-                    aux += " "; 
-                    aux += op;
-                //}
-                if (superprimer) {
-                    aux = op;
-                    superprimer = false;
-                }
-            }
-            else {
-                aux += " ";
-                aux += op;
-            }
-        }
-        if (pam) {
-            Frase fr;
-            fr.llegir_frase(aux, tau, a);
-            contingut.insert(make_pair(a, fr));
-            ++a;
-            ++numfrases;
-            numparaules += fr.consultar_numparaules();
-            aux.clear();
-        }
-        if (op == vamos) { 
-             getline(cin, line);
-             yeah = true;
-        }
-        else {
-            yeah = false;
-            aux += op;
-            primer = true;
-        }
-        }
+    while(line != "****") {//no sha acabat el text
+		istringstream iss(line);//agafa linia nova
+		while (iss >> op) {
+				l = op.size();
+				if ((char(op[l-1]) == '.') or (char(op[l-1]) == '?') or (char(op[l-1]) == '!')) {//sacaba una frase!
+					pam = true; 
+					if (op == "." or op == "?"  or op == "!") {
+						juntar = true;
+					}   
+				}
+				if (primer) {
+					primer = false;
+					aux = op;
+				}
+				else {
+					if (juntar) {
+						aux += op;
+						juntar = false;
+					}
+					else {
+						if (op == "," or op == ":"  or op == ";") aux += op;
+						else {
+							aux += " ";
+					        aux += op;
+						}
+					}
+				}
+				if (pam) { //HA ACABAT LA FRASE!!!
+					Frase fr;
+					fr.llegir_frase(aux, tau, a);
+					contingut.insert(make_pair(a, fr));
+					++a;
+					++numfrases;
+					numparaules += fr.consultar_numparaules();
+					aux.clear();
+					primer = true;
+					pam = false;
+			    }
+		}
+			getline(cin, line);
+		
     }
     tau.ordenar_taulafreq();
 }

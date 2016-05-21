@@ -60,12 +60,15 @@ int main(){
 			}
         }
 		else if(op == "triar"){
+			
                 string s;
                 iss >> op;
 				if(op == "text"){
+					
 					linia.erase(0, 12);
 					linia.erase(linia.size()-1, linia.size());
 					texttriat = biblio.triar_text(linia);
+					triat = biblio.consultar_triat();
 				}
         }
         else if(op == "tots"){
@@ -101,7 +104,7 @@ int main(){
 				triat = biblio.consultar_triat();
 				}
 				else cout << "error"<<endl;
-			}
+				}
         }
 		else if (op == "cites"){
 			ws(iss);
@@ -143,7 +146,7 @@ int main(){
 			}
         }
         else if(op == "textos"){ //textos autor " " ?
-			ws(iss);
+            ws(iss);
 			iss >> op;
 			if(op == "autor"){
 				string::size_type i = linia.find(op);
@@ -187,13 +190,20 @@ int main(){
             }
         }
         else if (op == "taula"){
+			
+			triat = true;
             ws(iss);
             iss >> op;
             if(op == "de"){
+				
                 ws(iss);
                 iss >> op;
                 if(op == "frequencies"){
-                    if(triat)texttriat.taula_frequencies();
+					
+                    if(triat){
+						
+						texttriat.taula_frequencies();
+					}
                     else cout << "error" << endl;
                 }
             }
@@ -252,7 +262,7 @@ int main(){
                     if(bac){
                         s1.erase(s1.size()-2, s1.size());
                     }
-                    
+                    cout << s1 << endl;
                     texttriat.paraules_frase(s1);
                     }
                     else cout << "error" <<endl;
@@ -264,6 +274,49 @@ int main(){
                         if (i != string::npos) {
                             linia.erase(0, i+tmp.length()+1);
                             linia.erase(linia.size()-2, linia.size());
+                            
+                             /////////
+                            cout << "exprssio: " << linia << endl;
+                            istringstream ass (linia);
+                            int sis = linia.size();
+                            int ite = 0;
+                            cout << "size:" << sis << endl;
+                            //cout << "1" << endl;
+                            while(ite < sis){
+                                cout << ite;
+                                cout << " el caracter es:" << linia[ite] <<"...." << endl;
+                                
+                                //cout << "2" << endl;
+                                if(linia[ite] == ' '){
+                                   
+                                    cout << ite ;
+                                    cout << " el caracter es:" << linia[ite] << "..."<< endl;
+                                     ++ ite;
+                                    if(linia[ite] == ' '){
+                                        cout << "aqui" << endl;
+                                        while(linia[ite] == ' ' and ite < sis){
+                                            cout << ite << endl;
+                                            cout << " aixo es una espai:" << linia[ite] << "..."  << endl;
+                                            
+                                            linia.erase(ite,1);
+                                            sis = linia.size();
+                                            //++ite;
+                                        }
+                                        cout << "potser aqui" << endl;
+                                        int as = ite;
+                                        --as;
+                                        linia.erase(as,1);
+                                    }
+                                }
+                                else ++ite;
+                                
+                                
+                                //cout << ite << endl;
+                            }
+                            
+                            cout << "exprssio: " << linia << endl;
+                            
+                            /////////
                             
                             texttriat.expressio_frases(linia);
                         }
@@ -289,10 +342,13 @@ int main(){
                     else cout << "error" << endl;
                 }
 		}
+		
         else {
 			if(!(linia.empty()))cout << "error" << endl;
-			triat = biblio.consultar_triat();
+			
         }
+        
+    triat = biblio.consultar_triat();
     getline(cin, linia);
 	}
 }

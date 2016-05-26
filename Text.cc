@@ -57,7 +57,7 @@ map<int,Frase> Text::interval_frases(int x, int y, bool &b){
 }
 
 void Text::paraules_frase(string s1){ //ara per ara, funciona amb la funcio TROBAT !!!
-    
+    bool unic = true;
     istringstream iss(s1);
     string op, temp;
     iss >> op;
@@ -66,7 +66,7 @@ void Text::paraules_frase(string s1){ //ara per ara, funciona amb la funcio TROB
     s = tau.frases_paraula(op);
     
     while(iss >> op){
-        
+        unic = false;
         set<int>::iterator j = s.begin();
         if(not s.empty() and *j != -1){
             set<int> m = tau.frases_paraula(op);
@@ -77,6 +77,10 @@ void Text::paraules_frase(string s1){ //ara per ara, funciona amb la funcio TROB
                 s = insec;
             }
         }
+    }
+    
+    if(unic){
+        insec = s;
     }
     
     set<int>::const_iterator j = insec.begin();
@@ -178,6 +182,7 @@ void Text::taula_frequencies(){
 }
 
 void Text::llegir_text(string ti, string autorr){
+    vector<pair<string, string> > frase_in;
     int a = 1;
     string line, op;
     titol = ti;
@@ -185,53 +190,78 @@ void Text::llegir_text(string ti, string autorr){
     getline(cin, line);
     bool pam = false;
     int l;
-    string aux;
-	bool juntar = false;
-    bool primer = true;
+    string ant;
+    //string aux;
+	//bool juntar = false;
+    //bool primer = true;
     istringstream ass(line);
     ass >> op;
     while(op != "****") {//no sha acabat el text
 		istringstream iss(line);//agafa linia nova
 		while (iss >> op) {
-				l = op.size();
-				if ((char(op[l-1]) == '.') or (char(op[l-1]) == '?') or (char(op[l-1]) == '!')) {//sacaba una frase!
-					pam = true; 
-					if (op == "." or op == "?"  or op == "!") {
-						juntar = true;
-					}   
-				}
-				if (primer) {
-					primer = false;
-					aux = op;
-				}
-				else {
-					if (juntar) {
-						aux += op;
-						juntar = false;
-					}
-					else {
-						if (op == "," or op == ":"  or op == ";") aux += op;
-						else {
-							aux += " ";
-					        aux += op;
-						}
-					}
-				}
-				if (pam) { //HA ACABAT LA FRASE!!!
-					Frase fr;
-					fr.llegir_frase(aux, tau, a);
-					contingut.insert(make_pair(a, fr));
-					++a;
-					++numfrases;
-					numparaules += fr.consultar_numparaules();
-					aux.clear();
-					primer = true;
-					pam = false;
-			    }
-		}
-			getline(cin, line);
-            istringstream ess(line);
-            ess >> op;
+                l = op.size(); 
+				if (char(op[l-1]) == '.' or char(op[l-1]) == '?' or char(op[l-1]) == '!') pam = true;
+                else {
+                    if ((char(op[l-1]) == ',' or char(op[l-1]) == ':' or char(op[l-1]) == ';') and not pam) {
+                        if (l == 1) frase_in.push_back(make_pair(op, ant));
+                        else {
+                            string tmp = op;
+                            op.erase(l-1);
+                            frase_in.push_back(make_pair(op, ant));
+                            tau.insertar_paraula(op, a);
+                            ant = op;
+                            string c;
+                            char car = tmp[l-1];
+                            if (car == ',') c = ",";
+                            else if (car == ':') c = ":";
+                            else c = ";";
+                            frase_in.push_back(make_pair(c, ant));
+                            ant = c;
+                            ++numparaules;
+                        }
+                    }
+                    else {
+                        if (not pam) {
+                            frase_in.push_back(make_pair(op, ant));
+                            tau.insertar_paraula(op, a);
+                            ant = op;
+                            ++numparaules;
+                        }
+                    }
+                }
+                if (not pam) ant = op;
+                if (pam) {
+                    if (l == 1) frase_in.push_back(make_pair(op, ant));
+                    else {
+                        char car = op[l-1];
+                        string c;
+                        if (car == '.') c = ".";
+                        else if (car == '?') c = "?";
+                        else c = "!";
+                        op.erase(l-1);
+                        frase_in.push_back(make_pair(op, ant));
+                        tau.insertar_paraula(op, a);
+                        ant = op;
+                        frase_in.push_back(make_pair(c, ant));
+                        ++numparaules;
+                     }
+                    //++numparaules;
+                    //if (pam) { //HA ACABAT LA FRASE!!!
+                    Frase fr;
+                    //fr = frase_in;
+                    fr.llegir_frase(frase_in);
+                    contingut.insert(make_pair(a, fr));
+                    ++a;
+                    ++numfrases;
+                    //numparaules += fr.consultar_numparaules();
+                    frase_in.clear();
+                    //primer = true;
+                    pam = false;
+                }
+        }
+		getline(cin, line);
+        istringstream ess(line);
+        ess >> op;
     }
     tau.ordenar_taulafreq();
 }

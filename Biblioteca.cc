@@ -252,7 +252,8 @@ void Biblioteca::afegir_cita(int x, int y){
 	bool trobat1 = false;
 	bool si = true;
 	bool finjeje = true;
-	if (espotafegir > 0 and x >= 1 and y <= espotafegir and x <= y) {
+	if (x >= 1 and y <= espotafegir and x <= y) {
+    char c;
 	finjeje = false;
 	string autor = ttriat.autor_text();
 	string titol = ttriat.titol_text();
@@ -263,7 +264,12 @@ void Biblioteca::afegir_cita(int x, int y){
 	string op;
 	istringstream iss(autor);
 	while (iss >> op) {
-		refe += char(op[0]);
+        if (('a' <= char(op[0])) and (char(op[0]) <= 'z')) {
+            c = char(op[0]);
+            c = 'A' + (c - 'a');
+            refe += c;
+        }
+		else refe += char(op[0]);
 	}
 	map<string,int>::iterator f = freqrefe.find(refe);
 	map<string,infocita>::iterator i;
@@ -276,7 +282,12 @@ void Biblioteca::afegir_cita(int x, int y){
 		    refe.clear();
 			istringstream ass(autor);
 		    while (ass >> op) {
-		        refe += char(op[0]);
+		        if (('a' <= char(op[0])) and (char(op[0]) <= 'z')) {
+                    c = char(op[0]);
+                    c = 'A' + (c - 'a');
+                    refe += c;
+                }
+                else refe += char(op[0]);
 	        }
 			string Result;
 			stringstream convert;
@@ -300,7 +311,12 @@ void Biblioteca::afegir_cita(int x, int y){
 		refe.clear();
 		istringstream ess(autor);
 		while (ess >> op) {
-		    refe += char(op[0]);
+		    if (('a' <= char(op[0])) and (char(op[0]) <= 'z')) {
+                c = char(op[0]);
+                c = 'A' + (c - 'a');
+                refe += c;
+            }
+            else refe += char(op[0]);
 	    }
 		string Result;
 		stringstream convert;

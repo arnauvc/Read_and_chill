@@ -1,13 +1,14 @@
 #include "Frase.hh"
 
 Frase::Frase() {
-    num_paraules = 0;
+    //num_paraules = 0;
 }
 
 Frase::~Frase() {}
 
-void Frase::llegir_frase(string s, Taulesaux &tau, int numf) {
-    string ant;
+void Frase::llegir_frase(vector<pair<string, string> > frase_ini) {
+	frase_in = frase_ini;
+    /*string ant;
     string op;
     istringstream iss(s);
     iss >> op;
@@ -47,7 +48,7 @@ void Frase::llegir_frase(string s, Taulesaux &tau, int numf) {
     ant = op;;
     frase_in.push_back(make_pair(c, ant)); 
     ++num_paraules;
-    /*
+    ///////////
     for(int i = 0; i < frase_in.size(); ++i){
         cout << "PRIMER:" << frase_in[i].first << endl;
         cout << "segon:" << frase_in[i].second << endl;
@@ -75,9 +76,9 @@ void Frase::escriu_frase() const {
     cout << endl;
 }
 
-int Frase::consultar_numparaules() {
+/*int Frase::consultar_numparaules() {
     return num_paraules;
-}
+}*/
 
 bool Frase::trobat(string s) const {
     int x = frase_in.size();

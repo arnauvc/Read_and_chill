@@ -19,7 +19,7 @@ class Frase{
 
 	private:
 	
-		int num_paraules;
+		//int num_paraules;
 		vector<pair<string, string> > frase_in;
 
 	public:
@@ -40,11 +40,6 @@ class Frase{
 
 		/* Consultores */
 
-		/** @brief consulta numero de paraules
-			\pre cert
-			\post consulta numero de paraules de la frase
-		*/
-		int consultar_numparaules();
 
 		/** @brief consulta un string
 			\pre cert
@@ -59,7 +54,7 @@ class Frase{
                     \pre cert
                     \post llegeix una frase del p.i
 		*/
-        void llegir_frase(string s,Taulesaux &ta, int numf);
+        void llegir_frase(vector<pair<string, string> > frase_ini);
 		
 		/** @brief escriptora de frases
         		 \pre cert

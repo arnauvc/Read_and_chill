@@ -45,32 +45,21 @@ void Taulesaux::ordenar_taulafreq(){
 }
 
 //CONSULTORES
-bool Taulesaux::existeix_cadena(string s){//busca la paraula en el map taulaparaules
-	
-	bool trobat = false;
-	//int k = s.size();
+bool Taulesaux::existeix_cadena(const string s) const {
+	//bool trobat = false;
 	string actual;
 	istringstream iss(s);
 	iss >> actual;
-	//--k;
-	
 	map<string, Node>::const_iterator i = taulaparaules.find(actual);
-	
 	if (i != taulaparaules.end()){
-           
-            iss >> actual;
-           // --k;
             while(iss >> actual){
                 i = taulaparaules.find(actual);
                 if(i == taulaparaules.end()) return false;
-                else trobat = true;
-                //iss >> actual;
-                //--k;
-                //++i;
+                //else trobat = true;   NO FA FALTAAA
             }
             return true;
 	}
-	return trobat;
+	return false;
 }
 
 set<int> Taulesaux::frases_paraula(string paraula){
@@ -86,56 +75,42 @@ set<int> Taulesaux::frases_paraula(string paraula){
     }
 }
 
-void Taulesaux::intercanviar(string s1, string s2){
+bool Taulesaux::intercanviar(string s1, string s2){
     //taulaparaules
     if(s1 != s2){
 		Node n;
 		map<string, Node >::iterator i = taulaparaules.find(s1);
-		if(i != taulaparaules.end()){
+		if(i != taulaparaules.end()){ //ABORTED SOLUCIONAT PER OBRIR AL FINAL EL CORCHETE, ERA NECESARI...
 			n = i->second;
-		}
-		
-		map<string, Node >::const_iterator j = taulaparaules.find(s2);
-		
-		if(j != taulaparaules.end()){
-			
-			(i->second).posicions.insert((j->second).posicions.begin(),(j->second).posicions.end());
-			taulaparaules.erase(s2);
-			
-		}
-		else{
-		
-			taulaparaules.erase(s1);
-			taulaparaules.insert(make_pair(s2,n));
-			
-		}
-		
-		//taulafreqe
-		map<string, int >::iterator k = taulafreqe.find(s1);
-		map<string, int >::iterator l = taulafreqe.find(s2);
-		int rep;
-		
-		
-		
-		if(k != taulafreqe.end()){
-			
-			rep = k->second;
-			if(l != taulafreqe.end()){
-			
-			l->second += rep;
-			taulafreqe.erase(s1); 
+			map<string, Node >::const_iterator j = taulaparaules.find(s2);
+			if(j != taulaparaules.end()){
+				(i->second).posicions.insert((j->second).posicions.begin(),(j->second).posicions.end()); //CAUSANT DEL ABORTED PROGRAM DEL PRIVAT 3!!!!
+				taulaparaules.erase(s2);
 			}
-			
-			else {
-				
-				taulafreqe.insert(make_pair(s2,rep));
+			else{
+				taulaparaules.erase(s1);
+				taulaparaules.insert(make_pair(s2,n));
+			}
+			//taulafreqe
+			map<string, int >::iterator k = taulafreqe.find(s1);
+			map<string, int >::iterator l = taulafreqe.find(s2);
+			int rep;
+			if(k != taulafreqe.end()){
+				rep = k->second;
+				if(l != taulafreqe.end()){
+				l->second += rep;
 				taulafreqe.erase(s1); 
+				}
+				else {
+					taulafreqe.insert(make_pair(s2,rep));
+					taulafreqe.erase(s1); 
+				}
 			}
+			ordenar_taulafreq();
+            return true;
 		}
-		
-		
-		ordenar_taulafreq();
-	}
+		return false;
+    }
 }
 
 //ESCRIPTORA

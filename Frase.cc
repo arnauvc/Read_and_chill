@@ -1,7 +1,7 @@
 #include "Frase.hh"
 
 Frase::Frase() {
-	num_paraules = 0;
+    num_paraules = 0;
 }
 
 Frase::~Frase() {}
@@ -11,7 +11,7 @@ void Frase::llegir_frase(string s, Taulesaux &tau, int numf) {
     string op;
     istringstream iss(s);
     iss >> op;
-    int l = op.size();	
+    int l = op.size();  
     while (char(op[l-1]) != '.' and char(op[l-1]) != '?' and char(op[l-1]) != '!') {
         if (char(op[l-1]) == ',' or char(op[l-1]) == ':' or char(op[l-1]) == ';') {
             string tmp = op;
@@ -26,16 +26,15 @@ void Frase::llegir_frase(string s, Taulesaux &tau, int numf) {
             else c = ";";
             frase_in.push_back(make_pair(c, ant));
             ant = c;
-    	}
-    	else {
+        }
+        else {
             frase_in.push_back(make_pair(op, ant));
             tau.insertar_paraula(op, numf);
-    	    ant = op;
+            ant = op;
         }
-    	++num_paraules;
-    	ws(iss);
-    	iss >> op;
-    	l = op.size();
+        ++num_paraules;
+        iss >> op;
+        l = op.size();
     }
     char car = op[l-1];
     string c;
@@ -45,12 +44,19 @@ void Frase::llegir_frase(string s, Taulesaux &tau, int numf) {
     op.erase(l-1);
     frase_in.push_back(make_pair(op, ant));
     tau.insertar_paraula(op, numf);
+    ant = op;;
     frase_in.push_back(make_pair(c, ant)); 
     ++num_paraules;
-    
+    /*
+    for(int i = 0; i < frase_in.size(); ++i){
+        cout << "PRIMER:" << frase_in[i].first << endl;
+        cout << "segon:" << frase_in[i].second << endl;
+    }
+    cout << endl;
+    */
 }
 
-void Frase::escriu_frase() {
+void Frase::escriu_frase() const {
     int x = frase_in.size();
     bool primer = true;
     for (int i = 0; i < x; ++i) {
@@ -64,91 +70,127 @@ void Frase::escriu_frase() {
             }
             else cout << " " << frase_in[i].first;
         }
-        else cout << frase_in[i].first ; /*" "*/
+        else cout << frase_in[i].first ; /*" els . / ? / !"*/
     }
     cout << endl;
 }
 
 int Frase::consultar_numparaules() {
-	return num_paraules;
+    return num_paraules;
 }
 
-bool Frase::trobat(string s) {
+bool Frase::trobat(string s) const {
     int x = frase_in.size();
     bool trobat = false;
-    string actual, ant, op1, op2;
-    istringstream iss(s);
-    iss >> actual;
-    int i,l;
-	
-    for (i = 0; i < x and not trobat; ++i) {
-		op1 = frase_in[i].first;
-		l = op1.size();
-        if (char(op1[l-1]) == '.' or char(op1[l-1]) == '?' or char(op1[l-1]) == '!') {
-            	op1.erase(l-1, l-1);	
+    bool trpri = false;
+    bool avan = false;
+    bool tnpi = true;
+    string actual, actual1, ant, op1, op2;
+    int sum = 0;
+    istringstream uss(s);
+    while (uss >> actual) ++sum;
+    int count = 0;
+    istringstream ess(s);
+    ess >> actual;
+    int i,j;
+    j = 0;
+    for (i = 0; i < x and not trobat; ++i) { 
+        count = 0;
+        op1 = frase_in[i].first;
+        if(actual == op1){
+            //cout << "ha entrat" << endl;
+            trpri = true;
         }
-        if(actual == op1) trobat =true;
-    }
-    if (trobat) {
-		op1 = frase_in[i].second;
-		l = op1.size();
-		if (char(op1[l-1]) == '.' or char(op1[l-1]) == '?' or char(op1[l-1]) == '!') {
-            	op1.erase(l-1, l-1);	
-		}
-        ant = op1;
-        while (iss >>actual and i<x) {
-			
-			op1= frase_in[i].first;
-			l = op1.size();
-			if (char(op1[l-1]) == '.' or char(op1[l-1]) == '?' or char(op1[l-1]) == '!') {
-            	op1.erase(l-1, l-1);	
-			}
-			op2 = frase_in[i].second;
-			l = op2.size();
-			
-			op2 = frase_in[i].second;
-			if (char(op2[l-1]) == '.' or char(op2[l-1]) == '?' or char(op2[l-1]) == '!') {
-            	
-				op2.erase(l-1, l-1);	
-			}
-			
-            if (op1 == actual) {
-                if (op2 != ant) return false; 
-            }
-            else {
-                return false;
-            }
+        
+        if (trpri) {
+            ++count;
+            if(actual.size() == s.size()) return true;
             
+            //trobat = true;
+            istringstream iss(s);
+            iss >> actual;
+            
+            j = i;
+            ++j;
+            //cout << "j:" << j << endl;
             ant = op1;
-            ++i;
+            
+            tnpi = true;
+            //cout << ant << endl;
+            //cout << actual << endl;
+            iss >> actual; /////////////////////////////////////////////////////
+            
+            while (j<x and tnpi and not trobat) {
+                avan = false;
+                /*
+                cout <<"ant:" << ant << endl;
+                cout <<"actual: " << actual << endl;
+                cout << "vector: " << frase_in[j].first << endl;
+                */
+                if(frase_in[j].first == "," or frase_in[j].first == ":" or frase_in[j].first == ";"){
+                    if(frase_in[j].second == ant){
+                       
+                        ant = frase_in[j].first;
+                    }
+                }
+                else{                    
+                    if(frase_in[j].first == actual){
+                        if(frase_in[j].second == ant){
+                            ant = frase_in[j].first;
+                            ++count;
+                            if (count == sum) trobat = true;
+                            
+                        }
+                        else trobat=false;
+                    }
+                    else trobat =false;
+
+                    avan = true;
+                }
+                
+                if(avan){
+                    iss >> actual;
+                    if(actual1 == actual) tnpi = false;
+                }                
+                ++j;
+     
+            actual1 = actual;
+            }
+            istringstream oss(s);
+            oss >> actual;
         }
-        return true;
+        
+        trpri = false;
+        
+        
+        
+        
     }
-    return false;
+    return trobat;
 }
 
-void Frase::canvi_paraules(string s1, string s2) {
+bool Frase::canvi_paraules(string s1, string s2) {
+    bool a = false;
+    string s ;
+    bool primer = false;
+    bool trobat = false;
     for (int i = 0; i < frase_in.size(); ++i) {
         if (frase_in[i].first == s1) {
-            (frase_in[i]).first = s2;
+            frase_in[i].first = s2;
+            
+            trobat = true;
+            a = true;
+            primer = true;
+        }
+        if(trobat and not primer){
+                
+                frase_in[i].second = s2;
+                trobat = false;
+        }
+        if(trobat and primer){
+            s = s2;
+            primer = false;
         }
     }
+    return a;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

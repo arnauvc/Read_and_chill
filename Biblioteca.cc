@@ -12,7 +12,9 @@ Biblioteca::~Biblioteca(){
     
 }
 
-Text Biblioteca::triar_text(string s){
+Text Biblioteca::triar_text(string s, Text texttriat){
+    
+    
 	triat = false;
 	string op, op1;
 	string aux = s;
@@ -23,12 +25,15 @@ Text Biblioteca::triar_text(string s){
 	while (ass >> op) ++count;
 	int auxcount = count;
        for (map<string, map<string, Text> >::const_iterator i = conjunt_textos.begin(); i != conjunt_textos.end() and veg < 2; ++i) {
-		s = aux;
-		count = auxcount;
-		map<string, Text> k = i->second;
-		istringstream iss(s);
-		for (map<string, Text>::const_iterator j = k.begin(); j != k.end() and veg < 2; ++j) {
-			Text t = j->second;
+		//s = aux;
+		//count = auxcount;
+		//map<string, Text> k = i->second;
+		//istringstream iss(s);
+		for (map<string, Text>::const_iterator j = i->second.begin(); j != i->second.end() and veg < 2; ++j) {
+            s = aux;
+            count = auxcount;
+            istringstream iss(s);
+			//Text t = j->second;
             while (iss >> op) {
             	istringstream oss(i->first);
             	while (oss >> op1) {
@@ -36,7 +41,7 @@ Text Biblioteca::triar_text(string s){
             			string::size_type i = s.find(op);
             			if (i != string::npos){
 				            s.erase(i, i+op.length());
-							iss >> op;
+							//iss >> op;
 							--count;
 			            }
             		}
@@ -51,16 +56,14 @@ Text Biblioteca::triar_text(string s){
             			string::size_type i = s.find(op);
             			if (i != string::npos){
 				            s.erase(i, i+op.length());
-							iss >> op;
+							//iss >> op;
 							--count;
 			            }
-			            
             		}
             	}
             } 
-            
 			if (count > 0) {
-				if (t.buscar_paraules(s)) {
+				if (j->second.buscar_paraules(s)) {
 					ttriat = j->second;
 					++veg;
 				}
@@ -71,7 +74,6 @@ Text Biblioteca::triar_text(string s){
 		    }
 		}
 	}
-	
 	if (veg == 1) {
 		triat = true;
 		return ttriat;
@@ -85,12 +87,12 @@ bool Biblioteca::consultar_triat(){
 }
 
 void Biblioteca::tots_textos(){
-	Text t;
+	//Text t;
     for (map<string, map<string, Text> >::const_iterator i = conjunt_textos.begin(); i != conjunt_textos.end(); ++i) {
-    	map<string, Text> k = i->second;
-    	for (map<string, Text>::const_iterator j = k.begin(); j != k.end(); ++j) {
-			t = j->second;
-    		cout << t.autor_text() << " " << "\"" << t.titol_text() << "\"" << endl;
+    	//map<string, Text> k = i->second;
+    	for (map<string, Text>::const_iterator j = i->second.begin(); j != i->second.end(); ++j) {
+			//t = j->second;
+    		cout << j->second.autor_text() << " " << "\"" << j->second.titol_text() << "\"" << endl;
     	}
     }
 }
@@ -98,8 +100,8 @@ void Biblioteca::tots_textos(){
 void Biblioteca::textos_autor(string s){
 	map<string, map<string, Text> >::const_iterator i = conjunt_textos.find(s);
 	if(i != conjunt_textos.end()){
-        map<string, Text> k = i->second;
-        for (map<string, Text>::const_iterator j = k.begin(); j != k.end(); ++j) {
+        //map<string, Text> k = i->second;
+        for (map<string, Text>::const_iterator j = i->second.begin(); j != i->second.end(); ++j) {
             cout << "\"" << j->first << "\"" << endl;
         }
     }
@@ -107,30 +109,68 @@ void Biblioteca::textos_autor(string s){
 
 void Biblioteca::tots_autors(){
 	//RAPID!
-	string s;
-	infoautor k;
+	//string s;
+	//infoautor k;
 	for (map<string, infoautor>::const_iterator i = conjunt_autors.begin(); i != conjunt_autors.end(); ++i) {
-		k = i->second;
-		s = i->first;
-		cout << s << " " << k.ntextos << " ";
-		cout << k.nfrases << " " << k.nparaules << endl;
+		//k = i->second;
+		//s = i->first;
+		cout << i->first << " " << i->second.ntextos << " ";
+		cout << i->second.nfrases << " " << i->second.nparaules << endl;
     }
-    
 }
 
 void Biblioteca::afegir_text(string op){
 	bool es;
     Text t;
-    string tmp;
+    string tmp, aux1,op2;
     getline(cin, tmp);
-    string::size_type kk = tmp.find("autor");
-    if (kk != string::npos) tmp.erase(0,6);
-    tmp.erase(tmp.begin(), tmp.begin()+1);
-    tmp.erase(tmp.size()-1, tmp.size());    
+    int l;
+    istringstream oss(tmp);
+    oss >> op2;
+    oss >> op2;
+    l = op2.size();
+    bool ppprimer = true;
+    if ((char(op2[0]) == '"') and (l != 1) and (char(op2[l-1]) == '"')) {
+    	op2.erase(0, 1);
+        l = op2.size();
+    	op2.erase(l-1, l-1);
+    	aux1 += op2;
+    	ppprimer = false;
+    }
+    else if ((char(op2[0]) == '"') and (l != 1)) {
+    	op2.erase(0, 1);
+    	aux1 += op2;
+    	ppprimer = false;
+    }
+    while (oss >> op2) {
+    	l = op2.size();
+    	if ((char(op2[l-1]) == '"') and (l != 1)) {
+    		if (ppprimer) {
+    			op2.erase(l-1, l-1);
+    			aux1 += op2;
+    			ppprimer = false;
+    		}
+    		else {
+    			op2.erase(l-1, l-1);
+    			aux1 += " ";
+    			aux1 += op2;
+    		}
+    	}
+    	else {
+    		if (char(op2[l-1]) != '"') {
+    			if (ppprimer) {
+    				aux1 += op2;
+    				ppprimer = false;
+    			}
+    			else {
+    				aux1 += " ";
+    				aux1 += op2;
+    			}
+    	    }
+        }
+    }
     string ti = op;
-    string s = tmp;
-    //string s = t.autor_text();
-    //string ti = t.titol_text();
+    string s = aux1;
     map<string, map<string, Text> >::iterator i = conjunt_textos.find(s);
     if (i == conjunt_textos.end()) {
     	t.llegir_text(ti, s);
@@ -141,10 +181,10 @@ void Biblioteca::afegir_text(string op){
     	es = false;
     }
     else {
-    	map<string, Text> h;
-    	h = i->second;
-    	map<string, Text>::iterator j = h.find(ti);
-    	if (j == h.end()) {
+    	//map<string, Text> h;
+    	//h = i->second;
+    	map<string, Text>::iterator j = i->second.find(ti);
+    	if (j == i->second.end()) {
     		t.llegir_text(ti, s);
     		textsiafegit = true;
     		i->second.insert(make_pair(ti, t));
@@ -284,9 +324,9 @@ void Biblioteca::cites_autor(string autor) {
 		if (autor == i->second.aut) {
 			cout << i->first << endl;
 			for (map<int,Frase>::const_iterator j = i->second.contingutcita.begin(); j != i->second.contingutcita.end(); ++j) {
-				Frase fr = j->second;
+				//Frase fr = j->second;
 				cout << j->first << " "; 
-				fr.escriu_frase();
+				j->second.escriu_frase();
 			}
 			cout /*<< i->second.aut << " "*/ << "\"" << i->second.tit << "\"" << endl;
 		}
@@ -299,21 +339,33 @@ void Biblioteca::info_cita(string referencia) {
 		cout << i->second.aut << " " << "\"" << i->second.tit << "\"" << endl; 
 		cout << i->second.firstfrase << "-" << i->second.lastfrase << endl;
 		for (map<int,Frase>::const_iterator j = i->second.contingutcita.begin(); j != i->second.contingutcita.end(); ++j) {
-				Frase fr = j->second;
+				//Frase fr = j->second;
 				cout << j->first << " "; 
-				fr.escriu_frase();
+				j->second.escriu_frase();
 		}
     }
     else cout << "error" << endl;
+}
+
+void Biblioteca::actualitzar_text(Text texttriat){
+    if(triat){
+        map<string, map<string, Text > >::iterator i = conjunt_textos.find(ttriat.autor_text());
+        if(i != conjunt_textos.end()){
+            map<string, Text>::iterator j = i->second.find(ttriat.titol_text());
+            if(j != i->second.end()){
+                j->second = texttriat;
+            }
+        }
+    }
 }
 
 void Biblioteca::totes_cites() {
 	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
 		cout << i->first << endl;
 		for (map<int,Frase>::const_iterator j = i->second.contingutcita.begin(); j != i->second.contingutcita.end(); ++j) {
-				Frase fr = j->second;
+				//Frase fr = j->second;
 				cout << j->first << " "; 
-				fr.escriu_frase();
+				j->second.escriu_frase();
 		}
 		cout << i->second.aut << " " << "\"" << i->second.tit << "\"" << endl;
     }
@@ -323,18 +375,15 @@ void Biblioteca::cites_text(bool b) {
 	//bool primer = true;
 	if (b) cout << "Cites Associades:" << endl;
 	string titol = ttriat.titol_text();
+    string autor = ttriat.autor_text();
 	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {
-		if(i->second.tit == titol) {
-            /*if(b and primer) {
-                primer = false;
-                cout << "Cites Associades:" << endl;
-            }*/
+		if((i->second.tit == titol) and (i->second.aut == autor)) {
 			cout << i->first << endl;
-			map<int,Frase> u = i->second.contingutcita;
-			for (map<int,Frase>::const_iterator j = u.begin(); j != u.end(); ++j) {
-					Frase fr = j->second;
+			//map<int,Frase> u = i->second.contingutcita;
+			for (map<int,Frase>::const_iterator j = i->second.contingutcita.begin(); j != i->second.contingutcita.end(); ++j) {
+					//Frase fr = j->second;
 					cout << j->first << " "; 
-					fr.escriu_frase();
+					j->second.escriu_frase();
 			}
 			if(not b) cout << i->second.aut << " " << "\"" << i->second.tit << "\"" << endl;
 	    }

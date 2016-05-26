@@ -22,318 +22,710 @@ int main(){
 	Biblioteca biblio;
     Text texttriat;
 	string linia,op;
+    string auxlinia, ant;
 	bool triat = false;
+    int l;
+    bool primer = true;
+    bool enter = false;
 	getline(cin,linia);
-    while( linia != "sortir"){
-        op = "";
-		cout << linia << endl;
+    istringstream ass(linia);
+    ass >> op;
+    while(op != "sortir"){
         istringstream iss(linia);
+        if (not primer and not enter) cout << endl;
+        enter = false;
         iss >> op;
+        auxlinia.clear();
 		if(op == "afegir"){ 
-			ws(iss);
+            auxlinia += op;
             iss >> op;
             if(op == "text"){
-				ws(iss);
+                auxlinia += " ";
+                auxlinia += op;
 				iss >> op;
-				string::size_type i = linia.find(op);
+                if (char(op[0]) == '"' and op.size() == 1) {
+                     auxlinia += " ";
+                     auxlinia += op;
+                     iss >> op;
+                     auxlinia += op;
+                     ant = op;
+                }
+                else {
+                    auxlinia += " ";
+                    auxlinia += op;
+                    ant = op;
+                }
+                while (iss >> op) {
+                    l = op.size();
+                    if ((char(op[l-1]) == '"' or char(op[l-1]) == ','  or char(op[l-1]) == ';'  or char(op[l-1]) == ':' or char(op[l-1]) == '.'  or char(op[l-1]) == '?' or char(op[l-1]) == '!') and (op.size() == 1)) {
+                        auxlinia += op;
+                    }
+                    else {
+                        if ((char(op[0]) == '"' or char(op[0]) == ','  or char(op[0]) == ';'  or char(op[0]) == ':' or char(op[0]) == '.'  or char(op[0]) == '?' or char(op[0]) == '!') and (char(op[l-1]) == '"')) auxlinia += op;
+                        else {
+                            auxlinia += " ";
+                            auxlinia += op;
+                        }
+                    }
+                }
+                cout << auxlinia << endl;
+				string::size_type i = auxlinia.find(ant);
                 if (i != string::npos){
-                    linia.erase(0, 13);
-					linia.erase(linia.size()-1, linia.size());
-					biblio.afegir_text(linia);
+                    auxlinia.erase(0, 13);
+					auxlinia.erase(auxlinia.size()-1, auxlinia.size());
+					biblio.afegir_text(auxlinia);
 					if (not biblio.text_si_afegit()) {
 						string jeje;
 						getline(cin, jeje);
-						while (jeje != "****") getline(cin, jeje);
+                        istringstream kkss(jeje);
+                        kkss >> op;
+						while (op != "****") {
+                            getline(cin, jeje);
+                            istringstream llss(jeje);
+                            llss >> op;
+                        }
 						cout << "error" << endl;
 					}
 				}
             }
-            else if (op == "cita"){
-				if(triat){
-					int x,y;//primera frase y ultima frase
-					ws(iss);
-					iss >> x;
-					iss >> y;
+            else if (op == "cita") {
+                auxlinia += " ";
+                auxlinia += op;
+				int x,y;
+				iss >> x;
+                string Result;
+                stringstream convert;
+                convert << x;
+                Result = convert.str();
+				iss >> y;
+                auxlinia += " ";
+                auxlinia += Result;
+                string result;
+                stringstream convertt;
+                convertt << y;
+                result = convertt.str();
+                auxlinia += " ";
+                auxlinia += result;
+                cout << auxlinia << endl;
+                if (triat) {
 					biblio.afegir_cita(x,y);
 				}
 				else cout << "error" << endl;
 			}
         }
 		else if(op == "triar"){
-			
-                string s;
+			    auxlinia += op;
                 iss >> op;
-				if(op == "text"){
-					
-					linia.erase(0, 12);
-					linia.erase(linia.size()-1, linia.size());
-					texttriat = biblio.triar_text(linia);
-					triat = biblio.consultar_triat();
-				}
+				//if(op == "text"){
+				auxlinia += " ";
+                auxlinia += op;
+                while (iss >> op) {
+                    l = op.size();
+                    if ((char(op[0]) == '{') and (op.size() != 1)) {
+                        auxlinia += " ";
+                        auxlinia += op;
+                    }
+                    else {
+                        if (char(op[0]) == '{') {
+                            auxlinia += " ";
+                            auxlinia += op;
+                            iss >> op;
+                            auxlinia += op;
+                        }
+                        else if ((char(op[l-1]) == '}') and (op.size() == 1)) {
+                            auxlinia += op;
+                        }
+                        else {
+                            auxlinia += " ";
+                            auxlinia += op;
+                        }
+                    }
+                }
+                cout << auxlinia << endl;
+				auxlinia.erase(0, 12);
+				auxlinia.erase(auxlinia.size()-1, auxlinia.size());
+				texttriat = biblio.triar_text(auxlinia, texttriat);
+				//triat = biblio.consultar_triat();
+				//}
         }
         else if(op == "tots"){
-			ws(iss);
+            auxlinia += op;
 			iss >> op;
+            auxlinia += " ";
+            auxlinia += op;
 			if(op == "textos"){
+                iss >> op;
+                auxlinia += " ";
+                auxlinia += op;
+                cout << auxlinia << endl;
 				biblio.tots_textos();
 			}
 			else if (op == "autors"){
+                iss >> op;
+                auxlinia += " ";
+                auxlinia += op;
+                cout << auxlinia << endl;
 				biblio.tots_autors();
 			}	
         }
         else if (op == "totes"){
-			ws(iss);
+            auxlinia += op;
 			iss >> op;
-			if (op == "cites"){
+            auxlinia += " ";
+            auxlinia += op;
+			//if (op == "cites"){
+                iss >> op;
+                auxlinia += " ";
+                auxlinia += op;
+                cout << auxlinia << endl;
 				biblio.totes_cites();
-			}
+			//}
 		}
 		else if(op == "eliminar"){
-			ws(iss);
+            auxlinia += op;
             iss >> op;
+            auxlinia += " ";
+            auxlinia += op;
 			if (op == "cita"){
-				string s;//referencia
-				ws(iss);
-				iss >> s;
-				s = s.substr(1, (s.size()-2));
-				biblio.eliminar_cita(s);
+                iss >> op;
+                string ref;
+                l = op.size();
+                if ((char(op[0]) == '"') and (l != 1) and (char(op[l-1]) == '"')) {
+                    auxlinia += " ";
+                    auxlinia += op;
+                    op.erase(0, 1);
+                    l = op.size();
+                    op.erase (l-1, l-1);
+                    ref = op;
+                }
+                else if ((char(op[0]) == '"') and (l != 1)) {
+                    auxlinia += " ";
+                    auxlinia += op;
+                    op.erase(0, 1);
+                    ref = op;
+                    iss >> op;
+                    auxlinia += op;
+                }
+                else {
+                    auxlinia += " ";
+                    auxlinia += op;
+                    iss >> op;
+                    //auxlinia += op;
+                    l = op.size();
+                    if ((char(op[l-1]) == '"') and (l != 1)) {
+                        auxlinia += op;
+                        op.erase(l-1, l-1);
+                        ref = op;
+                    }
+                    else {
+                        auxlinia += op;
+                        ref = op;
+                        iss >> op;
+                        auxlinia += op;
+                    }
+                }
+                cout << auxlinia << endl;
+				biblio.eliminar_cita(ref);
 			}
 			else if (op == "text"){
-				if(triat){
-				biblio.eliminar_text();
-				triat = biblio.consultar_triat();
-				}
-				else cout << "error"<<endl;
-				}
-        }
-		else if (op == "cites"){
-			ws(iss);
-			iss >> op;
-			if(op == "autor"){
-				string::size_type i = linia.find(op);
-                if (i != string::npos){
-                    linia.erase(0, i+op.size()+2);
-					linia.erase(linia.size()-3, linia.size());
-					biblio.cites_autor(linia);
-				}
-            }
-			else if (op == "?"){
-				if(triat){
-				bool b = false;
-				biblio.cites_text(b);
-				}
+                cout << auxlinia << endl;
+				if(triat) biblio.eliminar_text();
 				else cout << "error"<<endl;
 			}
-            
+        }
+		else if (op == "cites"){
+			auxlinia += op;
+			iss >> op;
+            auxlinia += " ";
+            auxlinia += op;
+            int llll;
+			if(op == "autor"){
+                string autor, ant;
+                ant = op;
+                while (iss >> op) {
+                    l = op.size();
+                    llll = ant.size();
+                    if(char(op[0]) != '?') {
+                        if((char(op[0]) == '"') and (l != 1) and (char(op[l-1]) == '"')){
+                            auxlinia += " ";
+                            auxlinia += op;
+                            op.erase(0, 1);
+                            l = op.size();
+                            op.erase(l-1, l-1);
+                            autor += op;
+                        }
+                        else if ((char(op[0]) == '"') and (l != 1)) {
+                            auxlinia += " ";
+                            auxlinia += op;
+                            op.erase(0, 1);
+                            autor += op;
+                        }
+                        else if (char(op[0]) == '"') {
+                                if (ant == "autor") {
+                                    auxlinia += " ";
+                                    auxlinia += op;
+                                }
+                                else auxlinia += op;
+                        }
+                        else { 
+                            if ((char(op[l-1]) == '"') and (l != 1)) {
+                                if (char(ant[llll-1]) != '"') auxlinia += " ";
+                                auxlinia += op;
+                                op.erase(l-1, l-1);
+                                if (char(ant[llll-1]) != '"') autor += " ";
+                                autor += op;
+                            }
+                            else if (char(op[l-1]) == '"') {
+                                auxlinia += op;
+                            }
+                            else {
+                                if ((char(ant[0]) == '"') and (ant.size() == 1)) {
+                                    auxlinia += op;
+                                    autor += op;
+                                }
+                                else {
+                                    auxlinia += " ";
+                                    auxlinia += op;
+                                    autor += " ";
+                                    autor += op;
+                                }
+                            }
+                        }
+                    }
+                    ant = op;
+                }
+                auxlinia += " ";
+                auxlinia += op;
+                cout << auxlinia << endl;
+				biblio.cites_autor(autor);
+            }
+			else if (op == "?"){
+                cout << auxlinia << endl;
+				if(triat){
+				    bool b = false;
+				    biblio.cites_text(b);
+				}
+				else cout << "error"<<endl;
+			}  
 		}
 		else if(op == "info"){
-			ws(iss);
+            auxlinia += op;
 			iss >> op;
+            auxlinia += " ";
+            auxlinia += op;
 			if(op == "?"){
+                cout << auxlinia << endl;
                 if(triat){
 					bool bc = true;
 					texttriat.info_text();
 					biblio.cites_text(bc);
-					}
+				}
                 else cout << "error" << endl;
 			}
 			else if(op == "cita"){
-				string s;
-                ws(iss);
-                iss >> s;
-                s = s.substr(1, (s.size()-2));
-                biblio.info_cita(s);
+				string refer;
+                iss >> op;
+                l = op.size();
+                if ((char(op[0]) == '"') and (l != 1) and (char(op[l-1]) == '"')) {
+                    auxlinia += " ";
+                    auxlinia += op;
+                    op.erase(0, 1);
+                    l = op.size();
+                    op.erase (l-1, l-1);
+                    refer = op;
+                }
+                else if ((char(op[0]) == '"') and (l != 1)) {
+                    auxlinia += " ";
+                    auxlinia += op;
+                    op.erase(0, 1);
+                    refer = op;
+                    iss >> op;
+                    auxlinia += op;
+                }
+                else {
+                    auxlinia += " ";
+                    auxlinia += op;
+                    iss >> op;
+                    //auxlinia += op;
+                    l = op.size();
+                    if ((char(op[l-1]) == '"') and (l != 1)) {
+                        auxlinia += op;
+                        op.erase(l-1, l-1);
+                        refer = op;
+                    }
+                    else {
+                        auxlinia += op;
+                        refer = op;
+                        iss >> op;
+                        auxlinia += op;
+                    }
+                }
+                iss >> op;
+                auxlinia += " ";
+                auxlinia += op;
+                cout << auxlinia << endl;
+                biblio.info_cita(refer);
 			}
         }
-        else if(op == "textos"){ //textos autor " " ?
-            ws(iss);
+        else if(op == "textos"){
+            auxlinia += op;
 			iss >> op;
+            auxlinia += " ";
+            auxlinia += op;
+            int lllll;
 			if(op == "autor"){
-				string::size_type i = linia.find(op);
-				if (i != string::npos){
-					linia.erase(0, i+op.length()+2);
-					linia.erase(linia.size()-3, linia.size());
-					biblio.textos_autor(linia);
-				}
+				string autor1, ant;
+                ant = op;
+                while (iss >> op) {
+                    l = op.size();
+                    lllll = ant.size();
+                    if(char(op[0]) != '?') {
+                        if((char(op[0]) == '"') and (l != 1) and (char(op[l-1]) == '"')){
+                            auxlinia += " ";
+                            auxlinia += op;
+                            op.erase(0, 1);
+                            l = op.size();
+                            op.erase(l-1, l-1);
+                            autor1 += op;
+                        }
+                        else if ((char(op[0]) == '"') and (l != 1)) {
+                            auxlinia += " ";
+                            auxlinia += op;
+                            op.erase(0, 1);
+                            autor1 += op;
+                        }
+                        else if (char(op[0]) == '"') {
+                                if (ant == "autor") {
+                                    auxlinia += " ";
+                                    auxlinia += op;
+                                }
+                                else auxlinia += op;
+                        }
+                        else { 
+                            if ((char(op[l-1]) == '"') and (l != 1)) {
+                                if (char(ant[lllll-1]) != '"') auxlinia += " ";
+                                auxlinia += op;
+                                op.erase(l-1, l-1);
+                                if (char(ant[lllll-1]) != '"') autor1 += " ";
+                                autor1 += op;
+                            }
+                            else if (char(op[l-1]) == '"') {
+                                auxlinia += op;
+                            }
+                            else {
+                                if ((char(ant[0]) == '"') and (ant.size() == 1)) {
+                                    auxlinia += op;
+                                    autor1 += op;
+                                }
+                                else {
+                                    auxlinia += " ";
+                                    auxlinia += op;
+                                    autor1 += " ";
+                                    autor1 += op;
+                                }
+                            }
+                        }
+                    }
+                    ant = op;
+                }
+                auxlinia += " ";
+                auxlinia += op;
+                cout << auxlinia << endl;
+				biblio.textos_autor(autor1);
 			}
         }
         else if (op == "contingut"){
-            ws(iss);
+            auxlinia += op;
             iss >> op;
-            if(op == "?"){
-                if (triat)texttriat.contingut_text();
+            auxlinia += " ";
+            auxlinia += op;
+            //if(op == "?"){
+                cout << auxlinia << endl;
+                if (triat) texttriat.contingut_text();
                 else cout << "error"<<endl;
-            }
+            //}
         }
         else if (op == "autor"){
-            ws(iss);
+            auxlinia += op;
             iss >> op;
-            if(op == "?"){
-                if(triat) cout << texttriat.autor_text() << endl;
+            auxlinia += " ";
+            auxlinia += op;
+            //if(op == "?"){
+                cout << auxlinia << endl;
+                if (triat) cout << texttriat.autor_text() << endl;
                 else cout << "error" << endl;
-            }
+            //}
         }
         else if (op == "nombre"){
-            ws(iss);
+            auxlinia += op;
             iss >> op;
+            auxlinia += " ";
+            auxlinia += op;
             if(op == "de"){
-                ws(iss);
                 iss >> op;
+                auxlinia += " ";
+                auxlinia += op;
                 if(op == "frases"){
-                    if(triat) cout << texttriat.consultar_numfrases() << endl;
+                    iss >> op;
+                    auxlinia += " ";
+                    auxlinia += op;
+                    cout << auxlinia << endl;
+                    if (triat) cout << texttriat.consultar_numfrases() << endl;
                     else cout <<"error"<<endl;
                 }
                 else if(op == "paraules"){
-                    if(triat) cout << texttriat.consultar_numparaules() << endl;
+                    iss >> op;
+                    auxlinia += " ";
+                    auxlinia += op;
+                    cout << auxlinia << endl;
+                    if (triat) cout << texttriat.consultar_numparaules() << endl;
                     else cout << "error" << endl;	
                 }
             }
         }
         else if (op == "taula"){
-			
-			triat = true;
-            ws(iss);
+            auxlinia += op;
             iss >> op;
-            if(op == "de"){
-				
-                ws(iss);
+            auxlinia += " ";
+            auxlinia += op;
+            //if(op == "de"){
                 iss >> op;
-                if(op == "frequencies"){
-					
-                    if(triat){
-						
-						texttriat.taula_frequencies();
-					}
+                auxlinia += " ";
+                auxlinia += op;
+                iss >> op;
+                auxlinia += " ";
+                auxlinia += op;
+                cout << auxlinia << endl;
+                //if(op == "frequencies"){
+                    if(triat) texttriat.taula_frequencies();
                     else cout << "error" << endl;
-                }
-            }
-            
+                //}
+            //}
         }
         else if(op == "substitueix"){
-			if(triat){
-                string s1,tmp,s2, linia1;
-                ws(iss);
-                iss >> s1;
-                ws(iss);
-                iss >> tmp;
-                ws(iss);
-                iss >> s2;
-            
-                //linia1 = linia;
-                
-                s1 = s1.substr(1, (s1.size()-2));
-                s2 = s2.substr(1, (s2.size()-2));
-            
-			
-            texttriat.substitueix_paraules(s1,s2);
-			}
-			else cout << "error" << endl;
-		}
-        else if (op == "frases"){
-                string s1,tmp;
-                bool bac = true;
-                ws(iss);
-				tmp = op;
+            auxlinia += op;
+            string s1, s2;
+            iss >> op;
+            l = op.size();
+            if ((char(op[0]) == '"') and (l != 1) and (char(op[l-1]) == '"')) {
+                auxlinia += " ";
+                auxlinia += op;
+                op.erase(0, 1);
+                l = op.size();
+                op.erase (l-1, l-1);
+                s1 = op;
+            }
+            else if ((char(op[0]) == '"') and (l != 1)) {
+                auxlinia += " ";
+                auxlinia += op;
+                op.erase(0, 1);
+                s1 = op;
                 iss >> op;
-                
-                if(op[0] == '"'){
-                    if(triat){
-                    
-                    op.erase(op.begin(), op.begin()+1);
-                    s1 += op;
-                    s1 += " ";
-                    
-                    while(iss >> op and op != "?"){
-                        
-                        if(op[op.size()-1] != '"'){
+                auxlinia += op;
+            }
+            else {
+                auxlinia += " ";
+                auxlinia += op;
+                iss >> op;
+                //auxlinia += op;
+                l = op.size();
+                if ((char(op[l-1]) == '"') and (l != 1)) {
+                    auxlinia += op;
+                    op.erase(l-1, l-1);
+                    s1 = op;
+                }
+                else {
+                    auxlinia += op;
+                    s1 = op;
+                    iss >> op;
+                    auxlinia += op;
+                }
+            }
+            iss >> op;
+            auxlinia += " ";
+            auxlinia += op;
+            iss >> op;
+            l = op.size();
+            if ((char(op[0]) == '"') and (l != 1) and (char(op[l-1]) == '"')) {
+                auxlinia += " ";
+                auxlinia += op;
+                op.erase(0, 1);
+                l = op.size();
+                op.erase (l-1, l-1);
+                s2 = op;
+            }
+            else if ((char(op[0]) == '"') and (l != 1)) {
+                auxlinia += " ";
+                auxlinia += op;
+                op.erase(0, 1);
+                s2 = op;
+                iss >> op;
+                auxlinia += op;
+            }
+            else {
+                auxlinia += " ";
+                auxlinia += op;
+                iss >> op;
+                //auxlinia += op;
+                l = op.size();
+                if ((char(op[l-1]) == '"') and (l != 1)) {
+                    auxlinia += op;
+                    op.erase(l-1, l-1);
+                    s2 = op;
+                }
+                else {
+                    auxlinia += op;
+                    s2 = op;
+                    iss >> op;
+                    auxlinia += op;
+                }
+            }
+            cout << auxlinia << endl;
+		    if(triat){
+                bool ban = texttriat.substitueix_paraules(s1,s2);
+                if (ban) biblio.actualitzar_text(texttriat);
+            }
+		    else cout << "error" << endl;
+	    }
+        else if (op == "frases"){
+                auxlinia += op;
+                string s1, ante;
+                ante = op;
+                iss >> op;
+                int lll;
+                if(char(op[0]) == '"') {
+                while (char(op[0]) != '?') {
+                    l = op.size();
+                    lll = ante.size();
+                    //if(char(op[0]) != '?') {
+                        if((char(op[0]) == '"') and (l != 1) and (char(op[l-1]) == '"')){
+                            auxlinia += " ";
+                            auxlinia += op;
+                            op.erase(0, 1);
+                            l = op.size();
+                            op.erase(l-1, l-1);
                             s1 += op;
-                            s1 += " ";
-                            ws(iss);
                         }
-                        else {
-                            op.erase(op.size()-1, op.size());
+                        else if ((char(op[0]) == '"') and (l != 1)) {
+                            auxlinia += " ";
+                            auxlinia += op;
+                            op.erase(0, 1);
                             s1 += op;
-                            s1 += " ";
                         }
-                        bac = false;
-                        
-                    }
-                    
-                    if(bac){
-                        s1.erase(s1.size()-2, s1.size());
-                    }
-                    cout << s1 << endl;
-                    texttriat.paraules_frase(s1);
-                    }
+                        else if (char(op[0]) == '"') {
+                                if (ante == "frases") {
+                                    auxlinia += " ";
+                                    auxlinia += op;
+                                }
+                                else auxlinia += op;
+                        }
+                        else { 
+                            if ((char(op[l-1]) == '"') and (l != 1)) {
+                                if (char(ante[lll-1]) != '"') auxlinia += " ";
+                                auxlinia += op;
+                                op.erase(l-1, l-1);
+                                if (char(ante[lll-1]) != '"') s1 += " ";
+                                s1 += op;
+                            }
+                            else if (char(op[l-1]) == '"') {
+                                auxlinia += op;
+                            }
+                            else {
+                                if ((char(ante[0]) == '"') and (lll == 1)) {
+                                    auxlinia += op;
+                                    s1 += op;
+                                }
+                                else {
+                                    /*if (char(ante[0]) == '"')*/ auxlinia += " ";
+                                    auxlinia += op;
+                                    s1 += " ";
+                                    s1 += op;
+                                }
+                            }
+                        }
+                        //}
+                        ante = op;
+                        iss >> op;
+                }
+                    auxlinia += " ";
+                    auxlinia += op;
+                    cout << auxlinia << endl;
+                    if(triat) texttriat.paraules_frase(s1);
                     else cout << "error" <<endl;
                 }
-                else if(op[0] == '(' ){
-                    if(triat){
-                        
-                        string::size_type i = linia.find(tmp);
-                        if (i != string::npos) {
-                            linia.erase(0, i+tmp.length()+1);
-                            linia.erase(linia.size()-2, linia.size());
-                            
-                             /////////
-                            cout << "exprssio: " << linia << endl;
-                            istringstream ass (linia);
-                            int sis = linia.size();
-                            int ite = 0;
-                            cout << "size:" << sis << endl;
-                            //cout << "1" << endl;
-                            while(ite < sis){
-                                cout << ite;
-                                cout << " el caracter es:" << linia[ite] <<"...." << endl;
-                                
-                                //cout << "2" << endl;
-                                if(linia[ite] == ' '){
-                                   
-                                    cout << ite ;
-                                    cout << " el caracter es:" << linia[ite] << "..."<< endl;
-                                     ++ ite;
-                                    if(linia[ite] == ' '){
-                                        cout << "aqui" << endl;
-                                        while(linia[ite] == ' ' and ite < sis){
-                                            cout << ite << endl;
-                                            cout << " aixo es una espai:" << linia[ite] << "..."  << endl;
-                                            
-                                            linia.erase(ite,1);
-                                            sis = linia.size();
-                                            //++ite;
-                                        }
-                                        cout << "potser aqui" << endl;
-                                        int as = ite;
-                                        --as;
-                                        linia.erase(as,1);
-                                    }
-                                }
-                                else ++ite;
-                                
-                                
-                                //cout << ite << endl;
+                else if((char(op[0]) == '(') or (char(op[0]) == '{')){
+                    string expresio, antt;
+                    int ll;
+                    bool expp;
+                    bool prpr = true;
+                    if (char(op[0]) == '(') expp = true;
+                    else expp = false;
+                    while (char(op[0]) != '?') {
+                        l = op.size();
+                        ll = antt.size();
+                        if ((char(op[0]) == ')') or (char(op[0]) == '(') or (char(op[0]) == '}')) {
+                            if((char(antt[0]) == '&') or (char(antt[0]) == '|')){
+                                expresio += " ";
+                                expresio += op;
                             }
+                            else expresio += op;
                             
-                            cout << "exprssio: " << linia << endl;
-                            
-                            /////////
-                            
-                            texttriat.expressio_frases(linia);
                         }
+                        else if ((char(op[0]) == '{') and prpr) {
+                            //expresio += " ";
+                            expresio += op;
+                            prpr = false;
+                        }
+                        else if ((char(op[0]) == '{') and (char(antt[ll-1]) != '&') and (char(antt[ll-1]) != '|')) {
+                            expresio += op;
+                        }
+                        else if ((char(op[0]) == '{') and ((char(antt[ll-1]) == '&') or (char(antt[ll-1]) == '|'))) {
+                            expresio += " ";
+                            expresio += op;
+                        }
+                        else if ((char(op[0]) == '&') or ((char(op[0]) == '|'))) {
+                            expresio += " ";
+                            expresio += op;
+                        }
+                        else {
+                            if (char(antt[ll-1]) == '{') expresio += op;
+                            else {
+                                expresio += " ";
+                                expresio += op;
+                            }
+                        }
+                        prpr = false;
+                        antt = op;
+                        iss >> op;
                     }
+                    auxlinia += " ";
+                    auxlinia += expresio;
+                    auxlinia += " ";
+                    auxlinia += op;
+                    cout << auxlinia << endl;
+                    if(triat) texttriat.expressio_frases(expresio, expp);
                     else cout << "error" << endl;
                 }
                 else{
+                    auxlinia += " ";
+                    auxlinia += op;
+                    int x,y;
+                    stringstream convert(op);
+                    convert >> x;
+                    iss >> op;
+                    auxlinia += " ";
+                    auxlinia += op;
+					stringstream convertt(op);
+					convertt >> y;
+                    iss >> op;
+                    auxlinia += " ";
+                    auxlinia += op;
+                    cout << auxlinia << endl;
                     if(triat){
-					int x,y;
-					stringstream convert(op);
-					convert >> x;
-					ws(iss);
-                    iss >> y;
-                    bool ba = false;
-                    map<int,Frase> m = texttriat.interval_frases(x,y,ba);
+                        bool ba = false;
+                        map<int,Frase> m = texttriat.interval_frases(x,y,ba);
                         if(ba){
-                            for(map<int,Frase>::iterator j = m.begin();j != m.end();++j){
+                            for(map<int,Frase>::iterator j = m.begin(); j != m.end(); ++j){
                                 cout << j->first << " ";
                                 j->second.escriu_frase();
                             }
@@ -342,13 +734,11 @@ int main(){
                     else cout << "error" << endl;
                 }
 		}
-		
-        else {
-			if(!(linia.empty()))cout << "error" << endl;
-			
-        }
-        
-    triat = biblio.consultar_triat();
-    getline(cin, linia);
+        else enter = true;
+        primer = false;
+        triat = biblio.consultar_triat();
+        getline(cin, linia);
+        istringstream ess(linia);
+        ess >> op;
 	}
 }

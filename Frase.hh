@@ -50,7 +50,7 @@ class Frase{
 			\pre cert
 			\post consulta si existeix un string a una frase
 		*/
-		bool trobat(string s);
+		bool trobat(string s) const;
          
 		/* Llegir i escriure */
 
@@ -65,13 +65,13 @@ class Frase{
         		 \pre cert
         		 \post escriu una frase del p.i
 		*/
-		void escriu_frase();
+		void escriu_frase() const;
 
 		/** @brief canvia una paraula per l'altra
         		 \pre cert
         		 \post canvia el s1 pel s2 al p.i
 		*/
-		void canvi_paraules(string s1, string s2);
+		bool canvi_paraules(string s1, string s2);
 };
 
 #endif

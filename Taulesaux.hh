@@ -76,7 +76,7 @@ class Taulesaux{
 			\pre
 			\post
 		*/
-		bool existeix_cadena(string s); //busca la paraula en el map taulaparaules
+		bool existeix_cadena(const string s) const ; //busca la paraula en el map taulaparaules
 
 		/** @brief
 			\pre
@@ -88,7 +88,7 @@ class Taulesaux{
 			\pre
 			\post
 		*/
-        void intercanviar(string s1, string s2);
+        bool intercanviar(string s1, string s2);
 
 		//ESCRIPTORA
 		/** @brief

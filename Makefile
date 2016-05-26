@@ -6,19 +6,19 @@
 all: Biblioteca.o Text.o Frase.o Taulesaux.o program.o program.exe clean practica.tar
 	
 Biblioteca.o: Biblioteca.cc Biblioteca.hh
-	g++ -c Biblioteca.cc -D_GLIBCXX_DEBUG
+	g++ -g -c Biblioteca.cc -D_GLIBCXX_DEBUG
  
 Text.o: Text.cc Text.hh
-	g++ -c Text.cc -D_GLIBCXX_DEBUG
+	g++ -g -c Text.cc -D_GLIBCXX_DEBUG
  
 Frase.o: Frase.cc Frase.hh
-	g++ -c Frase.cc -D_GLIBCXX_DEBUG
+	g++ -g -c Frase.cc -D_GLIBCXX_DEBUG
 
 Taulesaux.o: Taulesaux.cc Taulesaux.hh
-	g++ -c Taulesaux.cc -D_GLIBCXX_DEBUG
+	g++ -g -c Taulesaux.cc -D_GLIBCXX_DEBUG
  
 program.o: program.cc
-	g++ -c program.cc -D_GLIBCXX_DEBUG
+	g++ -g -c program.cc -D_GLIBCXX_DEBUG
  
 program.exe: program.o Biblioteca.o Text.o Frase.o Taulesaux.o
 	g++ -o program.exe program.o Biblioteca.o Text.o Frase.o Taulesaux.o

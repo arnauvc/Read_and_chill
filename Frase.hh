@@ -9,7 +9,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include <vector>
+#include <list>
 #include <map>
 #include "Taulesaux.hh"
 
@@ -20,7 +20,7 @@ class Frase{
 	private:
 	
 		//int num_paraules;
-		vector<pair<string, string> > frase_in;
+		list<string> frase_in;
 
 	public:
 		/* Constructores */
@@ -54,7 +54,7 @@ class Frase{
                     \pre cert
                     \post llegeix una frase del p.i
 		*/
-        void llegir_frase(vector<pair<string, string> > frase_ini);
+        void llegir_frase(list<string> frase_ini);
 		
 		/** @brief escriptora de frases
         		 \pre cert

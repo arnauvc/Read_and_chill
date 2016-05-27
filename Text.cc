@@ -30,9 +30,8 @@ void Text::info_text() const{
 }
 
 void Text::contingut_text() const{
-    for(map<int,Frase>::const_iterator i=contingut.begin(); i != contingut.end(); ++i){
+    for(map<int,Frase>::const_iterator i = contingut.begin(); i != contingut.end(); ++i){
         cout << i->first << " ";
-        //Frase f = i->second;
         i->second.escriu_frase();
     }
 }
@@ -57,16 +56,14 @@ map<int,Frase> Text::interval_frases(int x, int y, bool &b){
 }
 
 void Text::paraules_frase(string s1){ //ara per ara, funciona amb la funcio TROBAT !!!
-    bool unic = true;
     istringstream iss(s1);
     string op, temp;
     iss >> op;
     set<int> s,m,insec;
     temp = op;
     s = tau.frases_paraula(op);
-    
+    insec = s;
     while(iss >> op){
-        unic = false;
         set<int>::iterator j = s.begin();
         if(not s.empty() and *j != -1){
             set<int> m = tau.frases_paraula(op);
@@ -78,11 +75,6 @@ void Text::paraules_frase(string s1){ //ara per ara, funciona amb la funcio TROB
             }
         }
     }
-    
-    if(unic){
-        insec = s;
-    }
-    
     set<int>::const_iterator j = insec.begin();
     if (j != insec.end()) {
         if(*j != -1){
@@ -97,59 +89,18 @@ void Text::paraules_frase(string s1){ //ara per ara, funciona amb la funcio TROB
             }
         }
     }
-    
-    /*
-    
-    istringstream iss(s1);
-    string op;
-    iss >> op;
-    set<int> s = tau.frases_paraula(op);
-    set<int>::const_iterator j = s.begin();
-    if (j != s.end()) {
-        if(*j != -1){
-            
-            
-            
-            for(j = s.begin(); j != s.end(); ++j){
-                map<int,Frase>::const_iterator i = contingut.find(*j);
-                if(i != contingut.end()){
-                    Frase f = i->second;
-                    if(f.trobat(s1)) {
-                        cout << i->first << " ";
-                        f.escriu_frase();
-                    }
-                }
-            }
-        }
-    }
-    
-    */
-    
 }
 
 bool Text::buscar_paraules(const string s) const {
 	return tau.existeix_cadena(s);
 }
 
-bool Text::substitueix_paraules(string s1, string s2){ //////////////////
-    /*
+bool Text::substitueix_paraules(string s1, string s2){ ////////////////// 
     bool p = false;
     bool m = false;
-    p =tau.intercanviar(s1,s2);
-    for(map<int,Frase>::iterator i = contingut.begin(); i != contingut.end(); ++i){//FLIPO!!!!! AMB LENVIAMENT DE LA FRASE AMB f.()....WA JUTGE!
-        bool s = i->second.canvi_paraules(s1,s2);
-        if(!m and s) m = true;
-    }
-    if(p and m) return true;
-    */
-    
-    bool p = false;
-    bool m = false;
-    
     set<int> s = tau.frases_paraula(s1);
     set<int>::const_iterator j = s.begin();
     p = tau.intercanviar(s1,s2);
-    
     if (j != s.end()) {
          if(*j != -1){
             for(j = s.begin(); j != s.end(); ++j){
@@ -163,12 +114,11 @@ bool Text::substitueix_paraules(string s1, string s2){ //////////////////
         }
     }
     return false;
-    
 }
 
-void Text::expressio_frases(string s1, bool expp){//portara feina
+void Text::expressio_frases(string s1, bool expp){
     for(map<int,Frase>::const_iterator i = contingut.begin(); i != contingut.end(); ++i) {
-        Frase f = i->second;//NO DEIXA TREURE LA COPIA A CAUSA DE LA FUNCIO COMPLEIX EXPRESIO!!!!!!!!!!!!!!!!!!!!
+        Frase f = i->second;
         int j = 0;
         if (compleix_expressio(s1, j, f, expp)) {
             cout << i->first << " ";
@@ -182,56 +132,22 @@ void Text::taula_frequencies(){
 }
 
 void Text::llegir_text(string ti, string autorr){
-    vector<pair<string, string> > frase_in;
+    list<string> frase_in;
+    list<string>::iterator it = frase_in.begin();
     int a = 1;
     string line, op;
     titol = ti;
     autor = autorr;
     getline(cin, line);
-    bool pam = false;
     int l;
-    string ant;
-    //string aux;
-	//bool juntar = false;
-    //bool primer = true;
     istringstream ass(line);
     ass >> op;
-    while(op != "****") {//no sha acabat el text
-		istringstream iss(line);//agafa linia nova
+    while(op != "****") {
+		istringstream iss(line);
 		while (iss >> op) {
                 l = op.size(); 
-				if (char(op[l-1]) == '.' or char(op[l-1]) == '?' or char(op[l-1]) == '!') pam = true;
-                else {
-                    if ((char(op[l-1]) == ',' or char(op[l-1]) == ':' or char(op[l-1]) == ';') and not pam) {
-                        if (l == 1) frase_in.push_back(make_pair(op, ant));
-                        else {
-                            string tmp = op;
-                            op.erase(l-1);
-                            frase_in.push_back(make_pair(op, ant));
-                            tau.insertar_paraula(op, a);
-                            ant = op;
-                            string c;
-                            char car = tmp[l-1];
-                            if (car == ',') c = ",";
-                            else if (car == ':') c = ":";
-                            else c = ";";
-                            frase_in.push_back(make_pair(c, ant));
-                            ant = c;
-                            ++numparaules;
-                        }
-                    }
-                    else {
-                        if (not pam) {
-                            frase_in.push_back(make_pair(op, ant));
-                            tau.insertar_paraula(op, a);
-                            ant = op;
-                            ++numparaules;
-                        }
-                    }
-                }
-                if (not pam) ant = op;
-                if (pam) {
-                    if (l == 1) frase_in.push_back(make_pair(op, ant));
+				if (char(op[l-1]) == '.' or char(op[l-1]) == '?' or char(op[l-1]) == '!') {
+                    if (l == 1) frase_in.insert(it, op);
                     else {
                         char car = op[l-1];
                         string c;
@@ -239,30 +155,46 @@ void Text::llegir_text(string ti, string autorr){
                         else if (car == '?') c = "?";
                         else c = "!";
                         op.erase(l-1);
-                        frase_in.push_back(make_pair(op, ant));
+                        frase_in.insert(it, op);
                         tau.insertar_paraula(op, a);
-                        ant = op;
-                        frase_in.push_back(make_pair(c, ant));
+                        frase_in.insert(it, c);
                         ++numparaules;
-                     }
-                    //++numparaules;
-                    //if (pam) { //HA ACABAT LA FRASE!!!
+                    }
                     Frase fr;
-                    //fr = frase_in;
                     fr.llegir_frase(frase_in);
                     contingut.insert(make_pair(a, fr));
                     ++a;
                     ++numfrases;
-                    //numparaules += fr.consultar_numparaules();
                     frase_in.clear();
-                    //primer = true;
-                    pam = false;
+                    it = frase_in.begin();
+                }
+                else {
+                    if (char(op[l-1]) == ',' or char(op[l-1]) == ':' or char(op[l-1]) == ';') {
+                        if (l == 1) frase_in.insert(it, op);
+                        else {
+                            string tmp = op;
+                            op.erase(l-1);
+                            frase_in.insert(it, op);
+                            tau.insertar_paraula(op, a);
+                            string c;
+                            char car = tmp[l-1];
+                            if (car == ',') c = ",";
+                            else if (car == ':') c = ":";
+                            else c = ";";
+                            frase_in.insert(it, c);
+                            ++numparaules;
+                        }
+                    }
+                    else {
+                        frase_in.insert(it, op);
+                        tau.insertar_paraula(op, a);
+                        ++numparaules;
+                    }
                 }
         }
 		getline(cin, line);
         istringstream ess(line);
         ess >> op;
     }
-    tau.ordenar_taulafreq();
 }
 

@@ -12,6 +12,7 @@
 #include <set>
 #include <utility>
 #include <algorithm>
+#include <unordered_map>
 
 using namespace std;
 
@@ -21,22 +22,14 @@ class Taulesaux{
 
 		struct Node {
 			set<int> posicions;
-			string anterior;
-                        /*
-			void const operator=(Node rhs){
-				anterior = rhs.anterior;
-				for(int i = 0; i < posicions.size(); ++i){
-					posicions[i] = rhs.posicions[i];
-				}
-			}
-			*/
+			int freq;
 		};
 
-		map<string,Node> taulaparaules;
-		
-		map<string,int> taulafreqe;
+		unordered_map<string,Node> taulaparaules;
 		
 		vector<pair<int,string> > vectorauxiliar;
+        
+        bool modificat;
 
 		bool static sort_comp(const pair<int,string>& lhs, const pair<int,string>& rhs){
 			if(lhs.first != rhs.first) return lhs.first > rhs.first;

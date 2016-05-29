@@ -100,9 +100,10 @@ bool Text::substitueix_paraules(string s1, string s2){ //////////////////
     bool m = false;
     set<int> s = tau.frases_paraula(s1);
     set<int>::const_iterator j = s.begin();
-    p = tau.intercanviar(s1,s2);
+    
     if (j != s.end()) {
          if(*j != -1){
+            p = tau.intercanviar(s1,s2);
             for(j = s.begin(); j != s.end(); ++j){
                 map<int,Frase>::iterator i = contingut.find(*j);
                 if(i != contingut.end()){
@@ -196,5 +197,6 @@ void Text::llegir_text(string ti, string autorr){
         istringstream ess(line);
         ess >> op;
     }
+    tau.ordenar_taulafreq();
 }
 

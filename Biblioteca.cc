@@ -249,7 +249,7 @@ void Biblioteca::afegir_cita(int x, int y){
         }
 		else refe += char(op[0]);
 	}
-	auto f = freqrefe.find(refe);
+	map<string,int>::iterator f = freqrefe.find(refe);
 	map<string,infocita>::iterator i;
 	if (f != freqrefe.end()) {
 		numref = f->second + 1;

@@ -12,7 +12,6 @@
 #include <set>
 #include <utility>
 #include <algorithm>
-#include <unordered_map>
 
 using namespace std;
 
@@ -25,12 +24,12 @@ class Taulesaux{
 			int freq;
 		};
 
-		unordered_map<string,Node> taulaparaules;
+		map<string,Node> taulaparaules;
 		
 		vector<pair<int,string> > vectorauxiliar;
-        
-        bool modificat;
 
+        bool modificat;
+        
 		bool static sort_comp(const pair<int,string>& lhs, const pair<int,string>& rhs){
 			if(lhs.first != rhs.first) return lhs.first > rhs.first;
 			else if (lhs.second.size()!=rhs.second.size()) return lhs.second.size()<rhs.second.size();

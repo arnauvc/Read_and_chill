@@ -580,6 +580,8 @@ int main(){
                     auxlinia += op;
                 }
             }
+            
+            
             cout << auxlinia << endl;
 		    if(triat){
                 bool ban = texttriat.substitueix_paraules(s1,s2);

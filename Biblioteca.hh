@@ -12,7 +12,6 @@
 #include "Text.hh"
 #include <algorithm>
 #include <sstream>
-#include <unordered_map>
 
 using namespace std;
 
@@ -32,10 +31,8 @@ class Biblioteca{
 			map<int,Frase> contingutcita; //frases que la componen
 		};
 		bool textsiafegit;
-        
-		unordered_map<string,int> freqrefe;
-		
-        int ncites;
+		map<string,int> freqrefe;
+		int ncites;
 		bool triat;
 		Text ttriat;
 		map<string,infocita> conjunt_cites; //referencia, Cita

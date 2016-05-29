@@ -12,7 +12,7 @@ Taulesaux::~Taulesaux(){}
 void Taulesaux::insertar_paraula(string paraula, int numf){
     modificat = true;
     Node n;
-    auto i = taulaparaules.find(paraula);
+    map<string, Node >::const_iterator i = taulaparaules.find(paraula);
     set<int>::iterator it;
     if (i != taulaparaules.end()) {
     	it = n.posicions.end();
@@ -31,7 +31,7 @@ void Taulesaux::insertar_paraula(string paraula, int numf){
 }
 
 void Taulesaux::ordenar_taulafreq(){
-	if(modificat){
+    	if(modificat){
         vectorauxiliar.clear();
         vectorauxiliar = vector<pair<int,string> >(taulaparaules.size());
         int i = 0;
@@ -49,7 +49,7 @@ bool Taulesaux::existeix_cadena(const string s) const {
 	string actual;
 	istringstream iss(s);
 	iss >> actual;
-	auto i = taulaparaules.find(actual);
+	map<string, Node>::const_iterator i = taulaparaules.find(actual);
 	if (i != taulaparaules.end()){
             while(iss >> actual){
                 i = taulaparaules.find(actual);
@@ -62,7 +62,7 @@ bool Taulesaux::existeix_cadena(const string s) const {
 
 set<int> Taulesaux::frases_paraula(string paraula){
 
-    auto i = taulaparaules.find(paraula);
+    map<string, Node>::const_iterator i = taulaparaules.find(paraula);
     if(i != taulaparaules.end()){
         return i->second.posicions;
     }
@@ -78,31 +78,33 @@ bool Taulesaux::intercanviar(string s1, string s2){
     if(s1 != s2){
     	int rep;
 		Node n;
-		auto i = taulaparaules.find(s1);
+		map<string, Node >::iterator i = taulaparaules.find(s1);
 		if(i != taulaparaules.end()){ 
             modificat = true;
 			n = i->second;
-			auto j = taulaparaules.find(s2);
+			map<string, Node >::iterator j = taulaparaules.find(s2);
 			if(j != taulaparaules.end()){
-				rep = i->second.freq;
-				j->second.freq += rep;
-				(i->second).posicions.insert((j->second).posicions.begin(),(j->second).posicions.end());
-				taulaparaules.erase(s1);
+                rep = i->second.freq;
+                j->second.freq += rep;
+                set<int> insec;	
+                set_union(i->second.posicions.begin(), i->second.posicions.end(), j->second.posicions.begin(), j->second.posicions.end(), inserter(insec, insec.begin() ) );
+                j->second.posicions.clear();
+                j->second.posicions = insec;
+                taulaparaules.erase(s1);
 			}
 			else{
 				taulaparaules.erase(s1);
 				taulaparaules.insert(make_pair(s2,n));
 			}
+			ordenar_taulafreq();
             return true;
 		}
 		return false;
     }
-    return true;
 }
 
 //ESCRIPTORA
 void Taulesaux::taula_frequencies(){
-    ordenar_taulafreq();
     for(int i = 0; i < vectorauxiliar.size(); ++i){
         cout << vectorauxiliar[i].second << " " << vectorauxiliar[i].first <<endl;
     }

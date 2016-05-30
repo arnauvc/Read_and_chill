@@ -73,7 +73,8 @@ class Text{
                                 return compleix_expressio(exp,i,f,expp); 
                             }
                         }
-                        
+                        ++i;
+                       return compleix_expressio(exp,i,f,expp); 
                     } 
                     else { // Si es un parentesi '(', es el principi d'una expressio booleana
                         ++i;
@@ -194,7 +195,7 @@ class Text{
 			\pre text triat
 			\post el p.i es com l'original pero substituint la paraula especifica per una altra "s2"
 		*/ 
-		bool substitueix_paraules(string s1, string s2);
+		void substitueix_paraules(string s1, string s2);
 
 		/** @brief mostra frases del p.i
 			\pre text triat

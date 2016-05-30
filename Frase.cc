@@ -51,13 +51,8 @@ bool Frase::trobat(string s) const {
     return trobat;
 }
 
-bool Frase::canvi_paraules(string s1, string s2) {
-    bool trobat = false;
+void Frase::canvi_paraules(string s1, string s2) {
     for (list<string>::iterator it = frase_in.begin(); it != frase_in.end(); ++it) {
-        if (*it == s1) {
-            *it = s2;
-            trobat = true;
-        }
+        if (*it == s1) *it = s2;
     }
-    return trobat;
 }

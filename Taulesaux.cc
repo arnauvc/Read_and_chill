@@ -2,15 +2,12 @@
 #include "Taulesaux.hh"
 
 //CREADORA
-Taulesaux::Taulesaux(){
-    modificat = false;
-}
+Taulesaux::Taulesaux(){}
 
 Taulesaux::~Taulesaux(){}
 
 //MODIFICADORA
 void Taulesaux::insertar_paraula(string paraula, int numf){
-    modificat = true;
     Node n;
     map<string, Node >::const_iterator i = taulaparaules.find(paraula);
     set<int>::iterator it;
@@ -31,7 +28,6 @@ void Taulesaux::insertar_paraula(string paraula, int numf){
 }
 
 void Taulesaux::ordenar_taulafreq(){
-    	if(modificat){
         vectorauxiliar.clear();
         vectorauxiliar = vector<pair<int,string> >(taulaparaules.size());
         int i = 0;
@@ -40,8 +36,6 @@ void Taulesaux::ordenar_taulafreq(){
             ++i;
         }
         sort(vectorauxiliar.begin(), vectorauxiliar.end(), sort_comp);
-        modificat = false;
-    }
 }
 
 //CONSULTORES
@@ -73,14 +67,13 @@ set<int> Taulesaux::frases_paraula(string paraula){
     }
 }
 
-bool Taulesaux::intercanviar(string s1, string s2){
+void Taulesaux::intercanviar(string s1, string s2){
     //taulaparaules
     if(s1 != s2){
     	int rep;
 		Node n;
 		map<string, Node >::iterator i = taulaparaules.find(s1);
 		if(i != taulaparaules.end()){ 
-            modificat = true;
 			n = i->second;
 			map<string, Node >::iterator j = taulaparaules.find(s2);
 			if(j != taulaparaules.end()){
@@ -97,9 +90,7 @@ bool Taulesaux::intercanviar(string s1, string s2){
 				taulaparaules.insert(make_pair(s2,n));
 			}
 			ordenar_taulafreq();
-            return true;
 		}
-		return false;
     }
 }
 

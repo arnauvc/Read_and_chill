@@ -63,7 +63,7 @@ class Biblioteca{
 			\pre Existeix almenys un text
 			\post el p.i queda triat i retorna el text triat
 		*/ 
-	 	Text triar_text(string s, Text texttriat /*, bool &b*/);
+	 	Text triar_text(string s /*, bool &b*/);
         
 	
 		/** @brief 
@@ -91,7 +91,7 @@ class Biblioteca{
 		*/ 
 		void eliminar_text();	
         
-        void actualitzar_text(Text texttriat);
+        //void actualitzar_text(Text texttriat);
                 
                 
 		

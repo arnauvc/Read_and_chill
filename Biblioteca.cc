@@ -10,7 +10,7 @@ Biblioteca::Biblioteca(){
 
 Biblioteca::~Biblioteca(){}
 
-Text Biblioteca::triar_text(string s, Text texttriat){
+Text Biblioteca::triar_text(string s ){
 	triat = false;
 	string op, op1;
 	string aux = s;
@@ -340,7 +340,7 @@ void Biblioteca::info_cita(string referencia) {
     else cout << "error" << endl;
 }
 
-void Biblioteca::actualitzar_text(Text texttriat){
+/*void Biblioteca::actualitzar_text(Text texttriat){
     if(triat){
         map<string, map<string, Text > >::iterator i = conjunt_textos.find(ttriat.autor_text());
         if(i != conjunt_textos.end()){
@@ -350,7 +350,7 @@ void Biblioteca::actualitzar_text(Text texttriat){
             }
         }
     }
-}
+}*/
 
 void Biblioteca::totes_cites() {
 	for (map<string,infocita>::const_iterator i = conjunt_cites.begin(); i != conjunt_cites.end(); ++i) {

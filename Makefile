@@ -3,25 +3,27 @@
 # los ficheros estrictamente necesarios.
 #
 
+OPCIONS = -D_JUDGE_ -D_GLIBCXX_DEBUG -O2 -Wall -Wextra -Werror -Wno-uninitialized -Wno-sign-compare -std=c++0x
+
 all: Biblioteca.o Text.o Frase.o Taulesaux.o program.o program.exe clean practica.tar
 	
 Biblioteca.o: Biblioteca.cc Biblioteca.hh
-	g++ -c -std=c++0x Biblioteca.cc -D_GLIBCXX_DEBUG
+	g++ -c $(OPCIONS) Biblioteca.cc 
  
 Text.o: Text.cc Text.hh
-	g++ -c -std=c++0x Text.cc -D_GLIBCXX_DEBUG
+	g++ -c $(OPCIONS) Text.cc 
  
 Frase.o: Frase.cc Frase.hh
-	g++ -c -std=c++0x Frase.cc -D_GLIBCXX_DEBUG
+	g++ -c $(OPCIONS) Frase.cc 
 
 Taulesaux.o: Taulesaux.cc Taulesaux.hh
-	g++ -c -std=c++0x Taulesaux.cc -D_GLIBCXX_DEBUG
+	g++ -c $(OPCIONS) Taulesaux.cc 
  
 program.o: program.cc
-	g++ -c -std=c++0x program.cc -D_GLIBCXX_DEBUG
+	g++ -c $(OPCIONS) program.cc 
  
 program.exe: program.o Biblioteca.o Text.o Frase.o Taulesaux.o
-	g++ -o program.exe program.o Biblioteca.o Text.o Frase.o Taulesaux.o
+	g++ -o  program.exe program.o Biblioteca.o Text.o Frase.o Taulesaux.o
 
 
 	

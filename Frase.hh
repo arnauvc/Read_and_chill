@@ -66,7 +66,7 @@ class Frase{
         		 \pre cert
         		 \post canvia el s1 pel s2 al p.i
 		*/
-		bool canvi_paraules(string s1, string s2);
+		void canvi_paraules(string s1, string s2);
 };
 
 #endif

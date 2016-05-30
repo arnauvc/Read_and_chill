@@ -95,26 +95,21 @@ bool Text::buscar_paraules(const string s) const {
 	return tau.existeix_cadena(s);
 }
 
-bool Text::substitueix_paraules(string s1, string s2){ ////////////////// 
-    bool p = false;
-    bool m = false;
+void Text::substitueix_paraules(string s1, string s2){ ////////////////// 
     set<int> s = tau.frases_paraula(s1);
     set<int>::const_iterator j = s.begin();
-    
     if (j != s.end()) {
          if(*j != -1){
-            p = tau.intercanviar(s1,s2);
+            tau.intercanviar(s1,s2);
             for(j = s.begin(); j != s.end(); ++j){
                 map<int,Frase>::iterator i = contingut.find(*j);
                 if(i != contingut.end()){
-                    bool s = i->second.canvi_paraules(s1,s2);
-                    if(!m and s) m = true;
+                    i->second.canvi_paraules(s1,s2);
+                    
                 }
             }
-            if(p and m) return true;
         }
     }
-    return false;
 }
 
 void Text::expressio_frases(string s1, bool expp){

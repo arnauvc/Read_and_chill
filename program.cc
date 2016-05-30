@@ -144,7 +144,7 @@ int main(){
                 cout << auxlinia << endl;
 				auxlinia.erase(0, 12);
 				auxlinia.erase(auxlinia.size()-1, auxlinia.size());
-				texttriat = biblio.triar_text(auxlinia, texttriat);
+				texttriat = biblio.triar_text(auxlinia);
 				//triat = biblio.consultar_triat();
 				//}
         }
@@ -580,12 +580,10 @@ int main(){
                     auxlinia += op;
                 }
             }
-            
-            
             cout << auxlinia << endl;
 		    if(triat){
-                bool ban = texttriat.substitueix_paraules(s1,s2);
-                if (ban) biblio.actualitzar_text(texttriat);
+                texttriat.substitueix_paraules(s1,s2);
+                //if (ban) biblio.actualitzar_text(texttriat);
             }
 		    else cout << "error" << endl;
 	    }

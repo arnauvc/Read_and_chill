@@ -27,8 +27,6 @@ class Taulesaux{
 		map<string,Node> taulaparaules;
 		
 		vector<pair<int,string> > vectorauxiliar;
-
-        bool modificat;
         
 		bool static sort_comp(const pair<int,string>& lhs, const pair<int,string>& rhs){
 			if(lhs.first != rhs.first) return lhs.first > rhs.first;
@@ -80,7 +78,7 @@ class Taulesaux{
 			\pre
 			\post
 		*/
-        bool intercanviar(string s1, string s2);
+        void intercanviar(string s1, string s2);
 
 		//ESCRIPTORA
 		/** @brief
